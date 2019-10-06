@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  backend:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      #      - SECRET_KEY=^m1yh^j1xm1ut(1*=3ae3l$2ugv#d1dohxjm1e3z(odca*)tcf
+      - DEBUG=True
+      - DB_NAME=marketplace
+      - DB_HOST=psql
+      - DB_PORT=5432
+      - DB_USER=marketplace
+      - DB_PASSWORD=marketplace
+      - DATABASE=postgres
+    depends_on:
+      - db
+  db:
+    image: postgres:11.2-alpine
+    container_name: psql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=marketplace
+      - POSTGRES_PASSWORD=marketplace
+      - POSTGRES_DB=marketplace
+volumes:
+  postgres_data:

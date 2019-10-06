@@ -1,0 +1,91 @@
+version: '3.7'
+
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend.prod
+    command: gunicorn --access-logfile - backend.core.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    expose:
+      - 8000
+    env_file: .env.backend
+    entrypoint:
+      - /usr/src/app/entrypoint.prod.sh
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.celery.prod
+#    command: celery -A backend.core worker -l info
+    env_file: .env.backend
+    depends_on:
+      - db
+      - redis
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend.prod
+    command: celery -A backend.core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file: .env.backend
+    depends_on:
+      - db
+      - redis
+
+  channels:
+    build:
+      context: .
+      dockerfile: Dockerfile.channels.prod
+    expose:
+      - 8000
+    env_file:
+      - .env.backend
+    depends_on:
+      - db
+      - redis
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend.prod
+    command: npm start
+    expose:
+      - 5000
+    depends_on:
+      - backend
+
+  redis:
+    image: redis:5.0.5
+    expose:
+      - 6379
+
+  db:
+    image: postgres:11.2-alpine
+    container_name: psql
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file: .env.db
+
+  nginx:
+    build: ./nginx
+    ports:
+      - 1337:80
+      - 5000:5000
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+ipython = "*"
+django-cors-headers = "==3.0"
+autopep8 = "*"
+factory-boy = "==2.12"
+freezegun = "==0.3"
+
+[packages]
+django = "==2.2"
+graphene-django = "==2.3.2"
+psycopg2 = "==2.8.3"
+pillow = "==6.1.0"
+channels = "==2.2.0"
+channels-redis = "==2.4"
+celery = "==4.3"
+redis = "==3.2.1"
+django-celery-beat = "==1.5"
+gunicorn = "==19.9"
+graphene-file-upload = "==1.2.2"
+django-channels-graphql-ws = "*"
+
+[requires]
+python_version = "3.7"
