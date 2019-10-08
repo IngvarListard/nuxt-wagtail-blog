@@ -36,12 +36,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['prismjs/themes/prism.css'],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/auth-mixin.js'],
+  plugins: [
+    '@/plugins/auth-mixin.js',
+    { src: '@/plugins/vue-prism.js', mode: 'client' }
+  ],
 
   /*
    ** Nuxt.js modules

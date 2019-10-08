@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'taggit',
     'channels',
     'graphene_django',
+    'wagtailmarkdownblock',
     'django_celery_beat',
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
@@ -255,3 +256,14 @@ SESSION_COOKIE_AGE = 3600 * 12  # Кука сессии живет 12 часов
 
 
 WAGTAIL_SITE_NAME = 'BLOG'
+WAGTAIL_CODE_BLOCK_LANGUAGES = (
+    ('bash', 'Bash/Shell'),
+    ('css', 'CSS'),
+    ('diff', 'diff'),
+    ('html', 'HTML'),
+    ('javascript', 'Javascript'),
+    ('json', 'JSON'),
+    ('python', 'Python'),
+    ('scss', 'SCSS'),
+    ('yaml', 'YAML'),
+)
