@@ -3,13 +3,16 @@ import graphene
 
 from importlib import util
 from django.apps import apps
+from .graphene_wagtail import register_custom_serializers
 
+register_custom_serializers()
 
 # Собираем схему из установленных пакетов (INSTALLED_APPS)
 query_types = []
 mutation_types = []
 subscription_types = []
-non_django_configs = (config for config in apps.get_app_configs() if not config.name.startswith('django'))
+non_django_configs = (config for config in apps.get_app_configs()
+                      if not config.name.startswith('django') or config.name.startswith('wagtail'))
 for app_config in non_django_configs:
     # Проверяем что пакет содержит пакет schema
     schema_path = '{}.schema'.format(app_config.name)
@@ -29,6 +32,7 @@ for app_config in non_django_configs:
 AppQuery = type('AppQuery', tuple(query_types), dict())
 AppMutation = type('AppMutation', tuple(mutation_types), dict())
 AppSubscription = type('AppSubscription', tuple(subscription_types), dict())
+# noinspection PyTypeChecker
 schema = graphene.Schema(
     query=AppQuery,
     mutation=AppMutation,

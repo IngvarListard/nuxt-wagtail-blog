@@ -16,10 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path, re_path
 from django.views.decorators.csrf import csrf_exempt
-
 from backend.core.api import CustomGraphQLView
+
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 from .views import graphiql
 
 admin.site.site_header = 'Администрирование'
@@ -44,6 +47,9 @@ urlpatterns = [
         batch=settings.GRAPHQL_BATCH,
     ))),
     path('admin/', admin.site.urls),
-    path("ws/api_v1/", graphiql)
+    path("ws/api_v1/", graphiql),
+    re_path(r'^cms/', include(wagtailadmin_urls)),
+    re_path(r'^documents/', include(wagtaildocs_urls)),
+    re_path(r'^pages/', include(wagtail_urls)),
 ] + (static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
      + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

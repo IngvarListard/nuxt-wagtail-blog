@@ -11,7 +11,7 @@ factory-boy = "==2.12"
 freezegun = "==0.3"
 
 [packages]
-django = "==2.2"
+django = ">=2.2.4"
 graphene-django = "==2.3.2"
 psycopg2 = "==2.8.3"
 pillow = "==6.1.0"
@@ -23,6 +23,7 @@ django-celery-beat = "==1.5"
 gunicorn = "==19.9"
 graphene-file-upload = "==1.2.2"
 django-channels-graphql-ws = "*"
+wagtail = "*"
 
 [requires]
 python_version = "3.7"

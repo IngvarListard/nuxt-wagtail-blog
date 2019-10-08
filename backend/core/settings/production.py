@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,12 +42,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    'modelcluster',
+    'taggit',
     'channels',
     'graphene_django',
     'django_celery_beat',
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
-    'backend.upload.apps.UploadConfig',
+    'backend.blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +71,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'backend.core.middleware.is_authenticated_middleware.IsUserAuthenticatedMiddleware',
 ]
 
@@ -115,9 +129,9 @@ GRAPHENE = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'marketplace'),
-        'USER': os.environ.get('DB_USER', 'marketplace'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'marketplace'),
+        'NAME': os.environ.get('DB_NAME', 'blog'),
+        'USER': os.environ.get('DB_USER', 'blog'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'blog'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
@@ -231,11 +245,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.environ.get(BASE_DIR, 'static')  # работает, но я не знаю почему
+STATIC_ROOT = os.environ.get(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '../../media')  # работает, но я не знаю почему
+MEDIA_ROOT = os.path.join(BASE_DIR, '../../media')
 
 # Куки
 SESSION_COOKIE_AGE = 3600 * 12  # Кука сессии живет 12 часов
 
+
+WAGTAIL_SITE_NAME = 'BLOG'

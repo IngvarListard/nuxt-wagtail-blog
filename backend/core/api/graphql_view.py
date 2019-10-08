@@ -1,6 +1,3 @@
-from django.http import HttpResponse, HttpResponseNotAllowed
-from graphene_django.views import HttpError
-
 """Apply multipart request spec to django"""
 from graphene_file_upload.django import FileUploadGraphQLView
 

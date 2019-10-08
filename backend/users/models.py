@@ -8,10 +8,10 @@ from django.utils.crypto import get_random_string, constant_time_compare
 
 class User(AbstractBaseUser, PermissionsMixin):
     login = models.CharField('Логин', max_length=64, unique=True)
-    first_name = models.CharField('Имя', max_length=50)
-    last_name = models.CharField('Фамилия', max_length=50)
+    first_name = models.CharField('Имя', max_length=50, null=True, blank=True)
+    last_name = models.CharField('Фамилия', max_length=50, null=True, blank=True)
     patronym = models.CharField('Отчество', max_length=50, null=True, blank=True)
-    email = models.CharField('Электронная почта', max_length=64, null=True, default=None, blank=True)
+    email = models.CharField('Электронная почта', max_length=64, null=True, blank=True)
     password = models.CharField(max_length=64)
     salt = models.CharField(max_length=64)
     is_active = models.BooleanField(default=False)
