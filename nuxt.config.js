@@ -43,6 +43,7 @@ export default {
    */
   plugins: [
     '@/plugins/auth-mixin.js',
+    '@/plugins/portal-vue.js',
     { src: '@/plugins/vue-prism.js', mode: 'client' }
   ],
 

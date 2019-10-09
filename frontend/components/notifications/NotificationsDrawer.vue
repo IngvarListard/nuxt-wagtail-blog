@@ -4,7 +4,6 @@
     v-model="drawer"
     app
     right
-    absolute
     temporary
     width="500px"
   >
