@@ -1,17 +1,15 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <alarms />
     <popups />
     <drawer />
     <app-bar />
     <notifications-drawer v-model="notificationDrawer" />
     <v-content>
-      <v-container fluid>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2017</span>
+    <v-footer color="indigo" app absolute>
+      AAAAA
     </v-footer>
   </v-app>
 </template>
