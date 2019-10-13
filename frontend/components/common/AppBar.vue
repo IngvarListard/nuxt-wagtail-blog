@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="blue-grey lighten-2" dark fixed app flat hide-on-scroll>
+  <v-app-bar color="#5F5F5F" dark fixed app flat hide-on-scroll>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-toolbar-items>
       <template v-for="(btn, i) of buttons">
