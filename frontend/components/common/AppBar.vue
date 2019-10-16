@@ -1,6 +1,7 @@
 <template>
   <v-app-bar color="#5F5F5F" dark fixed app flat hide-on-scroll>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
+    <v-spacer />
     <v-toolbar-items>
       <template v-for="(btn, i) of buttons">
         <drop-down
@@ -17,11 +18,17 @@
           >{{ btn.name }}</v-btn
         >
       </template>
+      <v-text-field
+        append-icon="mdi-magnify"
+        outlined
+        placeholder="Искать на сайте"
+        single-line
+        hide-details
+        clearable
+        class="pt-1"
+      />
     </v-toolbar-items>
     <v-spacer />
-    <v-btn icon @click="notificationDrawer = !notificationDrawer">
-      <v-icon>mdi-bell-ring</v-icon>
-    </v-btn>
     <v-icon v-if="$$user.loggedIn" @click="logout">logout</v-icon>
   </v-app-bar>
 </template>
