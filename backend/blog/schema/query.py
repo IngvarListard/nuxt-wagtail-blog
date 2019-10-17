@@ -10,6 +10,7 @@ class Query(graphene.ObjectType):
         ArticleNode,
         slug=graphene.String(required=True),
     )
+    random_article = graphene.Field(ArticleNode)
 
     def resolve_articles(self, info):
         return BlogPage.objects.live()[:12]
@@ -17,3 +18,8 @@ class Query(graphene.ObjectType):
     def resolve_article(self, info, slug):
         # TODO: добавить редиректы на статьи, чей слаг был изменен
         return BlogPage.objects.get(slug=slug)
+
+    def resolve_random_article(self, info):
+        r = BlogPage.objects.live().order_by('?').first()
+        print(r)
+        return r

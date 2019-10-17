@@ -65,32 +65,48 @@ const GET_ARTICLE = gql`
   }
 `
 
-const GET_ARTICLES = gql`
-  {
-    articles {
+const ARTICLE_FRAGMENT = gql`
+  fragment ArticleContents on ArticleNode {
+    id
+    title
+    headImage {
       id
       title
-      headImage {
-        id
-        title
-        file
-        rendition(max: "750x400", format: "jpeg", bgcolor: "ffffff") {
-          url
-          width
-          height
-        }
-        headerImg: rendition(fill: "1024x250-c75") {
-          url
-        }
-        renditionList(sizes: [30, 60]) {
-          srcSet
-        }
+      file
+      rendition(max: "750x400", format: "jpeg", bgcolor: "ffffff") {
+        url
+        width
+        height
       }
-      date
-      intro
-      slug
+      headerImg: rendition(fill: "1024x250-c75") {
+        url
+      }
+      renditionList(sizes: [30, 60]) {
+        srcSet
+      }
     }
+    date
+    intro
+    slug
   }
 `
 
-export { GET_ARTICLE, GET_ARTICLES }
+const GET_ARTICLES = gql`
+  {
+    articles {
+      ...ArticleContents
+    }
+  }
+  ${ARTICLE_FRAGMENT}
+`
+
+const GET_RANDOM_ARTICLE = gql`
+  {
+    randomArticle {
+      ...ArticleContents
+    }
+  }
+  ${ARTICLE_FRAGMENT}
+`
+
+export { GET_ARTICLE, GET_ARTICLES, GET_RANDOM_ARTICLE }

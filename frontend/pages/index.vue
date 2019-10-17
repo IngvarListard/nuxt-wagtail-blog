@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="center">
         <v-col lg="7" md="12" sm="12">
-          <div class="display-3 mb-3">Real Python Tutorials</div>
+          <div class="display-3 mb-3">Случайная статья</div>
           <random-article />
         </v-col>
         <v-col lg="3" md="12" sm="12">
@@ -20,8 +20,8 @@
 import gql from 'graphql-tag'
 import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
 import TagsCard from '../components/common/home/TagsCard'
-import RandomArticle from '../components/common/home/RandomArticle'
-import Feed from '../components/common/home/Feed'
+import RandomArticle from '../components/blog/RandomArticle'
+import Feed from '../components/blog/Feed'
 import { allUsers } from '~/graphql/users/queries'
 
 export default {
