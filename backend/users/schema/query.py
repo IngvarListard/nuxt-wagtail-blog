@@ -12,8 +12,6 @@ class Query(graphene.ObjectType):
     # @login_required
     def resolve_all_users(self, info):
         from backend.notifications.tasks import test_task
-        raise ValueError('AAAAAAA')
-        test_task.delay(1, 2)
         return User.objects.all()
 
     def resolve_get_current_user(self, info):

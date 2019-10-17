@@ -25,6 +25,8 @@ graphene-file-upload = "==1.2.2"
 django-channels-graphql-ws = "*"
 wagtail = "*"
 wagtailmarkdownblock = "*"
+wagtailcodeblock = "*"
+awesome-slugify = "*"
 
 [requires]
 python_version = "3.7"

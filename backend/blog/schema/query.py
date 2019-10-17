@@ -3,16 +3,17 @@ from backend.blog.models import BlogPage
 from backend.blog.schema.types import ArticleNode
 
 
+# noinspection PyMethodMayBeStatic
 class Query(graphene.ObjectType):
     articles = graphene.List(ArticleNode)
     article = graphene.Field(
         ArticleNode,
-        article_id=graphene.ID(required=True)
+        slug=graphene.String(required=True),
     )
 
-    @graphene.resolve_only_args
-    def resolve_articles(self):
-        return BlogPage.objects.live()
+    def resolve_articles(self, info):
+        return BlogPage.objects.live()[:12]
 
-    def resolve_article(self, info, article_id):
-        return BlogPage.objects.get(id=article_id)
+    def resolve_article(self, info, slug):
+        # TODO: добавить редиректы на статьи, чей слаг был изменен
+        return BlogPage.objects.get(slug=slug)

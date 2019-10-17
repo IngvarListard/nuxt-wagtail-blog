@@ -2,7 +2,8 @@ import graphene
 from graphene_django import DjangoObjectType
 
 from backend.blog.models import BlogPage, Recipe
-from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type
+from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
+from wagtail.images.models import Image
 
 
 class IngredientBlock(DefaultStreamBlock):
@@ -35,6 +36,18 @@ class HeadingBlock(DefaultStreamBlock):
 
 
 class CodeBlock(DefaultStreamBlock):
+    language = graphene.String()
+    code = graphene.String()
+
+
+class ImageBlock(DefaultStreamBlock):
+    image = graphene.Field(WagtailImageNode)
+
+    def resolve_image(self, info):
+        return Image.objects.get(id=self.value)
+
+
+class MarkdownBlock(DefaultStreamBlock):
     pass
 
 
@@ -55,10 +68,11 @@ class ArticleNode(DjangoObjectType):
         'body',
         paragraph=ParagraphBlock,
         heading=HeadingBlock,
-        recipe=RecipeBlock,
         code=CodeBlock,
+        markdown=MarkdownBlock,
+        image=ImageBlock,
     )
 
     class Meta:
         model = BlogPage
-        only_fields = ['id', 'title', 'date', 'intro', 'image']
+        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image']

@@ -36,7 +36,7 @@
     </v-toolbar-items>
     <v-btn color="red lighten-1" elevation="0">Присоединиться</v-btn>
     <v-spacer />
-    <v-icon v-if="$$user.loggedIn" @click="logout">logout</v-icon>
+    <v-icon v-if="$$user.loggedIn">logout</v-icon>
   </v-app-bar>
 </template>
 

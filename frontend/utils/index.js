@@ -15,4 +15,5 @@ function isSubscription({ query }) {
     process.client
   )
 }
+
 export { generateUid, isSubscription }

@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'channels',
     'graphene_django',
     'wagtailmarkdownblock',
+    'wagtailcodeblock',
     'django_celery_beat',
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
@@ -255,7 +256,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '../../media')
 SESSION_COOKIE_AGE = 3600 * 12  # Кука сессии живет 12 часов
 
 
-WAGTAIL_SITE_NAME = 'BLOG'
+WAGTAIL_SITE_NAME = 'Junior\'s Journey'
 WAGTAIL_CODE_BLOCK_LANGUAGES = (
     ('bash', 'Bash/Shell'),
     ('css', 'CSS'),
