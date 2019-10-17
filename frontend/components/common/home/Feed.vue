@@ -3,7 +3,7 @@
     <v-col sm="12" lg="10">
       <v-row justify="center">
         <v-col v-for="(c, i) of 13" :key="i" lg="4" md="6" sm="12">
-          <div>
+          <div class="my-2">
             <v-card flat>
               <v-img
                 :src="

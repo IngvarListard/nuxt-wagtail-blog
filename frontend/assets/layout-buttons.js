@@ -5,11 +5,6 @@ export const buttons = [
     route: '/'
   },
   {
-    name: 'Новости',
-    icon: 'mdi-newspaper',
-    route: '/news'
-  },
-  {
     name: 'Категории',
     icon: 'mdi-shape',
     route: '/categories',
@@ -46,16 +41,6 @@ export const buttons = [
         route: '/'
       }
     ]
-  },
-  {
-    name: 'Книги',
-    icon: 'mdi-book-open-page-variant',
-    route: '/books'
-  },
-  {
-    name: 'О нас',
-    icon: 'mdi-information',
-    route: '/about'
   }
 ]
 
