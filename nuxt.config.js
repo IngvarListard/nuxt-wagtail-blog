@@ -107,7 +107,14 @@ export default {
               [
                 'prismjs',
                 {
-                  languages: ['javascript', 'css', 'markup', 'python', 'vue'],
+                  languages: [
+                    'javascript',
+                    'css',
+                    'markup',
+                    'python',
+                    'vue',
+                    'bash'
+                  ],
                   plugins: ['line-numbers'],
                   theme: 'twilight',
                   css: true

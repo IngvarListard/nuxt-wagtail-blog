@@ -30,11 +30,14 @@
         <vue-markdown>{{ item.value }}</vue-markdown>
       </template>
       <template v-else-if="item.blockType === 'code'">
-        <code-block
-          class="line-numbers"
-          :code="item.value.code"
-          :language="item.value.language"
-        />
+        <no-ssr>
+
+          <code-block
+            class="line-numbers"
+            :code="item.value.code"
+            :language="item.value.language"
+          />
+        </no-ssr>
       </template>
     </div>
   </div>
