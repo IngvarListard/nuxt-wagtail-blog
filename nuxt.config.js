@@ -36,7 +36,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['prismjs/themes/prism.css'],
+  css: [],
 
   /*
    ** Plugins to load before mounting the App
@@ -44,7 +44,7 @@ export default {
   plugins: [
     '@/plugins/auth-mixin.js',
     '@/plugins/portal-vue.js',
-    { src: '@/plugins/vue-prism.js', mode: 'client' }
+    { src: '@/plugins/prism.js', mode: 'client' }
   ],
 
   /*
@@ -93,6 +93,32 @@ export default {
   /*
    ** Build configuration
    */
+  babel: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              [
+                'prismjs',
+                {
+                  languages: ['javascript', 'css', 'markup', 'python', 'vue'],
+                  plugins: ['line-numbers'],
+                  theme: 'twilight',
+                  css: true
+                }
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  },
   build: {
     /*
      ** You can extend webpack config here

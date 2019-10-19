@@ -1,0 +1,30 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "UNION",
+        "name": "BodyType",
+        "possibleTypes": [
+          {
+            "name": "DefaultStreamBlock"
+          },
+          {
+            "name": "ParagraphBlock"
+          },
+          {
+            "name": "HeadingBlock"
+          },
+          {
+            "name": "CodeBlock"
+          },
+          {
+            "name": "MarkdownBlock"
+          },
+          {
+            "name": "ImageBlock"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,7 @@ import { httpLink as buildedHttpLink } from './build-http-link'
 import { wsLink } from './build-ws-link'
 import { uploadLink } from './build-upload-link'
 import { typeDefs, resolvers } from './local-schema'
+import { fragmentMatcher } from './fragmentMatcher'
 
 export default ctx => {
   const {
@@ -28,7 +29,7 @@ export default ctx => {
   httpLink = split(isSubscription, wsLink, httpLink)
 
   // Оптимизация из доков Vue для SSR
-  const cache = new InMemoryCache()
+  const cache = new InMemoryCache({ fragmentMatcher })
   if (process.client) {
     if (typeof window !== 'undefined') {
       const state = window.__APOLLO_STATE__

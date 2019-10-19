@@ -18,7 +18,6 @@
 
 <script>
 import { GET_ARTICLES } from '../../graphql/blog/queries'
-import utilsMixin from '../../utils/utilsMixin'
 import ArticleCard from './ArticleCard'
 
 export default {
@@ -26,7 +25,6 @@ export default {
   components: {
     ArticleCard
   },
-  mixins: [utilsMixin],
   apollo: {
     articles: {
       query: GET_ARTICLES

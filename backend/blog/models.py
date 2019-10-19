@@ -12,6 +12,7 @@ from wagtail.images.models import Image
 from wagtail.search import index
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.users.models import UserProfile
 from wagtailmarkdownblock.blocks import MarkdownBlock
 from wagtailcodeblock.blocks import CodeBlock
 from slugify import slugify
@@ -112,4 +113,5 @@ class BlogPage(Page):
             else:
                 self.slug = slugify(self.title)[:250]
         super().save(*args, **kwargs)
+
 
