@@ -1,10 +1,10 @@
 <template>
-    <v-card flat class="pa-0">
-      <pre
-        :class="languageClass"
-        class="ma-0"
-      ><code style="box-shadow: none;" v-html="renderedCode"></code></pre>
-    </v-card>
+  <v-card flat class="pa-0">
+    <pre
+      :class="languageClass"
+      class="ma-0"
+    ><code style="box-shadow: none;" v-html="renderedCode"></code></pre>
+  </v-card>
 </template>
 
 <script>

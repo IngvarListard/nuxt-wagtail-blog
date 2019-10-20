@@ -72,10 +72,12 @@ export default {
   text-decoration: underline;
   cursor: pointer;
   color: #3676ab;
+  word-wrap: break-word;
 }
 .txt {
   color: #619ccd;
   font-weight: normal;
+  word-break: keep-all;
 }
 a {
   text-decoration: none !important;

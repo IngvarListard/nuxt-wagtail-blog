@@ -59,14 +59,5 @@ export default {
       prefetch: false
     }
   },
-  computed: {
-    responsiveClasses() {
-      return {}
-    },
-    responsiveStyles() {
-      return {}
-    }
-  },
-  methods: {}
 }
 </script>

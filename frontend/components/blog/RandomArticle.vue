@@ -19,6 +19,13 @@ export default {
     ArticleCard
   },
   mixins: [utilsMixin],
+  data() {
+    return {
+      randomArticle: {
+
+      }
+    }
+  },
   apollo: {
     randomArticle: {
       query: GET_RANDOM_ARTICLE

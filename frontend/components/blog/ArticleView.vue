@@ -3,9 +3,11 @@
     <!-- Head image -->
     <article-card :article="article" title-size="34px" widgets-size="regular">
       <template #title>
-        <span class="font-weight-bold" style="line-height: 1.25">{{
-          article.title
-        }}</span>
+        <span
+          class="font-weight-bold"
+          style="line-height: 1.25; word-break: keep-all;"
+          >{{ article.title }}</span
+        >
       </template>
     </article-card>
     <div v-for="(item, index) of article.body" :key="index">
@@ -30,14 +32,13 @@
         <vue-markdown>{{ item.value }}</vue-markdown>
       </template>
       <template v-else-if="item.blockType === 'code'">
-        <no-ssr>
-
+        <client-only>
           <code-block
-            class="line-numbers"
+            class="line-numbers pb-4"
             :code="item.value.code"
             :language="item.value.language"
           />
-        </no-ssr>
+        </client-only>
       </template>
     </div>
   </div>

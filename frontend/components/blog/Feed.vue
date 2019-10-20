@@ -25,6 +25,11 @@ export default {
   components: {
     ArticleCard
   },
+  data() {
+    return {
+      articles: []
+    }
+  },
   apollo: {
     articles: {
       query: GET_ARTICLES

@@ -115,7 +115,7 @@ export default {
                     'vue',
                     'bash'
                   ],
-                  plugins: ['line-numbers'],
+                  plugins: ['line-numbers', 'show-language', 'autolinker'],
                   theme: 'twilight',
                   css: true
                 }
