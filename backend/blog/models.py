@@ -117,6 +117,7 @@ class BlogPage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
     ]
+    views = models.IntegerField('Просмотры', default=0)
 
     def save(self, *args, **kwargs):
         if not self.id:

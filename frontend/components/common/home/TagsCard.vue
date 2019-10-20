@@ -4,23 +4,30 @@
       >Тэги</v-card-title
     >
     <v-card-text class="px-3">
-      <v-chip
-        v-for="(c, i) of 25"
-        :key="i"
-        x-small
-        label
-        class="mx-1"
-        color="#F6F6F6"
-      >
-        <strong style="color: gray">test_tag_{{ c }}</strong>
-      </v-chip>
+      <tag v-for="tag of tags" :key="tag.id" :tag="tag" class="ml-1" />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import Tag from '../../widgets/Tag'
+import { TAGS } from '../../../graphql/blog/queries'
+
 export default {
-  name: 'TagsCard'
+  name: 'TagsCard',
+  components: {
+    Tag
+  },
+  data() {
+    return {
+      tags: []
+    }
+  },
+  apollo: {
+    tags: {
+      query: TAGS
+    }
+  }
 }
 </script>
 

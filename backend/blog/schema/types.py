@@ -75,5 +75,5 @@ class ArticleNode(DjangoObjectType):
 
     class Meta:
         model = BlogPage
-        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags']
+        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views']
 

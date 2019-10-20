@@ -25,6 +25,7 @@ export default {
     TagsCard,
     ArticleView
   },
+  middleware: 'increment-views',
   apollo: {
     article: {
       query: GET_ARTICLE,

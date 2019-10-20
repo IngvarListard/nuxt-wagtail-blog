@@ -5,6 +5,12 @@ const GET_ARTICLE = gql`
     article(slug: $slug) {
       id
       title
+      views
+      tags {
+        id
+        name
+        slug
+      }
       headImage {
         id
         title
@@ -69,6 +75,12 @@ const ARTICLE_FRAGMENT = gql`
   fragment ArticleContents on ArticleNode {
     id
     title
+    views
+    tags {
+      id
+      name
+      slug
+    }
     headImage {
       id
       title
@@ -109,4 +121,14 @@ const GET_RANDOM_ARTICLE = gql`
   ${ARTICLE_FRAGMENT}
 `
 
-export { GET_ARTICLE, GET_ARTICLES, GET_RANDOM_ARTICLE }
+const TAGS = gql`
+  {
+    tags {
+      id
+      name
+      slug
+    }
+  }
+`
+
+export { GET_ARTICLE, GET_ARTICLES, GET_RANDOM_ARTICLE, TAGS }

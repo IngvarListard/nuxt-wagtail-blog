@@ -1,5 +1,9 @@
 <template>
-  <article-card :article="randomArticle" title-size="32px">
+  <article-card
+    :article="randomArticle"
+    title-size="32px"
+    widgets-size="regular"
+  >
     <template #text>
       <div class="mb-2 text--primary" style="font-size: 17px; line-height: 1.5">
         {{ randomArticle.intro }}
@@ -21,9 +25,7 @@ export default {
   mixins: [utilsMixin],
   data() {
     return {
-      randomArticle: {
-
-      }
+      randomArticle: {}
     }
   },
   apollo: {

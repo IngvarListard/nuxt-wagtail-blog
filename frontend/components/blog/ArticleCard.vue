@@ -17,9 +17,19 @@
       <slot name="widgets">
         <v-icon v-bind="widgetSize.icons">mdi-calendar</v-icon>
         Окт. 15, 2019
-        <v-icon v-bind="widgetSize.icons" class="mb-1">mdi-tag-multiple</v-icon>
-        <v-chip v-bind="widgetSize.chips" label link class="mb-1">Спорт</v-chip>
-        <v-chip v-bind="widgetSize.chips" label link class="mb-1">Отдых</v-chip>
+        <views-counter
+          :count="article.views"
+          class="mx-1"
+          :options="widgetsSize.icons"
+        />
+        <v-icon v-bind="widgetSize.icons">mdi-tag-multiple</v-icon>
+        <tag
+          v-for="tag of article.tags"
+          :key="tag.id"
+          :tag="tag"
+          :options="widgetSize.chips"
+          class="ml-1"
+        />
       </slot>
     </v-card-text>
   </div>
@@ -27,9 +37,15 @@
 
 <script>
 import utilsMixin from '../../utils/utilsMixin'
+import Tag from '../widgets/Tag'
+import ViewsCounter from '../widgets/ViewsCounter'
 
 export default {
   name: 'ArticleCard',
+  components: {
+    Tag,
+    ViewsCounter
+  },
   mixins: [utilsMixin],
   props: {
     article: {
@@ -48,7 +64,6 @@ export default {
   },
   computed: {
     widgetSize() {
-
       const size = { chips: {}, icons: {} }
       switch (this.widgetsSize) {
         case 'small': {
