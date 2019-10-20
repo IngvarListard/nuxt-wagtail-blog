@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from backend.blog.models import BlogPage, Recipe
+from backend.blog.models import BlogPage, Recipe, BlogPageTag
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from wagtail.images.models import Image
 
@@ -75,4 +75,5 @@ class ArticleNode(DjangoObjectType):
 
     class Meta:
         model = BlogPage
-        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image']
+        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags']
+

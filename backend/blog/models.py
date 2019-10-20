@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Model
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
-from taggit.models import TaggedItemBase
+from taggit.models import TaggedItemBase, Tag
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
@@ -18,8 +18,20 @@ from wagtailcodeblock.blocks import CodeBlock
 from slugify import slugify
 
 
+class RuTag(Tag):
+    class Meta:
+        proxy = True
+
+    def slugify(self, tag, i=None):
+        return slugify(self.name)[:128]
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('blog.BlogPage', on_delete=models.CASCADE, related_name='tagged_items')
+
+    @classmethod
+    def tag_model(cls):
+        return RuTag
 
 
 class BlogIndexPage(Page):

@@ -4,7 +4,9 @@ import graphene
 from graphene.types import Scalar
 from graphene.types.generic import GenericScalar
 from graphene_django import DjangoObjectType
-from graphene_django.converter import convert_django_field
+from graphene_django.converter import convert_django_field, convert_field_to_list_or_connection
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import Tag
 from wagtail.core.fields import StreamField
 from wagtail.images.models import Image
 
@@ -65,6 +67,7 @@ class WagtailImageRendition(graphene.ObjectType):
     height = graphene.Int()
 
 
+# noinspection PyTypeChecker
 class WagtailImageRenditionList(graphene.ObjectType):
     rendition_list = graphene.List(WagtailImageRendition)
     src_set = graphene.String()
@@ -110,6 +113,11 @@ class WagtailImageNode(DjangoObjectType):
         return WagtailImageRenditionList(rendition_list=rendition_list)
 
 
+class TagNode(DjangoObjectType):
+    class Meta:
+        model = Tag
+
+
 def register_custom_serializers():
     @convert_django_field.register(StreamField)
     def convert_stream_field(field, registry=None):
@@ -122,3 +130,7 @@ def register_custom_serializers():
         return WagtailImageNode(
             description=field.help_text, required=not field.null
         )
+
+    @convert_django_field.register(ClusterTaggableManager)
+    def convert_tag_field_to_string(field, registry=None):
+        return convert_field_to_list_or_connection(field, registry)
