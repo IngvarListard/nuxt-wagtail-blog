@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-icon v-bind="opts" class="mr-1">mdi-eye-outline</v-icon>
+    <v-icon v-bind="options" class="mr-1">mdi-eye-outline</v-icon>
     <span>{{ count }}</span>
   </span>
 </template>
@@ -20,12 +20,12 @@ export default {
   },
   data() {
     return {
-      opts: {  }
+      opts: { small: true }
     }
   },
   watch: {
     options(newVal) {
-      // Object.assign(this.opts, newVal)
+      this.opts = Object.assign(newVal, this.opts)
     }
   }
 }

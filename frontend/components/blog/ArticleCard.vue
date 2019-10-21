@@ -20,7 +20,7 @@
         <views-counter
           :count="article.views"
           class="mx-1"
-          :options="widgetsSize.icons"
+          :options="widgetSize.icons"
         />
         <v-icon v-bind="widgetSize.icons">mdi-tag-multiple</v-icon>
         <tag
