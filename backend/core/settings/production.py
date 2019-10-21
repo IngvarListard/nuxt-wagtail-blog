@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
     'backend.blog.apps.BlogConfig',
+    'backend.votes.apps.VotesConfig',
 ]
 
 MIDDLEWARE = [

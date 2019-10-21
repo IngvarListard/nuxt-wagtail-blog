@@ -1,9 +1,13 @@
 import graphene
+from django.db.models import Count, When, Case, Q, Value
 from graphene_django import DjangoObjectType
 
 from backend.blog.models import BlogPage, Recipe, BlogPageTag
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from wagtail.images.models import Image
+
+from backend.votes.models import Vote
+from backend.votes.schema.types import VoteNode
 
 
 class IngredientBlock(DefaultStreamBlock):
@@ -63,6 +67,13 @@ class BlogPageBody(graphene.Union):
         types = (ParagraphBlock, HeadingBlock, RecipeBlock)
 
 
+class VotesCount(graphene.ObjectType):
+    likes = graphene.Int(description='Количество лайков')
+    dislikes = graphene.Int(description='Количество дизлайков')
+    user_vote = graphene.String(description='Оценка пользователя')
+
+
+# noinspection PyUnresolvedReferences
 class ArticleNode(DjangoObjectType):
     (body, resolve_body) = create_stream_field_type(
         'body',
@@ -72,8 +83,25 @@ class ArticleNode(DjangoObjectType):
         markdown=MarkdownBlock,
         image=ImageBlock,
     )
+    votes = graphene.List(VoteNode)
+    votes_count = graphene.Field(VotesCount)
+
+    def resolve_votes(self, info):
+        return self.votes.all()
+
+    def resolve_votes_count(self, info):
+        votes_count = self.votes.aggregate(
+            likes=Count('pk', filter=Q(vote=Vote.LIKE)),
+            dislikes=Count('pk', filter=Q(vote=Vote.DISLIKE)),
+        )
+        vote = self.votes.filter(user_id=info.context.user.id)
+        votes_count['user_vote'] = None
+        if vote:
+            votes_count['user_vote'] = 'like' if vote.vote == Vote.LIKE else 'dislike'
+
+        return VotesCount(**votes_count)
 
     class Meta:
         model = BlogPage
-        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views']
+        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views', 'votes']
 

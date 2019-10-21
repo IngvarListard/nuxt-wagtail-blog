@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Model
+from django.contrib.contenttypes.fields import GenericRelation
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase, Tag
@@ -16,6 +17,8 @@ from wagtail.users.models import UserProfile
 from wagtailmarkdownblock.blocks import MarkdownBlock
 from wagtailcodeblock.blocks import CodeBlock
 from slugify import slugify
+
+from backend.votes.models import Vote
 
 
 class RuTag(Tag):
@@ -105,8 +108,6 @@ class BlogPage(Page):
         index.SearchField('body'),
     ]
 
-    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('date'),
         FieldPanel('intro'),
@@ -117,7 +118,10 @@ class BlogPage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
     ]
+
+    tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     views = models.IntegerField('Просмотры', default=0)
+    votes = GenericRelation(Vote, related_query_name='articles')
 
     def save(self, *args, **kwargs):
         if not self.id:

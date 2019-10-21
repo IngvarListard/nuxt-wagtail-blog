@@ -6,6 +6,11 @@ const GET_ARTICLE = gql`
       id
       title
       views
+      votesCount {
+        likes
+        dislikes
+        userVote
+      }
       tags {
         id
         name
@@ -76,6 +81,11 @@ const ARTICLE_FRAGMENT = gql`
     id
     title
     views
+    votesCount {
+      likes
+      dislikes
+      userVote
+    }
     tags {
       id
       name
