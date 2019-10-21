@@ -35,10 +35,6 @@ export default {
           }
         }
       `,
-      update({ todoItems }) {
-        console.log('aaaa', todoItems)
-        return todoItems
-      },
       prefetch: false
     }
   },
@@ -57,7 +53,6 @@ export default {
           ]
         }
       })
-      console.log(this.$apollo.provider.defaultClient)
     }
   }
 }

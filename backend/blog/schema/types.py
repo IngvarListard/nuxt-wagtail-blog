@@ -1,13 +1,13 @@
 import graphene
-from django.db.models import Count, When, Case, Q, Value
+from django.db.models import Count, Q
 from graphene_django import DjangoObjectType
 
-from backend.blog.models import BlogPage, Recipe, BlogPageTag
+from backend.blog.models import BlogPage, Recipe
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from wagtail.images.models import Image
 
 from backend.votes.models import Vote
-from backend.votes.schema.types import VoteNode
+from backend.votes.schema.types import VoteNode, VotesCount
 
 
 class IngredientBlock(DefaultStreamBlock):
@@ -65,12 +65,6 @@ class RecipeBlock(DefaultStreamBlock):
 class BlogPageBody(graphene.Union):
     class Meta:
         types = (ParagraphBlock, HeadingBlock, RecipeBlock)
-
-
-class VotesCount(graphene.ObjectType):
-    likes = graphene.Int(description='Количество лайков')
-    dislikes = graphene.Int(description='Количество дизлайков')
-    user_vote = graphene.String(description='Оценка пользователя')
 
 
 # noinspection PyUnresolvedReferences

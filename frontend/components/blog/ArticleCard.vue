@@ -22,6 +22,12 @@
           class="mx-1"
           :options="widgetSize.icons"
         />
+        <vote-counter
+          :article-id="article.id"
+          :options="widgetSize.icons"
+          :votes-count="article.votesCount"
+          class="mr-2"
+        />
         <v-icon v-bind="widgetSize.icons">mdi-tag-multiple</v-icon>
         <tag
           v-for="tag of article.tags"
@@ -39,12 +45,14 @@
 import utilsMixin from '../../utils/utilsMixin'
 import Tag from '../widgets/Tag'
 import ViewsCounter from '../widgets/ViewsCounter'
+import VoteCounter from '../widgets/VoteCounter'
 
 export default {
   name: 'ArticleCard',
   components: {
     Tag,
-    ViewsCounter
+    ViewsCounter,
+    VoteCounter
   },
   mixins: [utilsMixin],
   props: {

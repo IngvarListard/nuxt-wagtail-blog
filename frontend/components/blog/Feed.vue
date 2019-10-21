@@ -32,7 +32,7 @@ export default {
   },
   apollo: {
     articles: {
-      query: GET_ARTICLES
+      query: GET_ARTICLES,
     }
   }
 }
