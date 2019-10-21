@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'wagtailmarkdownblock',
     'wagtailcodeblock',
     'django_celery_beat',
+    'social_django',
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
     'backend.blog.apps.BlogConfig',
@@ -268,3 +269,10 @@ WAGTAIL_CODE_BLOCK_LANGUAGES = (
     ('scss', 'SCSS'),
     ('yaml', 'YAML'),
 )
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.BaseOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
