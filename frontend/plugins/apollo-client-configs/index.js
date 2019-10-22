@@ -1,7 +1,7 @@
 import { from, split, concat } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { isSubscription } from '../../utils'
-import { dataIdFromObject, cacheRedirects } from '../../graphql/localSchema'
+import { cacheRedirects } from '../../graphql/localSchema'
 import { errorLink as errorHandler } from './error-handler'
 import { middleware } from './middleware'
 import { httpLink as buildedHttpLink } from './build-http-link'
@@ -32,7 +32,6 @@ export default ctx => {
   // Оптимизация из доков Vue для SSR
   const cache = new InMemoryCache({
     fragmentMatcher,
-    dataIdFromObject,
     cacheRedirects
   })
   if (process.client) {

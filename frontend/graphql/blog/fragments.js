@@ -10,13 +10,11 @@ const ARTICLE_FRAGMENT = gql`
       likes
       dislikes
       userVote
-      __typename
     }
     tags {
       id
       name
       slug
-      __typename
     }
     headImage {
       id
@@ -27,27 +25,22 @@ const ARTICLE_FRAGMENT = gql`
         url
         width
         height
-        __typename
       }
       headerImg: rendition(fill: "1024x250-c75") {
         id
         url
-        __typename
       }
       renditionList(sizes: [30, 60]) {
         renditionList {
           id
           url
-          __typename
         }
         srcSet
-        __typename
       }
     }
     date
     intro
     slug
-    __typename
   }
 `
 

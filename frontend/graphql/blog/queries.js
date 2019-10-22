@@ -23,14 +23,20 @@ const GET_ARTICLE = gql`
         title
         file
         rendition(max: "750x400", format: "jpeg", bgcolor: "ffffff") {
+          id
           url
           width
           height
         }
         headerImg: rendition(fill: "1024x250-c75") {
+          id
           url
         }
         renditionList(sizes: [30, 60]) {
+          renditionList {
+            id
+            url
+          }
           srcSet
         }
       }
@@ -61,14 +67,19 @@ const GET_ARTICLE = gql`
             title
             file
             rendition(max: "750x400", format: "jpeg", bgcolor: "ffffff") {
+              id
               url
               width
               height
             }
             headerImg: rendition(fill: "1024x250-c75") {
+              id
               url
             }
             renditionList(sizes: [30, 60]) {
+              renditionList {
+                id
+              }
               srcSet
             }
           }

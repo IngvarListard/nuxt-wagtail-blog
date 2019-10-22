@@ -11,7 +11,8 @@
 
 <script>
 import { VOTE_ARTICLE } from '../../graphql/votes/mutations'
-import { ARTICLE_VOTES_FRAGMENT } from "../../graphql/blog/fragments";
+import { ARTICLE_VOTES_FRAGMENT } from '../../graphql/blog/fragments'
+import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
 
 export default {
   name: 'VoteCounter',
@@ -39,21 +40,16 @@ export default {
             articleId,
             action
           },
-          // update: (store, { data: { vote } }) => {
-          //   store.writeFragment({
-          //     id: articleId,
-          //     fragment: ARTICLE_VOTES_FRAGMENT,
-          //     data: {
-          //       votesCount: vote.votesCount,
-          //       __typename: 'VotesCount'
-          //     }
-          //   })
-          //   // const article = store.readFragment({
-          //   //   id: Number(articleId),
-          //   //   fragment: ARTICLE_VOTES_FRAGMENT
-          //   // })
-          //   console.log('ARTICLE FRAGMENT', article)
-          // },
+          update: (store, { data: { vote } }) => {
+            // для примера использования readFragment
+            const article = store.readFragment({
+              id: defaultDataIdFromObject({
+                id: articleId,
+                __typename: 'ArticleNode'
+              }),
+              fragment: ARTICLE_VOTES_FRAGMENT
+            })
+          }
         })
         .then(voteCount => {})
         .catch(e => {})
