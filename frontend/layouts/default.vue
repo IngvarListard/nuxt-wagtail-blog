@@ -6,7 +6,22 @@
     <app-bar />
     <notifications-drawer v-model="notificationDrawer" />
     <v-content>
-      <nuxt />
+      <v-container>
+        <v-row justify="center">
+          <v-col lg="11" md="12" sm="12">
+            <v-row justify="center">
+              <v-col lg="8" md="12" sm="12">
+                <nuxt />
+              </v-col>
+              <v-col lg="4" md="12" sm="12">
+                <newsletter-subscribe />
+                <tags-card class="my-4" />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <portal-target name="bottom" />
+      </v-container>
     </v-content>
     <v-footer color="indigo" app absolute>
       AAAAA
@@ -20,9 +35,19 @@ import Alarms from '@/components/common/Alarms'
 import Drawer from '@/components/common/Drawer'
 import Popups from '@/components/notifications/Popups'
 import NotificationsDrawer from '@/components/notifications/NotificationsDrawer'
+import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
+import TagsCard from '../components/common/home/TagsCard'
 
 export default {
-  components: { Alarms, Popups, NotificationsDrawer, Drawer, AppBar },
+  components: {
+    Alarms,
+    Popups,
+    NotificationsDrawer,
+    Drawer,
+    AppBar,
+    NewsletterSubscribe,
+    TagsCard
+  },
   props: {
     source: {
       type: String,
@@ -36,7 +61,7 @@ export default {
   methods: {
     logout() {
       this.$$auth.logout()
-    },
+    }
   }
 }
 </script>

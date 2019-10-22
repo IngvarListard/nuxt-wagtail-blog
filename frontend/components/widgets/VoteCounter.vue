@@ -10,9 +10,9 @@
 </template>
 
 <script>
+import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { VOTE_ARTICLE } from '../../graphql/votes/mutations'
 import { ARTICLE_VOTES_FRAGMENT } from '../../graphql/blog/fragments'
-import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
 
 export default {
   name: 'VoteCounter',

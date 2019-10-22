@@ -1,15 +1,19 @@
 <template>
   <v-row justify="center">
-    <v-col sm="12" lg="10">
+    <v-col lg="11" md="12" sm="12">
       <v-row justify="center">
-        <v-col
-          v-for="article of articles"
-          :key="article.id"
-          lg="4"
-          md="6"
-          sm="12"
-        >
-          <article-card :article="article" class="my-2" />
+        <v-col cols="12">
+          <v-row justify="center">
+            <v-col
+              v-for="article of articles"
+              :key="article.id"
+              lg="4"
+              md="6"
+              sm="12"
+            >
+              <article-card :article="article" />
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-col>

@@ -1,31 +1,21 @@
 <template>
   <div>
-    <v-container>
-      <v-row justify="center">
-        <v-col lg="7" md="12" sm="12">
-          <div class="display-3 mb-3">Случайная статья</div>
-          <random-article />
-        </v-col>
-        <v-col lg="3" md="12" sm="12">
-          <newsletter-subscribe />
-          <tags-card class="my-4" />
-        </v-col>
-      </v-row>
+    <div class="display-3 mb-3">Случайная статья</div>
+    <random-article />
+    <portal to="bottom">
       <feed />
-    </v-container>
+    </portal>
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
-import TagsCard from '../components/common/home/TagsCard'
 import RandomArticle from '../components/blog/RandomArticle'
 import Feed from '../components/blog/Feed'
 import { allUsers } from '~/graphql/users/queries'
 
 export default {
-  components: { NewsletterSubscribe, TagsCard, RandomArticle, Feed },
+  components: { RandomArticle, Feed },
   data() {
     return {
       allUsers: [],
@@ -58,6 +48,6 @@ export default {
       },
       prefetch: false
     }
-  },
+  }
 }
 </script>
