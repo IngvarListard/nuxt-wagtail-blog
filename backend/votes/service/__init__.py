@@ -12,14 +12,14 @@ class VoteArticle:
         self.article_id = article_id
         self.action = action
 
-    def execute(self) -> bool:
+    def execute(self) -> Vote:
         if self.action == 'like':
-            self.like()
+            vote = self.like()
         elif self.action == 'dislike':
-            self.dislike()
+            vote = self.dislike()
         else:
             raise ValueError(f'Неизвестный тип действия "{self.action}"')
-        return True
+        return vote
 
     def like(self):
         user_vote = self.article.votes.filter(user_id=self.user_id)
@@ -28,7 +28,7 @@ class VoteArticle:
             return
         if user_vote and user_vote[0].vote == -1:
             user_vote.delete()
-        self.create_vote(Vote.LIKE)
+        return self.create_vote(Vote.LIKE)
 
     def dislike(self):
         user_vote = self.article.votes.filter(user_id=self.user_id)
@@ -37,14 +37,14 @@ class VoteArticle:
             return
         if user_vote and user_vote[0].vote == 1:
             user_vote.delete()
-        self.create_vote(Vote.DISLIKE)
+        return self.create_vote(Vote.DISLIKE)
 
     def create_vote(self, vote):
         content_type = ContentType(app_label='blog', model='BlogPage')
         content_object = content_type.get_object_for_this_type(id=self.article_id)
-        Vote.objects.create(vote=vote, content_object=content_object, user_id=self.user_id, )
+        return Vote.objects.create(vote=vote, content_object=content_object, user_id=self.user_id)
 
     @cached_property
-    def article(self):
+    def article(self) -> BlogPage:
         return BlogPage.objects.get(id=self.article_id)
 

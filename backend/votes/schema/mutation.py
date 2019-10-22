@@ -1,18 +1,26 @@
 import graphene
 
+from backend.blog.service import CountArticleVotes
+from backend.votes.schema.types import VotesCount
 from backend.votes.service import VoteArticle
 
 
+# noinspection PyMethodMayBeStatic
 class Vote(graphene.Mutation):
-    success = graphene.Boolean()
+    votes_count = graphene.Field(VotesCount)
 
     class Arguments:
         article_id = graphene.ID()
         action = graphene.String()
 
     def mutate(self, info, **kwargs):
-        # TODO
-        return Vote(success=VoteArticle(user_id=1, **kwargs).execute())
+        voter = VoteArticle(user_id=1, **kwargs)
+        voter.execute()
+
+        votes_counter = CountArticleVotes(1, voter.article.votes)
+        votes_count = votes_counter.execute()
+        votes_count['id'] = f'article_{kwargs["article_id"]}'
+        return Vote(votes_count=votes_count)
 
 
 class Mutation(graphene.ObjectType):

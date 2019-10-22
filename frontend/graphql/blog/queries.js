@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { ARTICLE_FRAGMENT } from './fragments'
 
 const GET_ARTICLE = gql`
   query($slug: String!) {
@@ -7,6 +8,7 @@ const GET_ARTICLE = gql`
       title
       views
       votesCount {
+        id
         likes
         dislikes
         userVote
@@ -76,43 +78,6 @@ const GET_ARTICLE = gql`
   }
 `
 
-const ARTICLE_FRAGMENT = gql`
-  fragment ArticleContents on ArticleNode {
-    id
-    title
-    views
-    votesCount {
-      likes
-      dislikes
-      userVote
-    }
-    tags {
-      id
-      name
-      slug
-    }
-    headImage {
-      id
-      title
-      file
-      rendition(max: "750x400", format: "jpeg", bgcolor: "ffffff") {
-        url
-        width
-        height
-      }
-      headerImg: rendition(fill: "1024x250-c75") {
-        url
-      }
-      renditionList(sizes: [30, 60]) {
-        srcSet
-      }
-    }
-    date
-    intro
-    slug
-  }
-`
-
 const GET_ARTICLES = gql`
   {
     articles {
@@ -140,5 +105,7 @@ const TAGS = gql`
     }
   }
 `
+
+// const GET_ARTICLE_FRAGMENT = gql``
 
 export { GET_ARTICLE, GET_ARTICLES, GET_RANDOM_ARTICLE, TAGS }

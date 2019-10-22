@@ -2,10 +2,6 @@ const utilsMixin = {
   methods: {
     resolveUrl(url) {
       // TODO
-      if (process.client) {
-        console.log(this)
-        console.log(process)
-      }
       return 'http://localhost:8000' + url
     },
     resolveArticleImage(article) {

@@ -1,6 +1,7 @@
 import { from, split, concat } from 'apollo-link'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { isSubscription } from '../../utils'
+import { dataIdFromObject, cacheRedirects } from '../../graphql/localSchema'
 import { errorLink as errorHandler } from './error-handler'
 import { middleware } from './middleware'
 import { httpLink as buildedHttpLink } from './build-http-link'
@@ -29,7 +30,11 @@ export default ctx => {
   httpLink = split(isSubscription, wsLink, httpLink)
 
   // Оптимизация из доков Vue для SSR
-  const cache = new InMemoryCache({ fragmentMatcher })
+  const cache = new InMemoryCache({
+    fragmentMatcher,
+    dataIdFromObject,
+    cacheRedirects
+  })
   if (process.client) {
     if (typeof window !== 'undefined') {
       const state = window.__APOLLO_STATE__

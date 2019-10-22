@@ -11,6 +11,7 @@
 
 <script>
 import { VOTE_ARTICLE } from '../../graphql/votes/mutations'
+import { ARTICLE_VOTES_FRAGMENT } from "../../graphql/blog/fragments";
 
 export default {
   name: 'VoteCounter',
@@ -37,9 +38,24 @@ export default {
           variables: {
             articleId,
             action
-          }
+          },
+          // update: (store, { data: { vote } }) => {
+          //   store.writeFragment({
+          //     id: articleId,
+          //     fragment: ARTICLE_VOTES_FRAGMENT,
+          //     data: {
+          //       votesCount: vote.votesCount,
+          //       __typename: 'VotesCount'
+          //     }
+          //   })
+          //   // const article = store.readFragment({
+          //   //   id: Number(articleId),
+          //   //   fragment: ARTICLE_VOTES_FRAGMENT
+          //   // })
+          //   console.log('ARTICLE FRAGMENT', article)
+          // },
         })
-        .then(() => {})
+        .then(voteCount => {})
         .catch(e => {})
     }
   }

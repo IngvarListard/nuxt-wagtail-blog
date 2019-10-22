@@ -6,7 +6,6 @@ export const state = () => ({
 
 export const mutations = {
   toggleDrawer(state) {
-    console.log(state.buttons)
     state.drawer = !state.drawer
   },
   setDrawer(state, value) {

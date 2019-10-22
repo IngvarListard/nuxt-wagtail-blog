@@ -1,12 +1,10 @@
 import graphene
-from django.db.models import Count, Q
 from graphene_django import DjangoObjectType
-
-from backend.blog.models import BlogPage, Recipe
-from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from wagtail.images.models import Image
 
-from backend.votes.models import Vote
+from backend.blog.models import BlogPage, Recipe
+from backend.blog.service import CountArticleVotes
+from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from backend.votes.schema.types import VoteNode, VotesCount
 
 
@@ -83,17 +81,11 @@ class ArticleNode(DjangoObjectType):
     def resolve_votes(self, info):
         return self.votes.all()
 
+    # noinspection PyTypeChecker
     def resolve_votes_count(self, info):
-        votes_count = self.votes.aggregate(
-            likes=Count('pk', filter=Q(vote=Vote.LIKE)),
-            dislikes=Count('pk', filter=Q(vote=Vote.DISLIKE)),
-        )
-        vote = self.votes.filter(user_id=info.context.user.id)
-        votes_count['user_vote'] = None
-        if vote:
-            votes_count['user_vote'] = 'like' if vote.vote == Vote.LIKE else 'dislike'
-
-        return VotesCount(**votes_count)
+        votes_counter = CountArticleVotes(info.context.user.id, self.votes)
+        votes_count = votes_counter.execute()
+        return VotesCount(id=f'article_{self.id}', **votes_count)
 
     class Meta:
         model = BlogPage
