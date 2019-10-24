@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Promise } from 'q'
-import { login as loginMutation, logout } from '@/graphql/users/mutations'
+import { LOGIN, LOGOUT } from '@/graphql/users/mutations'
 import { getCurrentUser } from '@/graphql/users/queries'
 
 function apollo(ctx) {
@@ -41,7 +41,7 @@ export const actions = {
   login(ctx, { login, password }) {
     return apollo(this)
       .mutate({
-        mutation: loginMutation,
+        mutation: LOGIN,
         variables: { login, password }
       })
       .then(({ data }) => {
@@ -51,7 +51,7 @@ export const actions = {
   logout(ctx) {
     return apollo(this)
       .mutate({
-        mutation: logout
+        mutation: LOGOUT
       })
       .then(({ data }) => {
         if (data.logout.success) {

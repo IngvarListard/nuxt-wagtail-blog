@@ -89,7 +89,9 @@ export default {
     }
   },
   rootDir: 'frontend',
-
+  env: {
+    VK_CLIENT_ID: process.env.VK_CLIENT_ID
+  },
   /*
    ** Build configuration
    */

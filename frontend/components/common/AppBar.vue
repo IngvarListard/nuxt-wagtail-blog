@@ -34,7 +34,7 @@
         style="max-width: 220px"
       />
     </v-toolbar-items>
-    <v-btn color="red lighten-1" elevation="0">Присоединиться</v-btn>
+    <v-btn color="red lighten-1" elevation="0" to="/login">Присоединиться</v-btn>
     <v-spacer />
     <v-icon v-if="$$user.loggedIn">logout</v-icon>
   </v-app-bar>

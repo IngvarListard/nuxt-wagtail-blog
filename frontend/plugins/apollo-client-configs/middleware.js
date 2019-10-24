@@ -37,7 +37,6 @@ export const middleware = ctx => {
       const userLoggedIn = ctx.app.$cookies.get('isLoggedIn')
       if (userLoggedIn) {
         const user = ctx.store.state.auth.user
-        // TODO: проверить не будет ли данный подход генерить огромное количество зпросов
         if (!user.id) {
           ctx.store.dispatch('auth/getCurrentUser')
         }

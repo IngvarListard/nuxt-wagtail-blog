@@ -1,28 +1,36 @@
 <template>
   <v-container fluid fill-height>
     <v-row justify="center" align="center">
-      <a :href="link">
-        <v-btn x-large color="primary">
-          Войти через вконтакте
-        </v-btn>
-      </a>
+      <client-only>
+        <a :href="link">
+          <v-btn x-large color="primary">
+            Войти через вконтакте
+          </v-btn>
+        </a>
+      </client-only>
     </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
-  // layout: 'login',
+  layout: 'login',
   computed: {
     link() {
+      const route = !this.$isServer ? window.location.origin : ''
       return (
         'https://oauth.vk.com/authorize?' +
-        'client_id=7178463&' +
+        `client_id=${process.env.VK_CLIENT_ID}&` +
         'display=page&' +
-        'redirect_uri=http://localhost:3000/oauth2/callback&' +
+        `redirect_uri=${route}/oauth2/callback&` +
         'response_type=token&' +
         'scope=email'
       )
+    }
+  },
+  middleware(ctx) {
+    if (ctx.store.state.auth.user.loggedIn) {
+      ctx.redirect('/')
     }
   }
 }

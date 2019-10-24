@@ -30,13 +30,13 @@
 </template>
 
 <script>
+import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
+import TagsCard from '../components/common/home/TagsCard'
 import AppBar from '@/components/common/AppBar'
 import Alarms from '@/components/common/Alarms'
 import Drawer from '@/components/common/Drawer'
 import Popups from '@/components/notifications/Popups'
 import NotificationsDrawer from '@/components/notifications/NotificationsDrawer'
-import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
-import TagsCard from '../components/common/home/TagsCard'
 
 export default {
   components: {

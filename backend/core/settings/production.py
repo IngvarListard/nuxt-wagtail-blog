@@ -255,7 +255,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '../../media')
 
 # Куки
-SESSION_COOKIE_AGE = 3600 * 12  # Кука сессии живет 12 часов
+SESSION_COOKIE_AGE = 3600 * 24 * 14  # Кука сессии живет 12 часов
 
 
 WAGTAIL_SITE_NAME = 'Junior\'s Journey'

@@ -1,5 +1,9 @@
 <template>
-  <div>e</div>
+  <div class="text-center">
+    <v-progress-circular :size="300" :width="10" color="#47555E" indeterminate
+      >Авторизация</v-progress-circular
+    >
+  </div>
 </template>
 
 <script>
@@ -8,22 +12,26 @@ import { SOCIAL_AUTH } from '../../graphql/users/mutations'
 export default {
   name: 'Callback',
   mounted() {
-    const code = this.$route.hash
-    const aaa = code.slice(1, code.length)
-    console.log('AAAAAA', aaa)
-    const params = new URLSearchParams(aaa)
-    params.forEach((a, b) => { console.log( a, b )})
-    this.$apollo
-      .mutate({
-        mutation: SOCIAL_AUTH,
-        variables: {
-          provider: 'vk-oauth2',
-          accessToken: params.get('access_token')
-        }
-      })
-      .then(data => {
-        console.log(data)
-      })
+    let hash = this.$route.hash
+    this.$router.replace(this.$route.path)
+    hash = hash.slice(1, hash.length)
+    const params = new URLSearchParams(hash)
+    const accessToken = params.get('access_token')
+    if (accessToken) {
+      this.$apollo
+        .mutate({
+          mutation: SOCIAL_AUTH,
+          variables: {
+            provider: 'vk-oauth2',
+            accessToken: params.get('access_token')
+          }
+        })
+        .then(data => {
+          this.$router.replace('/')
+        })
+    } else {
+      this.$router.replace('/')
+    }
   }
 }
 </script>
