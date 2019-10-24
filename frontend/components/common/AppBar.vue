@@ -2,7 +2,11 @@
   <v-app-bar color="#47555E" dark fixed app flat hide-on-scroll>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-spacer />
-    <v-img max-width="180px" :src="require('@/assets/logo/logo_transparent2.png')" to="/" />
+    <v-img
+      max-width="180px"
+      :src="require('@/assets/logo/logo_transparent2.png')"
+      to="/"
+    />
     <v-toolbar-items>
       <template v-for="(btn, i) of buttons">
         <drop-down
@@ -20,33 +24,28 @@
           >{{ btn.name }}</v-btn
         >
       </template>
-      <v-text-field
-        append-icon="mdi-magnify"
-        placeholder="Искать на сайте"
-        single-line
-        hide-details
-        clearable
-        solo
-        flat
-        height="40"
-        outlined
-        class="pt-3 pr-3"
+      <search-field
+        class="hidden-sm-and-down pt-3 pr-3"
         style="max-width: 220px"
       />
     </v-toolbar-items>
-    <v-btn color="red lighten-1" elevation="0" to="/login">Присоединиться</v-btn>
+    <join-button v-if="!$$user.loggedIn" class="hidden-sm-and-down" />
     <v-spacer />
-    <v-icon v-if="$$user.loggedIn">logout</v-icon>
+    <v-icon v-if="$$user.loggedIn" class="hidden-sm-and-down">logout</v-icon>
   </v-app-bar>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
 import DropDown from './DropDown'
+import JoinButton from './JoinButton'
+import SearchField from './SearchField'
 
 export default {
   name: 'AppBar',
   components: {
+    SearchField,
+    JoinButton,
     DropDown
   },
   computed: {

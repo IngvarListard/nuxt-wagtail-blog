@@ -1,6 +1,13 @@
 <template>
   <v-navigation-drawer v-model="drawer" app temporary>
     <v-list dense>
+      <!-- Поиск -->
+      <v-list-item>
+        <v-list-item-content class="py-1">
+          <search-field />
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider />
       <template v-for="(btn, i) of buttons">
         <v-list-group
           v-if="btn.categories && btn.categories.length > 0"
@@ -8,10 +15,31 @@
           no-action
         >
           <list-item slot="activator" :btn="btn" class="mx-0 px-0" no-action />
-          <list-item v-for="(category, index) of btn.categories" :key="index" :btn="category" />
+          <list-item
+            v-for="(category, index) of btn.categories"
+            :key="index"
+            :btn="category"
+          />
         </v-list-group>
         <list-item v-else :key="i" :btn="btn" />
       </template>
+      <v-divider />
+      <!-- Присоединиться -->
+      <v-list-item v-if="!$$user.loggedIn">
+        <v-list-item-content>
+          <join-button />
+        </v-list-item-content>
+      </v-list-item>
+      <list-item
+        :btn="{ name: 'Профиль', icon: 'mdi-account', route: '/profile' }"
+      />
+      <list-item
+        :btn="{
+          name: 'Подписки',
+          icon: 'mdi-playlist-check',
+          route: '/subscriptions'
+        }"
+      />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -19,10 +47,12 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import ListItem from './ListItem'
+import JoinButton from './JoinButton'
+import SearchField from './SearchField'
 
 export default {
   name: 'Drawer',
-  components: { ListItem },
+  components: { SearchField, JoinButton, ListItem },
   computed: {
     ...mapState({
       buttons: state => state.layout.buttons
