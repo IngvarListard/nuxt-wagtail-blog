@@ -28,6 +28,7 @@ wagtailmarkdownblock = "*"
 wagtailcodeblock = "*"
 awesome-slugify = "*"
 social-auth-app-django = "*"
+django-graphql-social-auth = "*"
 
 [requires]
 python_version = "3.7"

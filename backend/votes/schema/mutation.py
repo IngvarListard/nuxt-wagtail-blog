@@ -14,7 +14,7 @@ class Vote(graphene.Mutation):
         action = graphene.String()
 
     def mutate(self, info, **kwargs):
-        voter = VoteArticle(user_id=1, **kwargs)
+        voter = VoteArticle(user_id=info.context.user.id, **kwargs)
         voter.execute()
 
         votes_counter = CountArticleVotes(1, voter.article.votes)

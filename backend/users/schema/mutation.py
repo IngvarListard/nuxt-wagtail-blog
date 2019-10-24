@@ -1,7 +1,10 @@
 import graphene
 import requests
+import graphql_social_auth
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from graphene_file_upload.scalars import Upload
+from social_django.utils import psa
 
 from backend.users.schema.types import BasicUserType
 
@@ -63,6 +66,7 @@ class SocialAuth(graphene.Mutation):
     success = graphene.Boolean()
 
     def mutate(self, info, code, redirect_uri):
+        psa()
         vk_uri = 'https://oauth.vk.com/access_token'
         params = {
             'client_id': '7178463',
@@ -71,23 +75,11 @@ class SocialAuth(graphene.Mutation):
             'code': code
         }
         r = requests.get(vk_uri, params=params)
-
-
-# noinspection PyMethodMayBeStatic
-class UploadFile(graphene.Mutation):
-
-    class Arguments:
-        file = Upload(required=True)
-
-    success = graphene.Boolean()
-
-    def mutate(self, info, file, **kwargs):
-        print(file)
-        return UploadFile(success=True)
-
+User
 
 class Mutation(graphene.ObjectType):
     create_user = CreateUser.Field()
     login = Login.Field()
     logout = Logout.Field()
-    file_upload = UploadFile.Field()
+    social_auth = graphql_social_auth.SocialAuth.Field()
+

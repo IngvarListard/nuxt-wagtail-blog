@@ -273,7 +273,20 @@ WAGTAIL_CODE_BLOCK_LANGUAGES = (
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.vk.BaseOAuth2',
+    'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+VK_OAUTH2_KEY = os.environ.get('VK_OAUTH2_KEY', '')
+VK_OAUTH2_SECRET = os.environ.get('VK_OAUTH2_SECRET', '')
 
+# SOCIAL_AUTH_PIPELINE = (
+#     'social_core.pipeline.social_auth.social_details',
+#     'social_core.pipeline.social_auth.social_uid',
+#     'social_core.pipeline.social_auth.social_user',
+#     'social_core.pipeline.user.get_username',
+#     'social_core.pipeline.user.create_user',
+#     'social_core.pipeline.social_auth.associate_user',
+#     'social_core.pipeline.social_auth.load_extra_data',
+#     'social_core.pipeline.user.user_details',
+#     'social_core.pipeline.social_auth.associate_by_email',
+# )

@@ -1,9 +1,11 @@
 from hashlib import sha256
 
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin, _user_has_perm, UserManager
+from django.contrib.auth.models import PermissionsMixin, _user_has_perm
 from django.db import models
 from django.utils.crypto import get_random_string, constant_time_compare
+
+from backend.users.managers import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -15,6 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=64)
     salt = models.CharField(max_length=64)
     is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'login'
@@ -23,6 +26,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def set_password(self, raw_password):
+        if not raw_password:
+            raw_password = User.objects.make_random_password()
         salt = get_random_string(64)
         hasher = sha256()
         raw_password = raw_password + '_' + salt
@@ -43,7 +48,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.is_active and self.is_superuser:
             return True
         return _user_has_perm(self, perm, obj)
-
-    @property
-    def is_staff(self):
-        return self.is_superuser

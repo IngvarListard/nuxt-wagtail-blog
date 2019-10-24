@@ -5,9 +5,10 @@ const utilsMixin = {
       return 'http://localhost:8000' + url
     },
     resolveArticleImage(article) {
+      // Вместо пустой строки можно вставить изображение-заглушку, но работает это не очень красиво
       return article.headImage
         ? this.resolveUrl(article.headImage.rendition.url)
-        : require('@/assets/Real-Python-Video-Tutorials_Watermarked.webp')
+        : ''
     }
   }
 }

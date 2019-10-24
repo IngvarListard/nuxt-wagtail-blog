@@ -15,7 +15,7 @@
               </v-col>
               <v-col lg="4" md="12" sm="12">
                 <newsletter-subscribe />
-                <tags-card class="my-4" />
+                <tags-card class="mt-4" />
               </v-col>
             </v-row>
           </v-col>

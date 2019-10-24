@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const login = gql`
+const LOGIN = gql`
   mutation($login: String!, $password: String!) {
     login(login: $login, password: $password) {
       user {
@@ -16,7 +16,7 @@ const login = gql`
   }
 `
 
-const logout = gql`
+const LOGOUT = gql`
   mutation {
     logout {
       success
@@ -24,4 +24,15 @@ const logout = gql`
   }
 `
 
-export { login, logout }
+const SOCIAL_AUTH = gql`
+  mutation SocialAuth($provider: String!, $accessToken: String!) {
+    socialAuth(provider: $provider, accessToken: $accessToken) {
+      social {
+        uid
+        extraData
+      }
+    }
+  }
+`
+
+export { LOGIN, LOGOUT, SOCIAL_AUTH }
