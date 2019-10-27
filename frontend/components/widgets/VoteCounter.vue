@@ -1,10 +1,14 @@
 <template>
   <span>
     <v-btn text icon class="mr-2" v-bind="options" @click="vote('like')"
-      ><v-icon v-bind="options">mdi-thumb-up-outline</v-icon></v-btn
+      ><v-icon v-bind="options" :color="thumbColor.like"
+        >mdi-thumb-up-outline</v-icon
+      ></v-btn
     ><span class="mr-2">{{ votesCount.likes }}</span>
     <v-btn icon class="mr-2" v-bind="options" @click="vote('dislike')"
-      ><v-icon v-bind="options">mdi-thumb-down-outline</v-icon></v-btn
+      ><v-icon v-bind="options" :color="thumbColor.dislike"
+        >mdi-thumb-down-outline</v-icon
+      ></v-btn
     ><span>{{ votesCount.dislikes }}</span>
   </span>
 </template>
@@ -28,6 +32,16 @@ export default {
     articleId: {
       type: [Number, String],
       default: null
+    }
+  },
+  computed: {
+    thumbColor() {
+      const like = this.votesCount.userVote === 'like' ? 'success' : null
+      const dislike = this.votesCount.userVote === 'dislike' ? 'success' : null
+      return {
+        like,
+        dislike
+      }
     }
   },
   methods: {

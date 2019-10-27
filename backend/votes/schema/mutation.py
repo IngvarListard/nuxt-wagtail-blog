@@ -17,7 +17,7 @@ class Vote(graphene.Mutation):
         voter = VoteArticle(user_id=info.context.user.id, **kwargs)
         voter.execute()
 
-        votes_counter = CountArticleVotes(1, voter.article.votes)
+        votes_counter = CountArticleVotes(info.context.user.id, voter.article.votes)
         votes_count = votes_counter.execute()
         votes_count['id'] = f'article_{kwargs["article_id"]}'
         return Vote(votes_count=votes_count)

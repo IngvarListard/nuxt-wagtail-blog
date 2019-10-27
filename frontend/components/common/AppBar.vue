@@ -2,11 +2,12 @@
   <v-app-bar color="#47555E" dark fixed app flat hide-on-scroll>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-spacer />
-    <v-img
-      max-width="180px"
-      :src="require('@/assets/logo/logo_transparent2.png')"
-      to="/"
-    />
+    <n-link to="/">
+      <v-img
+        max-width="180px"
+        :src="require('@/assets/logo/logo_transparent2.png')"
+      />
+    </n-link>
     <v-toolbar-items>
       <template v-for="(btn, i) of buttons">
         <drop-down
@@ -31,19 +32,24 @@
     </v-toolbar-items>
     <join-button v-if="!$$user.loggedIn" class="hidden-sm-and-down" />
     <v-spacer />
-    <v-icon v-if="$$user.loggedIn" class="hidden-sm-and-down">logout</v-icon>
+    <notifications v-if="$$user.loggedIn" class="hidden-sm-and-down" />
+    <user-button v-if="$$user.loggedIn" class="hidden-sm-and-down" />
   </v-app-bar>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
+import Notifications from '../notifications/Notifications'
 import DropDown from './DropDown'
 import JoinButton from './JoinButton'
 import SearchField from './SearchField'
+import UserButton from './UserButton'
 
 export default {
   name: 'AppBar',
   components: {
+    Notifications,
+    UserButton,
     SearchField,
     JoinButton,
     DropDown

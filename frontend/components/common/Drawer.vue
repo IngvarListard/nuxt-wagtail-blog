@@ -30,16 +30,6 @@
           <join-button />
         </v-list-item-content>
       </v-list-item>
-      <list-item
-        :btn="{ name: 'Профиль', icon: 'mdi-account', route: '/profile' }"
-      />
-      <list-item
-        :btn="{
-          name: 'Подписки',
-          icon: 'mdi-playlist-check',
-          route: '/subscriptions'
-        }"
-      />
     </v-list>
   </v-navigation-drawer>
 </template>

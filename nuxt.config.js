@@ -92,6 +92,7 @@ export default {
   env: {
     VK_CLIENT_ID: process.env.VK_CLIENT_ID
   },
+  pageTransition: 'slide-y-reverse-transition',
   /*
    ** Build configuration
    */

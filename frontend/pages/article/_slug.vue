@@ -11,6 +11,7 @@ export default {
   components: {
     ArticleView
   },
+  scrollToTop: true,
   middleware: 'increment-views',
   apollo: {
     article: {
