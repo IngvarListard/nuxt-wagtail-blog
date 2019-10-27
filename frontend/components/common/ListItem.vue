@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="noAction ? undefined : btn.route" nuxt>
+  <v-list-item :to="noAction ? undefined : btn.route" v-bind="options" nuxt>
     <slot name="action">
       <v-list-item-action v-if="btn.icon">
         <v-icon>
@@ -22,6 +22,12 @@ export default {
   name: 'ListItem',
   props: {
     btn: {
+      type: Object,
+      default: () => ({
+        'list-item': {}
+      })
+    },
+    options: {
       type: Object,
       default: () => ({})
     },

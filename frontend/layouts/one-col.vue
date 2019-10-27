@@ -3,7 +3,6 @@
     <alarms />
     <drawer />
     <app-bar />
-    <notifications-drawer v-model="notificationDrawer" />
     <v-content>
       <v-container>
         <v-row justify="center">
@@ -23,12 +22,10 @@
 import AppBar from '@/components/common/AppBar'
 import Alarms from '@/components/common/Alarms'
 import Drawer from '@/components/common/Drawer'
-import NotificationsDrawer from '@/components/notifications/NotificationsDrawer'
 
 export default {
   components: {
     Alarms,
-    NotificationsDrawer,
     Drawer,
     AppBar
   },

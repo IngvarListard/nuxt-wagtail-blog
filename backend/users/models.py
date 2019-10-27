@@ -19,6 +19,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    display_name = models.CharField('Отображаемое имя', max_length=50, null=True, blank=True)
 
     USERNAME_FIELD = 'login'
     EMAIL_FIELD = 'email'
@@ -44,7 +45,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         return result
 
     def has_perm(self, perm, obj=None):
-        # Не уволенные суперпользователи имеют весь доступ
         if not self.is_active and self.is_superuser:
             return True
         return _user_has_perm(self, perm, obj)
+
+    def short_name(self):
+        try:
+            short_name = f'{self.last_name} {self.first_name[0]}.'
+        except IndexError:
+            short_name = None
+        return short_name
+

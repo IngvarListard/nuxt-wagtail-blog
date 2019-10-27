@@ -14,9 +14,9 @@
     <v-list>
       <list-item
         :btn="{
-          name: 'Управление профилем',
+          name: 'Уведомления',
           icon: 'mdi-settings-outline',
-          route: `/profile/${$$user.id}`
+          route: `/profile/settings/general`
         }"
       />
     </v-list>

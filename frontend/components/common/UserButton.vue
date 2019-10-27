@@ -16,7 +16,7 @@
         :btn="{
           name: 'Управление профилем',
           icon: 'mdi-settings-outline',
-          route: `/profile/${$$user.id}`
+          route: `/profile/settings/general`
         }"
       />
       <list-item

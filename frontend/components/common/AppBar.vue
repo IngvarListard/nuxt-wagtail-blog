@@ -25,6 +25,7 @@
           >{{ btn.name }}</v-btn
         >
       </template>
+
       <search-field
         class="hidden-sm-and-down pt-3 pr-3"
         style="max-width: 220px"

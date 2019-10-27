@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  layout: 'login',
+  layout: 'one-col',
   computed: {
     link() {
       const route = !this.$isServer ? window.location.origin : ''
