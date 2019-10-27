@@ -1,10 +1,7 @@
 <template>
   <v-navigation-drawer
-    class="hidden-sm-and-down"
-    absolute
+    app
     clipped
-    disable-resize-watcher
-    permanent
   >
     <v-list shaped>
       <list-item

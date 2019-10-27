@@ -3,17 +3,10 @@
     <alarms />
     <drawer />
     <app-bar />
-
+    <settings-drawer />
     <v-content>
       <v-container>
-        <settings-drawer />
-        <v-row justify="center">
-          <v-col lg="11" md="12" sm="12">
-            <v-row justify="center">
-              <nuxt />
-            </v-row>
-          </v-col>
-        </v-row>
+        <nuxt />
         <portal-target name="bottom" />
       </v-container>
     </v-content>

@@ -4,7 +4,8 @@
       <client-only>
         <a :href="link">
           <v-btn x-large color="primary">
-            Войти через вконтакте
+            Войти через
+            <v-icon class="px-2" large>mdi-vk</v-icon>
           </v-btn>
         </a>
       </client-only>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#47555E" dark fixed app flat hide-on-scroll>
+  <v-app-bar color="#47555E" dark app hide-on-scroll clipped-left flat>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-spacer />
     <n-link to="/">
@@ -33,7 +33,7 @@
     </v-toolbar-items>
     <join-button v-if="!$$user.loggedIn" class="hidden-sm-and-down" />
     <v-spacer />
-    <notifications v-if="$$user.loggedIn" class="hidden-sm-and-down" />
+<!--    <notifications v-if="$$user.loggedIn" class="hidden-sm-and-down" />-->
     <user-button v-if="$$user.loggedIn" class="hidden-sm-and-down" />
   </v-app-bar>
 </template>
