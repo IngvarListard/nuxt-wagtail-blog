@@ -1,14 +1,19 @@
 <template>
-  <article-view :article="article" />
+  <div>
+    <article-view :article="article" />
+    <comments-block />
+  </div>
 </template>
 
 <script>
 import ArticleView from '../../components/blog/ArticleView'
 import { GET_ARTICLE } from '../../graphql/blog/queries'
+import CommentsBlock from '../../components/comments/CommentsBlock'
 
 export default {
   name: 'ArticlePage',
   components: {
+    CommentsBlock,
     ArticleView
   },
   scrollToTop: true,

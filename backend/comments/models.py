@@ -23,17 +23,4 @@ class Comment(models.Model):
         verbose_name='Актуальный комментарий',
         symmetrical=False
     )
-
-
-    # Создание комментария
-    # current_user = info.context.user
-    # app_label, model = comment_kind.lower().split('.')
-    # content_type = ContentType(app_label=app_label, model=model)
-    # content_object = content_type.get_object_for_this_type(id=object_id)
-    # new_comment = Comment.objects.create(content_object=content_object, user=current_user, description=description)
-    #
-    # # Зачем?
-    # if link and len(link) < 2:
-    #     raise SngyException('Системная ошибка: передана неправильная ссылка для уведомлений пользователей.'
-    #                         ' Комментарий создан, но уведомления не отправлены.')
-    # new_comment.comment_notify(current_user.id, notify_users, link)
+    changed = models.BooleanField('Изменено', default=False)

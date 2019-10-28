@@ -5,10 +5,12 @@
     <app-bar />
     <settings-drawer />
     <v-content>
-      <v-container>
-        <nuxt />
-        <portal-target name="bottom" />
-      </v-container>
+      <v-card height="100%">
+        <v-container>
+          <nuxt />
+          <portal-target name="bottom" />
+        </v-container>
+      </v-card>
     </v-content>
   </v-app>
 </template>
