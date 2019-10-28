@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
+
     'modelcluster',
     'taggit',
     'channels',
@@ -61,10 +62,12 @@ INSTALLED_APPS = [
     'wagtailcodeblock',
     'django_celery_beat',
     'social_django',
+
     'backend.users.apps.UsersConfig',
     'backend.notifications.apps.NotificationsConfig',
     'backend.blog.apps.BlogConfig',
     'backend.votes.apps.VotesConfig',
+    'backend.comments.apps.CommentsConfig'
 ]
 
 MIDDLEWARE = [

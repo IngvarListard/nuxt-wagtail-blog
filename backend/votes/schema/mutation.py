@@ -1,6 +1,7 @@
 import graphene
 
 from backend.blog.service import CountArticleVotes
+from django.core.exceptions import PermissionDenied
 from backend.votes.schema.types import VotesCount
 from backend.votes.service import VoteArticle
 
@@ -14,6 +15,8 @@ class Vote(graphene.Mutation):
         action = graphene.String()
 
     def mutate(self, info, **kwargs):
+        if not info.context.user.is_authenticated:
+            raise PermissionDenied('Сначала необходимо осуществить вход в систему')
         voter = VoteArticle(user_id=info.context.user.id, **kwargs)
         voter.execute()
 
