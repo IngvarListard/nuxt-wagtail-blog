@@ -38,9 +38,9 @@
         />
         <list-item
           :btn="{
-            name: 'Своя',
+            name: 'Темы',
             icon: 'mdi-message-settings-variant-outline',
-            route: '/profile/settings/subscriptions/custom'
+            route: '/profile/settings/subscriptions/themes'
           }"
         />
       </v-list-group>

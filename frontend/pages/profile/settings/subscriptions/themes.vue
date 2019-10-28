@@ -3,7 +3,7 @@
     <v-row dense>
       <div class="d-flex my-auto display-1">Темы</div>
       <v-spacer />
-      <v-btn depressed outlined color="success">Добавить компанию</v-btn>
+      <v-btn depressed outlined color="success">Предложить тему</v-btn>
     </v-row>
     <v-row justify="center">
       <v-col lg="8" md="8" sm="12" cols="12">
@@ -11,12 +11,11 @@
           v-model="searchField"
           height="52"
           outlined
-          placeholder="Найти компанию"
+          placeholder="Найти тему"
           append-icon="mdi-magnify"
           class="pt-2"
         />
-        <v-data-table :headers="headers" :items="items" :search="searchField">
-        </v-data-table>
+        <v-data-table :headers="headers" :items="items" :search="searchField"> </v-data-table>
       </v-col>
       <v-col lg="4" md="4" sm="12" cols="12">
         <v-card outlined>
@@ -34,7 +33,7 @@
 
 <script>
 export default {
-  name: 'Companies',
+  name: 'Themes',
   layout: 'profile',
   data() {
     return {
