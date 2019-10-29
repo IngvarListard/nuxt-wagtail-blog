@@ -2,8 +2,14 @@
   <div>
     <div class="headline my-2">Комментарии 2817</div>
     <v-divider />
-    <comment-input />
-    <comment-block v-if="comments.length > 0" />
+    <comment-input :model-name="modelName" :instance-id="instanceId" />
+    <template v-if="comments.length > 0">
+      <comment-block
+        v-for="comment of comments"
+        :key="comment.id"
+        :comment="comment"
+      />
+    </template>
     <div v-else class="headline ma-4">
       Здесь пока нет ни одного комментария...
     </div>
@@ -11,9 +17,9 @@
 </template>
 
 <script>
+import { GET_COMMENTS } from '../../graphql/comments/queries'
 import CommentBlock from './CommentBlock'
 import CommentInput from './CommentInput'
-import { GET_COMMENTS } from '../../graphql/comments/query'
 export default {
   name: 'CommentsBlock',
   components: { CommentInput, CommentBlock },
@@ -25,6 +31,11 @@ export default {
     instanceId: {
       type: [Number, String],
       default: -1
+    }
+  },
+  data() {
+    return {
+      comments: []
     }
   },
   apollo: {
@@ -41,6 +52,12 @@ export default {
           skip,
           first
         }
+      },
+      update({ comments }) {
+        return comments.comments
+      },
+      skip() {
+        return !this.instanceId || !this.modelName
       }
     }
   }

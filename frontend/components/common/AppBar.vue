@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#47555E" dark app hide-on-scroll clipped-left flat>
+  <v-app-bar color="#47555E" dark app :hide-on-scroll="$vuetify.breakpoint.xs" clipped-left flat>
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-spacer />
     <n-link to="/">

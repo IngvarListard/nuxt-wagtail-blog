@@ -19,7 +19,7 @@ class Query(graphene.ObjectType):
     )
 
     def resolve_comments(self, info, skip, first, **kwargs):
-        app, model = kwargs['model_name'].split('.')
+        app, model = kwargs['model_name'].lower().split('.')
         instance_comments = (
             Comment.objects
                 .filter(object_id=kwargs['instance_id'],
@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
                 .annotate(child_count=Count('children'))
             )
         total_count = instance_comments.count()
-        paged_comments = instance_comments[:skip][first:]
+        paged_comments = instance_comments[skip:][:first]
         paged_comments_node = PagedCommentsNode(
             comments=paged_comments,
             total_count=total_count
@@ -40,4 +40,5 @@ class Query(graphene.ObjectType):
             kwargs['instance_id']
         )
         paged_comments_node.id = id_
+        print('PAGED COMMENTS', paged_comments)
         return paged_comments_node

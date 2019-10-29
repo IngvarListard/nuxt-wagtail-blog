@@ -18,6 +18,11 @@ export default {
   },
   scrollToTop: true,
   middleware: 'increment-views',
+  data() {
+    return {
+      article: {}
+    }
+  },
   apollo: {
     article: {
       query: GET_ARTICLE,

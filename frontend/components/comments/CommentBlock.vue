@@ -1,7 +1,7 @@
 <template>
   <v-card flat>
-    <v-card-text>
-      <v-row align="top">
+    <v-card-text class="my-1 py-2">
+      <v-row dense>
         <v-col cols="1">
           <v-avatar>
             <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="test" />
@@ -9,29 +9,13 @@
         </v-col>
         <v-col cols="11">
           <div class="text--primary">
-            <strong>Членов Иван Иванович</strong> 13 дней отредактировано<br />
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci
-            beatae delectus dolor dolore id, illum itaque iure laudantium,
-            libero minus necessitatibus nesciunt, non numquam recusandae
-            suscipit unde velit vero? Omnis? Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Delectus dolorum esse inventore
-            quibusdam veritatis voluptatem. Aspernatur excepturi itaque libero
-            nihil non voluptates. Adipisci at blanditiis consequatur
-            dignissimos, neque unde vitae. beatae delectus dolor dolore id,
-            illum itaque iure laudantium, libero minus necessitatibus nesciunt,
-            non numquam recusandae suscipit unde velit vero? Omnis? Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit. Delectus dolorum esse
-            inventore quibusdam veritatis voluptatem. Aspernatur excepturi
-            itaque libero nihil non voluptates. Adipisci at blanditiis
-            consequatur dignissimos, neque unde vitae. beatae delectus dolor
-            dolore id, illum itaque iure laudantium, libero minus necessitatibus
-            nesciunt, non numquam recusandae suscipit unde velit vero? Omnis?
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus
-            dolorum esse inventore quibusdam veritatis voluptatem. Aspernatur
-            excepturi itaque libero nihil non voluptates. Adipisci at blanditiis
-            consequatur dignissimos, neque unde vitae.
+            <div class="mb-2">
+              <strong style="font-size: 18px;">{{
+                comment.user.displayName
+              }}</strong>
+              {{ comment.time }}
+            </div>
+            {{ comment.text }}
           </div>
           Ответить
           <vote-counter
@@ -40,8 +24,12 @@
             vote-to="comments.Comment"
           />
           <br />
-          <v-icon class="icon-flipped my-2">mdi-keyboard-return</v-icon>
-          <strong class="text--primary">354 ответа</strong>
+          <template v-if="comment.childCount > 0">
+            <v-icon class="icon-flipped my-2">mdi-keyboard-return</v-icon>
+            <strong class="text--primary"
+              >{{ comment.childCount }} ответа</strong
+            >
+          </template>
         </v-col>
       </v-row>
     </v-card-text>
@@ -65,7 +53,8 @@ export default {
           displayName: 'Guest'
         },
         time: null,
-        votes: { likes: 0, dislikes: 0, userVote: null }
+        votesCount: { likes: 0, dislikes: 0, userVote: null },
+        childCount: 0
       })
     }
   }
