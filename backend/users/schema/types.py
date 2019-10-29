@@ -16,6 +16,7 @@ class UserType(graphene.Interface):
     email = graphene.String()
     is_active = graphene.String()
     is_superuser = graphene.String()
+    display_name = graphene.String()
 
 
 class BasicUserType(graphene_django.DjangoObjectType):
@@ -24,4 +25,4 @@ class BasicUserType(graphene_django.DjangoObjectType):
         model = User
         interface = (UserType,)
         description = 'Объект пользователя с базовой информацией'
-        only_fields = ('id', 'first_name', 'last_name', 'is_active', 'is_superuser', 'email')
+        only_fields = ('id', 'first_name', 'last_name', 'is_active', 'is_superuser', 'email', 'display_name')

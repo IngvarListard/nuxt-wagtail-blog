@@ -1,7 +1,7 @@
 <template>
   <div>
     <article-view :article="article" />
-    <comments-block />
+    <comments-block model-name="blog.BlogPage" :instance-id="article.id" />
   </div>
 </template>
 

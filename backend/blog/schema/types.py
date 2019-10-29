@@ -4,8 +4,9 @@ from wagtail.images.models import Image
 
 from backend.blog.models import BlogPage, Recipe
 from backend.blog.service import CountVotes
+from backend.comments.schema.types import CommentNode
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
-from backend.votes.schema.types import VoteNode, VotesCount
+from backend.votes.schema.types import VoteNode, VotesCountNode
 
 
 class IngredientBlock(DefaultStreamBlock):
@@ -76,7 +77,7 @@ class ArticleNode(DjangoObjectType):
         image=ImageBlock,
     )
     votes = graphene.List(VoteNode)
-    votes_count = graphene.Field(VotesCount)
+    votes_count = graphene.Field(VotesCountNode)
 
     def resolve_votes(self, info):
         return self.votes.all()
@@ -85,9 +86,10 @@ class ArticleNode(DjangoObjectType):
     def resolve_votes_count(self, info):
         votes_counter = CountVotes(info.context.user.id, self.votes)
         votes_count = votes_counter.execute()
-        return VotesCount(id=f'__blog.BlogPage_{self.id}', **votes_count)
+        return VotesCountNode(id=f'__blog.BlogPage_{self.id}', **votes_count)
 
     class Meta:
         model = BlogPage
-        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views', 'votes']
+        only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views', 'votes',
+                       'comments']
 

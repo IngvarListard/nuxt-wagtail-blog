@@ -18,6 +18,7 @@ from wagtailmarkdownblock.blocks import MarkdownBlock
 from wagtailcodeblock.blocks import CodeBlock
 from slugify import slugify
 
+from backend.comments.models import Comment
 from backend.votes.models import Vote
 
 
@@ -122,6 +123,7 @@ class BlogPage(Page):
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     views = models.IntegerField('Просмотры', default=0)
     votes = GenericRelation(Vote, related_query_name='articles')
+    comments = GenericRelation(Comment, related_query_name='articles')
 
     def save(self, *args, **kwargs):
         if not self.id:

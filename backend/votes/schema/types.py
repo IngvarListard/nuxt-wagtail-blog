@@ -9,7 +9,7 @@ class VoteNode(DjangoObjectType):
         model = Vote
 
 
-class VotesCount(graphene.ObjectType):
+class VotesCountNode(graphene.ObjectType):
     id = graphene.ID(description='ID родителя')
     likes = graphene.Int(description='Количество лайков')
     dislikes = graphene.Int(description='Количество дизлайков')

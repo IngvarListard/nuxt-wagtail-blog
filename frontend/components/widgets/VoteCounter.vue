@@ -29,8 +29,17 @@ export default {
       type: Object,
       default: () => ({ likes: 0, dislikes: 0, userVote: null })
     },
-    articleId: {
+    instanceId: {
       type: [Number, String],
+      default: null
+    },
+    /**
+     * @param {String} voteTo - К какой модели будут применяться голоса:
+     *  - 'blog.BlogPage'
+     *  - 'comments.Comment'
+     */
+    voteTo: {
+      type: String,
       default: null
     }
   },
@@ -46,7 +55,7 @@ export default {
   },
   methods: {
     vote(action) {
-      const instanceId = this.articleId
+      const instanceId = this.instanceId
       const voteTo = 'blog.BlogPage'
       this.$apollo
         .mutate({
@@ -59,7 +68,7 @@ export default {
           update: (store, { data: { vote } }) => {
             // для примера использования readFragment
             // это останется здесь пока не пригодится!!!
-            const article = store.readFragment({
+            const instance = store.readFragment({
               id: defaultDataIdFromObject({
                 id: instanceId,
                 __typename: 'ArticleNode'

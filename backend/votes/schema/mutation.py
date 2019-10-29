@@ -2,13 +2,13 @@ import graphene
 
 from backend.blog.service import CountVotes
 from django.core.exceptions import PermissionDenied
-from backend.votes.schema.types import VotesCount
+from backend.votes.schema.types import VotesCountNode
 from backend.votes.service import ToVote
 
 
 # noinspection PyMethodMayBeStatic
 class Vote(graphene.Mutation):
-    votes_count = graphene.Field(VotesCount)
+    votes_count = graphene.Field(VotesCountNode)
 
     class Arguments:
         instance_id = graphene.ID()

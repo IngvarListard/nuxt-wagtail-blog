@@ -19,11 +19,14 @@ class Comment(models.Model):
     )
     text = models.TextField('Комментарий')
     is_system = models.BooleanField('Системный комментарий', default=False)
-    parent = models.ManyToManyField(
+    parent = models.ForeignKey(
         'self',
         blank=True,
-        verbose_name='Актуальный комментарий',
-        symmetrical=False
+        null=True,
+        verbose_name='Первый в обсуждении',
+        related_name='children',
+        on_delete=models.CASCADE
     )
     changed = models.BooleanField('Изменено', default=False)
     votes = GenericRelation(Vote, related_query_name='comments')
+    deleted = models.BooleanField('Удалено', default=False)
