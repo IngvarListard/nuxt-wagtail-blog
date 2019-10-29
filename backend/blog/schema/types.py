@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 from wagtail.images.models import Image
 
 from backend.blog.models import BlogPage, Recipe
-from backend.blog.service import CountArticleVotes
+from backend.blog.service import CountVotes
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from backend.votes.schema.types import VoteNode, VotesCount
 
@@ -83,9 +83,9 @@ class ArticleNode(DjangoObjectType):
 
     # noinspection PyTypeChecker
     def resolve_votes_count(self, info):
-        votes_counter = CountArticleVotes(info.context.user.id, self.votes)
+        votes_counter = CountVotes(info.context.user.id, self.votes)
         votes_count = votes_counter.execute()
-        return VotesCount(id=f'article_{self.id}', **votes_count)
+        return VotesCount(id=f'__blog.BlogPage_{self.id}', **votes_count)
 
     class Meta:
         model = BlogPage

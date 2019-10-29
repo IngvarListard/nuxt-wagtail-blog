@@ -2,7 +2,7 @@ from backend.votes.managers import VoteManager
 from backend.votes.models import Vote
 
 
-class CountArticleVotes:
+class CountVotes:
 
     def __init__(self, user_id: int, votes: VoteManager):
         self.votes = votes

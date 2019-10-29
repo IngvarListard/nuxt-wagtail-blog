@@ -15,7 +15,7 @@
 
 <script>
 import { defaultDataIdFromObject } from 'apollo-cache-inmemory'
-import { VOTE_ARTICLE } from '../../graphql/votes/mutations'
+import { TO_VOTE } from '../../graphql/votes/mutations'
 import { ARTICLE_VOTES_FRAGMENT } from '../../graphql/blog/fragments'
 
 export default {
@@ -46,19 +46,22 @@ export default {
   },
   methods: {
     vote(action) {
-      const articleId = this.articleId
+      const instanceId = this.articleId
+      const voteTo = 'blog.BlogPage'
       this.$apollo
         .mutate({
-          mutation: VOTE_ARTICLE,
+          mutation: TO_VOTE,
           variables: {
-            articleId,
-            action
+            instanceId,
+            action,
+            voteTo
           },
           update: (store, { data: { vote } }) => {
             // для примера использования readFragment
+            // это останется здесь пока не пригодится!!!
             const article = store.readFragment({
               id: defaultDataIdFromObject({
-                id: articleId,
+                id: instanceId,
                 __typename: 'ArticleNode'
               }),
               fragment: ARTICLE_VOTES_FRAGMENT

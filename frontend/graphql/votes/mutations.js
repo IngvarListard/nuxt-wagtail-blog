@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-const VOTE_ARTICLE = gql`
-  mutation($articleId: ID!, $action: String!) {
-    vote(action: $action, articleId: $articleId) {
+const TO_VOTE = gql`
+  mutation($instanceId: ID!, $action: String!, $voteTo: String!) {
+    vote(action: $action, instanceId: $instanceId, voteTo: $voteTo) {
       votesCount {
         id
         likes
@@ -13,4 +13,4 @@ const VOTE_ARTICLE = gql`
   }
 `
 
-export { VOTE_ARTICLE }
+export { TO_VOTE }

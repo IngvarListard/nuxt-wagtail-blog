@@ -1,6 +1,8 @@
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+
+from backend.votes.models import Vote
 
 
 class Comment(models.Model):
@@ -24,3 +26,4 @@ class Comment(models.Model):
         symmetrical=False
     )
     changed = models.BooleanField('Изменено', default=False)
+    votes = GenericRelation(Vote, related_query_name='comments')
