@@ -15,13 +15,19 @@
               }}</strong>
               {{ comment.time }}
             </div>
-            {{ comment.text }}
+            <comment :text="comment.text" style="font-size: 16px;" />
           </div>
-          Ответить
+          <span style="cursor: pointer;" @click="comment.showReplyBox = true">Ответить</span>
           <vote-counter
             :instance-id="comment.id"
             :votes-count="comment.votesCount"
             model-name="comments.Comment"
+          />
+          <comment-input
+            v-if="comment.showReplyBox"
+            model-name="comments.comment"
+            :instance-id="1"
+            :parent-id="comment.id"
           />
           <br />
           <template v-if="comment.childCount > 0">
@@ -38,9 +44,13 @@
 
 <script>
 import VoteCounter from '../widgets/VoteCounter'
+import { formatComment } from '../../utils'
+import Comment from './Comment'
+import CommentInput from './CommentInput'
+
 export default {
   name: 'CommentBlock',
-  components: { VoteCounter },
+  components: { CommentInput, VoteCounter, Comment },
   props: {
     comment: {
       type: Object,
@@ -56,6 +66,11 @@ export default {
         votesCount: { likes: 0, dislikes: 0, userVote: null },
         childCount: 0
       })
+    }
+  },
+  data() {
+    return {
+      formatComment
     }
   }
 }

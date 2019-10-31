@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { GET_COMMENTS } from '../../graphql/comments/queries'
 import CommentBlock from './CommentBlock'
 import CommentInput from './CommentInput'
@@ -54,10 +55,15 @@ export default {
         }
       },
       update({ comments }) {
-        if (!this.$isServer) {
-          console.log(comments)
-        }
-        return comments.comments
+        const commentsCopy = _.cloneDeep(comments.comments)
+        // if (!this.$isServer) {
+        //
+        //   console.log(commentsCopy)
+        // }
+        commentsCopy.forEach(comment => {
+          this.$set(comment, 'showReplyBox', false)
+        })
+        return commentsCopy
       },
       skip() {
         return !this.instanceId || !this.modelName

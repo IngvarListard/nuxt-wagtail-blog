@@ -37,6 +37,10 @@ export default {
     instanceId: {
       type: [Number, String],
       default: -1
+    },
+    parentId: {
+      type: [Number, String],
+      default: null
     }
   },
   data() {
