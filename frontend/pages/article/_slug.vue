@@ -31,6 +31,10 @@ export default {
         return {
           slug
         }
+      },
+      update({ article }) {
+        this.$store.commit('article/setCurrentArticle', article)
+        return article
       }
     }
   }

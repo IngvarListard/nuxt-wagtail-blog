@@ -56,10 +56,6 @@ export default {
       },
       update({ comments }) {
         const commentsCopy = _.cloneDeep(comments.comments)
-        // if (!this.$isServer) {
-        //
-        //   console.log(commentsCopy)
-        // }
         commentsCopy.forEach(comment => {
           this.$set(comment, 'showReplyBox', false)
         })
