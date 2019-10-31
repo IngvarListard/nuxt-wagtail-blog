@@ -1,3 +1,5 @@
+import moment from 'moment'
+moment.locale('ru-ru')
 const utilsMixin = {
   methods: {
     resolveUrl(url) {
@@ -9,6 +11,14 @@ const utilsMixin = {
       return article.headImage
         ? this.resolveUrl(article.headImage.rendition.url)
         : ''
+    },
+    formatDate(date) {
+      return moment(date).format('ll')
+    },
+    formatCommentDate(date) {
+      return moment(date)
+        .subtract(1, 'days')
+        .calendar()
     }
   }
 }

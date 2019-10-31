@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="headline my-2">Комментарии 2817</div>
+    <div class="headline my-2">Комментарии {{ comments.length }}</div>
     <v-divider />
     <comment-input :model-name="modelName" :instance-id="instanceId" />
     <template v-if="comments.length > 0">
@@ -8,6 +8,7 @@
         v-for="comment of comments"
         :key="comment.id"
         :comment="comment"
+        :instance-id="instanceId"
       />
     </template>
     <div v-else class="headline ma-4">
@@ -55,6 +56,7 @@ export default {
         }
       },
       update({ comments }) {
+        console.log(comments)
         const commentsCopy = _.cloneDeep(comments.comments)
         commentsCopy.forEach(comment => {
           this.$set(comment, 'showReplyBox', false)

@@ -13,22 +13,28 @@
               <strong style="font-size: 18px;">{{
                 comment.user.displayName
               }}</strong>
-              {{ comment.time }}
+              {{ formatCommentDate(comment.time) }}
             </div>
             <comment :text="comment.text" style="font-size: 16px;" />
           </div>
-          <span style="cursor: pointer;" @click="comment.showReplyBox = true">Ответить</span>
+          <span
+            style="cursor: pointer;"
+            @click="comment.showReplyBox = !comment.showReplyBox"
+            >Ответить</span
+          >
           <vote-counter
             :instance-id="comment.id"
             :votes-count="comment.votesCount"
             model-name="comments.Comment"
           />
-          <comment-input
-            v-if="comment.showReplyBox"
-            model-name="comments.comment"
-            :instance-id="1"
-            :parent-id="comment.id"
-          />
+          <v-slide-y-transition>
+            <comment-input
+              v-if="comment.showReplyBox"
+              model-name="comments.comment"
+              :instance-id="instanceId"
+              :parent-id="comment.id"
+            />
+          </v-slide-y-transition>
           <br />
           <template v-if="comment.childCount > 0">
             <v-icon class="icon-flipped my-2">mdi-keyboard-return</v-icon>
@@ -43,6 +49,7 @@
 </template>
 
 <script>
+import utilsMixin from '../../utils/utilsMixin'
 import VoteCounter from '../widgets/VoteCounter'
 import { formatComment } from '../../utils'
 import Comment from './Comment'
@@ -51,6 +58,7 @@ import CommentInput from './CommentInput'
 export default {
   name: 'CommentBlock',
   components: { CommentInput, VoteCounter, Comment },
+  mixins: [utilsMixin],
   props: {
     comment: {
       type: Object,
@@ -66,6 +74,10 @@ export default {
         votesCount: { likes: 0, dislikes: 0, userVote: null },
         childCount: 0
       })
+    },
+    instanceId: {
+      type: [Number, String],
+      default: null
     }
   },
   data() {

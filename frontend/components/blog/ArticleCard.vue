@@ -16,7 +16,7 @@
       <slot name="text" />
       <slot name="widgets">
         <v-icon v-bind="widgetSize.icons">mdi-calendar</v-icon>
-        Окт. 15, 2019
+        {{ formatDate(article.date) }}
         <views-counter
           :count="article.views"
           class="mx-1"

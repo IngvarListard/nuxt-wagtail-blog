@@ -13,7 +13,8 @@ class CommentCreation(Service):
         model_name: str,
         instance_id: int,
         text: str,
-        user_id: int
+        user_id: int,
+        parent_id: int = None,
     ):
         """
         :param model_name: Приложение и модель, к которой относится данный комментарий, разделенные точкой.
@@ -26,6 +27,7 @@ class CommentCreation(Service):
         self.instance_id = instance_id
         self.text = text
         self.user_id = user_id
+        self.parent_id = parent_id
 
     def execute(self):
         app_label, model = self.model_name.lower().split('.')
@@ -34,7 +36,8 @@ class CommentCreation(Service):
         return Comment.objects.create(
             content_object=content_object,
             user_id=self.user_id,
-            text=self.text
+            text=self.text,
+            parent_id=self.parent_id
         )
 
 
