@@ -34,11 +34,11 @@ export default {
       default: null
     },
     /**
-     * @param {String} voteTo - К какой модели будут применяться голоса:
+     * @param {String} modelName - К какой модели будут применяться голоса:
      *  - 'blog.BlogPage'
      *  - 'comments.Comment'
      */
-    voteTo: {
+    modelName: {
       type: String,
       default: null
     }
@@ -56,14 +56,14 @@ export default {
   methods: {
     vote(action) {
       const instanceId = this.instanceId
-      const voteTo = 'blog.BlogPage'
+      const modelName = this.modelName
       this.$apollo
         .mutate({
           mutation: TO_VOTE,
           variables: {
             instanceId,
             action,
-            voteTo
+            modelName
           },
           update: (store, { data: { vote } }) => {
             // для примера использования readFragment

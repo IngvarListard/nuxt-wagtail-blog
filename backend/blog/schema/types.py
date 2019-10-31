@@ -84,7 +84,11 @@ class ArticleNode(DjangoObjectType):
 
     # noinspection PyTypeChecker
     def resolve_votes_count(self, info):
-        votes_counter = CountVotes(info.context.user.id, self.votes)
+        votes_counter = CountVotes(
+            info.context.user.id,
+            f'{self._meta.app_label}.{self._meta.model_name}',
+            self.id
+        )
         votes_count = votes_counter.execute()
         return VotesCountNode(id=f'__blog.BlogPage_{self.id}', **votes_count)
 

@@ -21,7 +21,7 @@
           <vote-counter
             :instance-id="comment.id"
             :votes-count="comment.votesCount"
-            vote-to="comments.Comment"
+            model-name="comments.Comment"
           />
           <br />
           <template v-if="comment.childCount > 0">

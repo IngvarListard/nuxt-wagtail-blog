@@ -28,6 +28,7 @@ class ToVote(Service):
         self.user_id = user_id
         self.instance = self.resolve_field(instance, apps.get_model(model_name))
         self.action = action
+        self.app, self.model = model_name.lower().split('.')
 
     def execute(self) -> Vote:
         if self.action == 'like':
@@ -57,7 +58,7 @@ class ToVote(Service):
         return self.create_vote(Vote.DISLIKE)
 
     def create_vote(self, vote):
-        content_type = ContentType(app_label='blog', model='BlogPage')
+        content_type = ContentType(app_label=self.app, model=self.model)
         content_object = content_type.get_object_for_this_type(id=self.instance.id)
         return Vote.objects.create(vote=vote, content_object=content_object, user_id=self.user_id)
 

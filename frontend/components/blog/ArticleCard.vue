@@ -26,7 +26,7 @@
           :instance-id="article.id"
           :options="widgetSize.icons"
           :votes-count="article.votesCount"
-          vote-to="blog.BlogPage"
+          model-name="blog.BlogPage"
           class="mr-2"
         />
         <v-icon v-bind="widgetSize.icons">mdi-tag-multiple</v-icon>

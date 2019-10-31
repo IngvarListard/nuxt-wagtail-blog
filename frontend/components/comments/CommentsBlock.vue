@@ -54,6 +54,9 @@ export default {
         }
       },
       update({ comments }) {
+        if (!this.$isServer) {
+          console.log(comments)
+        }
         return comments.comments
       },
       skip() {

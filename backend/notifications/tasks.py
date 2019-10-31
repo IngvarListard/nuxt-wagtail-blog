@@ -5,7 +5,6 @@ from backend.core.celery import app
 def test_task(test, test2):
     import logging
     logging.critical('TEST')
-    print(test, test2)
     return test + test
 
 

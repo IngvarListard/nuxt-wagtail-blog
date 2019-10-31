@@ -33,7 +33,6 @@ class Login(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, **kwargs):
-        print(kwargs)
         user = authenticate(info.context, **kwargs)
         if user is not None:
             login(info.context, user)

@@ -1,29 +1,27 @@
 <template>
-  <v-app>
+  <v-app style="background-color: white;">
     <alarms />
     <popups />
     <drawer />
     <app-bar />
     <notifications-drawer v-model="notificationDrawer" />
     <v-content>
-      <v-card>
-        <v-container>
-          <v-row justify="center">
-            <v-col lg="11" md="12" sm="12">
-              <v-row justify="center">
-                <v-col lg="8" md="12" sm="12">
-                  <nuxt />
-                </v-col>
-                <v-col lg="4" md="12" sm="12">
-                  <newsletter-subscribe />
-                  <tags-card class="mt-4" />
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-          <portal-target name="bottom" />
-        </v-container>
-      </v-card>
+      <v-container>
+        <v-row justify="center">
+          <v-col lg="11" md="12" sm="12">
+            <v-row justify="center">
+              <v-col lg="8" md="12" sm="12">
+                <nuxt />
+              </v-col>
+              <v-col lg="4" md="12" sm="12">
+                <newsletter-subscribe />
+                <tags-card class="mt-4" />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <portal-target name="bottom" />
+      </v-container>
     </v-content>
     <v-footer color="indigo" app absolute>
       AAAAA
