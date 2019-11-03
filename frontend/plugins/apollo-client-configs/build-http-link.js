@@ -6,7 +6,8 @@ const production = process.env.NODE_ENV === 'production'
 // Для разработки необходимо указывать credentials: include так как порты серверов разные
 let credentials = 'include'
 // Для разработки используем локальный сервер на другом порту
-let path = 'http://localhost:8000/api_v1'
+const backendServerIP = process.env.BACKEND_SERVER_IP
+let path = backendServerIP ? `http://${backendServerIP}/api_v1` : 'http://localhost:8000/api_v1'
 if (production && process.client) {
   credentials = 'same-origin'
   path = '/api_v1' // если будут ошибки здесь, надо указать полный путь

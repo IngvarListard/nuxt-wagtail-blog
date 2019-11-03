@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- Head image -->
+    <report-to-vk />
     <article-card :article="article" title-size="34px" widgets-size="regular">
       <template #title>
         <span
@@ -47,12 +48,32 @@
 <script>
 import VueMarkdown from 'vue-markdown'
 import utilsMixin from '../../utils/utilsMixin'
+import ReportToVk from '../common/ReportToVK'
 import ArticleCard from './ArticleCard'
 import CodeBlock from './blocks/CodeBlock'
 
 export default {
   name: 'ArticleView',
+  head() {
+    return {
+      meta: [
+        {
+          property: 'vk:image',
+          content: this && this.article.headImage.headerImg.url,
+        },
+        {
+          property: 'og:title',
+          content: this && this.article.title
+        },
+        {
+          property: 'og:type',
+          content: 'article'
+        }
+      ]
+    }
+  },
   components: {
+    ReportToVk,
     ArticleCard,
     VueMarkdown,
     CodeBlock
