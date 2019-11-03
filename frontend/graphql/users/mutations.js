@@ -35,4 +35,15 @@ const SOCIAL_AUTH = gql`
   }
 `
 
-export { LOGIN, LOGOUT, SOCIAL_AUTH }
+const UPDATE_AVATAR = gql`
+  mutation($file: Upload!, $userId: ID!) {
+    updateAvatar(file: $file, userId: $userId) {
+      user {
+        id
+        avatar
+      }
+    }
+  }
+`
+
+export { LOGIN, LOGOUT, SOCIAL_AUTH, UPDATE_AVATAR }

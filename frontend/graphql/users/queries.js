@@ -9,7 +9,20 @@ const allUsers = gql`
     }
   }
 `
-const getCurrentUser = gql`
+
+const USER_FRAGMENT = gql`
+  fragment UserContents on UserType {
+    id
+    isSuperuser
+    firstName
+    lastName
+    email
+    avatar
+    isActive
+  }
+`
+
+const GET_CURRENT_USER = gql`
   {
     getCurrentUser {
       id
@@ -17,9 +30,23 @@ const getCurrentUser = gql`
       firstName
       lastName
       email
+      avatar
       isActive
     }
   }
 `
 
-export { allUsers, getCurrentUser }
+const CURRENT_USER_CLIENT = gql`
+  {
+    getCurrentUser @client {
+      id
+      isSuperuser
+      firstName
+      lastName
+      email
+      avatar
+      isActive
+    }
+  }
+`
+export { GET_CURRENT_USER, CURRENT_USER_CLIENT, allUsers }

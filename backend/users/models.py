@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.crypto import get_random_string, constant_time_compare
 
 from backend.users.managers import UserManager
+from backend.users.utils import avatar_directory_path
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -20,6 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     display_name = models.CharField('Отображаемое имя', max_length=50, null=True, blank=True)
+    avatar = models.ImageField('Аватар', upload_to=avatar_directory_path, null=True, blank=True)
 
     USERNAME_FIELD = 'login'
     EMAIL_FIELD = 'email'

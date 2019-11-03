@@ -45,6 +45,7 @@ export default {
     '@/plugins/auth-mixin.js',
     '@/plugins/portal-vue.js',
     { src: '@/plugins/prism.js', mode: 'client' }
+    // '~/plugins/init-apollo-state.js'
   ],
 
   /*

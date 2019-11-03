@@ -9,6 +9,7 @@
     <v-card-subtitle class="mx-2">
       <slot name="subtitle" />
     </v-card-subtitle>
+    <slot name="avatar" />
     <slot name="body" />
   </v-card>
 </template>

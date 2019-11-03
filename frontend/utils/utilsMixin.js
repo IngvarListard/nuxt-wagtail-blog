@@ -1,5 +1,8 @@
 import moment from 'moment'
+
+const production = process.env.NODE_ENV === 'production'
 moment.locale('ru-ru')
+
 const utilsMixin = {
   methods: {
     resolveUrl(url) {
@@ -12,6 +15,9 @@ const utilsMixin = {
         ? this.resolveUrl(article.headImage.rendition.url)
         : ''
     },
+    formatAvatarUrl(url) {
+      return url ? this.resolveUrl('/media/' + url) : ''
+    },
     formatDate(date) {
       return moment(date).format('ll')
     },
@@ -19,6 +25,15 @@ const utilsMixin = {
       return moment(date)
         .subtract(1, 'days')
         .calendar()
+    },
+    formatUrl(url) {
+      if (!url) {
+        return url
+      }
+      if (url[0] !== '/') {
+        url = '/' + url
+      }
+      return (production ? '' : '//localhost:8000') + url
     }
   }
 }

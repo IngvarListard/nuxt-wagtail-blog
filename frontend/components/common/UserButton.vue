@@ -46,7 +46,7 @@
         }"
       >
         <template #content>
-          <v-switch />
+          <v-switch exact />
         </template>
       </list-item>
     </v-list>

@@ -1,12 +1,11 @@
 import graphene
-import requests
 import graphql_social_auth
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from graphene_file_upload.scalars import Upload
-from social_django.utils import psa
 
-from backend.users.schema.types import BasicUserType
+from backend.users.models import User
+from backend.users.schema.types import BasicUserType, UserType
 
 
 # noinspection PyMethodMayBeStatic
@@ -55,25 +54,24 @@ class Logout(graphene.Mutation):
             return Logout(success=False)
 
 
-# class SocialAuth(graphene.Mutation):
-#     class Meta:
-#         description = 'Войти через социальные сети'
-#
-#     class Arguments:
-#         code = graphene.String(required=True, description='Код активации')
-#
-#     success = graphene.Boolean()
-#
-#     def mutate(self, info, code, redirect_uri):
-#         psa()
-#         vk_uri = 'https://oauth.vk.com/access_token'
-#         params = {
-#             'client_id': '7178463',
-#             'client_secret': 'LYsil52OMOxwYXvo8CRX',
-#             'redirect_uri': redirect_uri,
-#             'code': code
-#         }
-#         r = requests.get(vk_uri, params=params)
+# noinspection PyMethodMayBeStatic
+class UpdateAvatar(graphene.Mutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        user_id = graphene.ID(required=True)
+        file = graphene.Argument(Upload, required=True)
+
+    def mutate(self, info, user_id, file):
+        assert file, 'Необходимо приложить файл'
+        user = info.context.user
+        if not user.is_superuser and int(user_id) != user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого аватара')
+        user = User.objects.get(id=user_id)
+        user.avatar.delete()
+        user.avatar = file
+        user.save()
+        return UpdateAvatar(user=user)
 
 
 class Mutation(graphene.ObjectType):
@@ -81,4 +79,5 @@ class Mutation(graphene.ObjectType):
     login = Login.Field()
     logout = Logout.Field()
     social_auth = graphql_social_auth.SocialAuth.Field()
+    update_avatar = UpdateAvatar.Field()
 

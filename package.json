@@ -34,7 +34,6 @@
     "nuxt": "^2.0.0",
     "portal-vue": "^2.1.6",
     "prismjs": "^1.17.1",
-    "vue-avatar-editor-improved": "^1.0.4",
     "vue-markdown": "^2.2.4",
     "vue-native-websocket": "^2.0.13",
     "vue-notification": "^1.3.16",

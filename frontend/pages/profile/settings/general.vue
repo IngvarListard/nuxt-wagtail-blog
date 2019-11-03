@@ -24,6 +24,7 @@
 import UserInfo from '../../../components/settings/general/UserInfo'
 import UserContacts from '../../../components/settings/general/UserContacts'
 import Bio from '../../../components/settings/general/Bio'
+
 export default {
   name: 'General',
   components: { Bio, UserContacts, UserInfo },

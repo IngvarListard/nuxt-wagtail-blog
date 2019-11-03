@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Promise } from 'q'
 import { LOGIN, LOGOUT } from '@/graphql/users/mutations'
-import { getCurrentUser } from '@/graphql/users/queries'
+import { GET_CURRENT_USER } from '@/graphql/users/queries'
 
 function apollo(ctx) {
   return ctx.app.apolloProvider.defaultClient
@@ -69,10 +69,11 @@ export const actions = {
   getCurrentUser(ctx) {
     return apollo(this)
       .query({
-        query: getCurrentUser,
+        query: GET_CURRENT_USER,
         fetchPolicy: 'no-cache'
       })
       .then(({ data }) => {
+        console.log('GOT')
         ctx.commit('setUser', data.getCurrentUser)
       })
   },
