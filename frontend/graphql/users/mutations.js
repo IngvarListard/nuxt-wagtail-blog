@@ -70,4 +70,22 @@ const UPDATE_USER_INFO = gql`
   ${USER_FRAGMENT}
 `
 
-export { LOGIN, LOGOUT, SOCIAL_AUTH, UPDATE_AVATAR, UPDATE_USER_INFO }
+const UPDATE_USER_EMAIL = gql`
+  mutation($id: ID!, $email: String) {
+    updateUserEmail(id: $id, email: $email) {
+      user {
+        ...UserContents
+      }
+    }
+  }
+  ${USER_FRAGMENT}
+`
+
+export {
+  LOGIN,
+  LOGOUT,
+  SOCIAL_AUTH,
+  UPDATE_AVATAR,
+  UPDATE_USER_INFO,
+  UPDATE_USER_EMAIL
+}

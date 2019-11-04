@@ -63,10 +63,26 @@ class UpdateAvatar(graphene.Mutation):
         return UpdateAvatar(user=user)
 
 
-# class UpdateEmail(graphene.Mutation):
-#     ...
-#
-#
+# noinspection PyMethodMayBeStatic
+class UpdateUserEmail(graphene.Mutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        id = graphene.ID(required=True)
+        email = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        current_user = info.context.user
+        user_id = kwargs.pop('id')
+        if not current_user.is_superuser and int(user_id) != current_user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого email\'a')
+        # TODO вставить арссылку писем с подтверждением для смены почты
+        user = User.objects.get(id=user_id)
+        user.email = kwargs.pop('email')
+        user.save()
+        return UpdateUserEmail(user=user)
+
+
 # class UpdatePassword(graphene.Mutation):
 #     ...
 #
@@ -99,4 +115,5 @@ class Mutation(graphene.ObjectType):
     social_auth = graphql_social_auth.SocialAuth.Field()
     update_avatar = UpdateAvatar.Field()
     update_user_info = UpdateUserInfo.Field()
+    update_user_email = UpdateUserEmail.Field()
 
