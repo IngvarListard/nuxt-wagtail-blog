@@ -22,17 +22,7 @@
         <v-divider />
         <city-field />
         <v-divider />
-        <v-list-item @click="">
-          <v-list-item-action class="custom-list-action font-weight-bold"
-            >ОТОБРАЖАЕМОЕ ИМЯ</v-list-item-action
-          >
-          <v-list-item-content>{{ user.displayName }}</v-list-item-content>
-          <v-list-item-action>
-            <v-btn icon>
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
+        <display-name-field :user="user" />
       </v-list>
     </template>
   </settings-card>
@@ -47,10 +37,12 @@ import BirthdayField from './BirthdayField'
 import PasswordField from './PasswordField'
 import CityField from './CityField'
 import SettingsCard from './SettingsCard'
+import DisplayNameField from "./DisplayNameField";
 
 export default {
   name: 'UserInfo',
   components: {
+    DisplayNameField,
     SettingsCard,
     CityField,
     PasswordField,

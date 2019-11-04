@@ -27,10 +27,10 @@
 
 <script>
 import _ from 'lodash'
+import { CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
 import Comment from '../../comments/Comment'
 import SettingsCard from './SettingsCard'
 import settingsMixin from './general-settings-mixin'
-import { CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
 
 export default {
   name: 'Bio',
