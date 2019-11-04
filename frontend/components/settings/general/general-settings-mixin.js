@@ -8,11 +8,11 @@ export default {
       lastName = null,
       bio = null,
       displayName = null,
-      options = {}
+      options = { loading: 0 }
     }) {
       options.loading += 1
       options.dialog = false
-      this.$apollo
+      return this.$apollo
         .mutate({
           mutation: UPDATE_USER_INFO,
           variables: {

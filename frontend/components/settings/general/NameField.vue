@@ -32,7 +32,9 @@
         <v-divider />
         <v-card-actions>
           <v-spacer />
-          <v-btn outlined color="error" @click="options.dialog = false">Отмена</v-btn>
+          <v-btn outlined color="error" @click="options.dialog = false"
+            >Отмена</v-btn
+          >
           <v-btn text color="success" :disabled="!valid" @click="save"
             >Сохранить</v-btn
           >
@@ -48,7 +50,11 @@
           $$user.lastName}`
       }}</v-list-item-content>
       <v-list-item-action>
-        <v-btn icon :loading="options.loading > 0" @click="options.dialog = true">
+        <v-btn
+          icon
+          :loading="options.loading > 0"
+          @click="options.dialog = true"
+        >
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </v-list-item-action>

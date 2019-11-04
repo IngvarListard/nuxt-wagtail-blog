@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style scoped>
-.icon-flipped {
+  .icon-flipped {
   transform: scaleX(-1);
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

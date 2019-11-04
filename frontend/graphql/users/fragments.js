@@ -10,5 +10,6 @@ export const USER_FRAGMENT = gql`
     isActive
     displayName
     avatar
+    bio
   }
 `

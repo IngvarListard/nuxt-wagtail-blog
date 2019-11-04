@@ -12,7 +12,7 @@ const GET_CURRENT_USER = gql`
 
 const CURRENT_USER_CLIENT = gql`
   {
-    getCurrentUser @client {
+    user: getCurrentUser @client {
       ...UserContents
     }
   }

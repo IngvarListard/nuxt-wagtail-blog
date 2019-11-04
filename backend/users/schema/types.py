@@ -20,6 +20,7 @@ class UserType(graphene.Interface):
     is_superuser = graphene.String()
     display_name = graphene.String()
     avatar = graphene.String()
+    bio = graphene.String()
 
     def resolve_avatar(self):
         if self.avatar:
@@ -34,4 +35,4 @@ class BasicUserType(graphene_django.DjangoObjectType):
         model = User
         interface = (UserType,)
         description = 'Объект пользователя с базовой информацией'
-        only_fields = ('id', 'first_name', 'last_name', 'is_active', 'is_superuser', 'email', 'display_name', 'avatar')
+        only_fields = ('id', 'first_name', 'last_name', 'is_active', 'is_superuser', 'email', 'display_name', 'avatar', 'bio')

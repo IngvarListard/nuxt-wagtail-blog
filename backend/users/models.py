@@ -22,6 +22,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     display_name = models.CharField('Отображаемое имя', max_length=50, null=True, blank=True)
     avatar = models.ImageField('Аватар', upload_to=avatar_directory_path, null=True, blank=True)
+    bio = models.TextField('О себе', max_length=500, blank=True, null=True)
 
     USERNAME_FIELD = 'login'
     EMAIL_FIELD = 'email'

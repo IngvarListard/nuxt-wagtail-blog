@@ -15,7 +15,6 @@
                     color="primary"
                     class="transition-fast-in-fast-out"
                     width="100%"
-                    @click.self.exact="edit = !edit"
                     >Обновить</v-btn
                   >
                 </v-expand-transition>

@@ -16,7 +16,7 @@
         <v-divider />
         <name-field :user="user" />
         <v-divider />
-        <birthday-field />
+        <birthday-field :user="user" />
         <v-divider />
         <password-field />
         <v-divider />
