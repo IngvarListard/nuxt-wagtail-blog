@@ -8,6 +8,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider />
+      <v-subheader>НАВИГАЦИЯ</v-subheader>
       <template v-for="(btn, i) of buttons">
         <v-list-group
           v-if="btn.categories && btn.categories.length > 0"
@@ -24,6 +25,8 @@
         <list-item v-else :key="i" :btn="btn" />
       </template>
       <v-divider />
+      <!--suppress CheckEmptyScriptTag -->
+      <portal-target name="drawer" />
       <!-- Присоединиться -->
       <v-list-item v-if="!$$user.loggedIn">
         <v-list-item-content>

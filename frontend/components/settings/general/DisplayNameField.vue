@@ -5,7 +5,15 @@
     >
     <v-list-item-content>
       <span v-if="!edit">{{ user.displayName }}</span>
-      <v-text-field v-else v-model="innerUser.displayName" outlined solo flat hide-details class="mt-3" />
+      <v-text-field
+        v-else
+        v-model="innerUser.displayName"
+        outlined
+        solo
+        flat
+        hide-details
+        class="mt-3"
+      />
     </v-list-item-content>
     <v-list-item-action>
       <v-btn v-if="!edit" icon @click="edit = true">
