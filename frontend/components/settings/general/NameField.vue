@@ -1,6 +1,6 @@
 <template>
   <v-form v-model="valid">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="options.dialog" width="500">
       <v-card>
         <v-card-title>Изменение имени</v-card-title>
         <v-card-text>
@@ -32,7 +32,7 @@
         <v-divider />
         <v-card-actions>
           <v-spacer />
-          <v-btn outlined color="error" @click="dialog = false">Отмена</v-btn>
+          <v-btn outlined color="error" @click="options.dialog = false">Отмена</v-btn>
           <v-btn text color="success" :disabled="!valid" @click="save"
             >Сохранить</v-btn
           >
@@ -48,7 +48,7 @@
           $$user.lastName}`
       }}</v-list-item-content>
       <v-list-item-action>
-        <v-btn icon :loading="loading > 0" @click="dialog = true">
+        <v-btn icon :loading="options.loading > 0" @click="options.dialog = true">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
       </v-list-item-action>
@@ -79,6 +79,10 @@ export default {
       dialog: false,
       valid: true,
       loading: 0,
+      options: {
+        dialog: false,
+        loading: 0
+      },
       innerUser: {
         id: null,
         firstName: '',
@@ -97,9 +101,8 @@ export default {
   methods: {
     save() {
       this.saveUser({
-        ...this.user,
-        dialog: this.dialog,
-        loading: this.loading
+        ...this.innerUser,
+        options: this.options
       })
     }
   }

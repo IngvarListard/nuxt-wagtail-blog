@@ -1,52 +1,21 @@
 import gql from 'graphql-tag'
-
-const allUsers = gql`
-  {
-    allUsers {
-      id
-      firstName
-      lastName
-    }
-  }
-`
-
-const USER_FRAGMENT = gql`
-  fragment UserContents on UserType {
-    id
-    isSuperuser
-    firstName
-    lastName
-    email
-    avatar
-    isActive
-  }
-`
+import { USER_FRAGMENT } from './fragments'
 
 const GET_CURRENT_USER = gql`
   {
     getCurrentUser {
-      id
-      isSuperuser
-      firstName
-      lastName
-      email
-      avatar
-      isActive
+      ...UserContents
     }
   }
+  ${USER_FRAGMENT}
 `
 
 const CURRENT_USER_CLIENT = gql`
   {
     getCurrentUser @client {
-      id
-      isSuperuser
-      firstName
-      lastName
-      email
-      avatar
-      isActive
+      ...UserContents
     }
   }
+  ${USER_FRAGMENT}
 `
-export { GET_CURRENT_USER, CURRENT_USER_CLIENT, allUsers }
+export { GET_CURRENT_USER, CURRENT_USER_CLIENT }

@@ -1,17 +1,5 @@
 import gql from 'graphql-tag'
-
-const USER_FRAGMENT = gql`
-  fragment UserContents on BasicUserType {
-    id
-    isSuperuser
-    firstName
-    lastName
-    email
-    isActive
-    displayName
-    avatar
-  }
-`
+import { USER_FRAGMENT } from './fragments'
 
 const LOGIN = gql`
   mutation($login: String!, $password: String!) {

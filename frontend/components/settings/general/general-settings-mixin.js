@@ -8,11 +8,10 @@ export default {
       lastName = null,
       bio = null,
       displayName = null,
-      dialog = false,
-      loading = 0
+      options = {}
     }) {
-      loading += 1
-      dialog = false
+      options.loading += 1
+      options.dialog = false
       this.$apollo
         .mutate({
           mutation: UPDATE_USER_INFO,
@@ -25,10 +24,10 @@ export default {
           }
         })
         .then(() => {
-          loading -= 1
+          options.loading -= 1
         })
         .catch(e => {
-          loading -= 1
+          options.loading -= 1
           throw new Error(e)
         })
     }
