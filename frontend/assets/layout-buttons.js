@@ -39,6 +39,10 @@ export const buttons = [
       {
         name: 'Хард',
         route: '/'
+      },
+      {
+        name: 'Мероприятия',
+        route: '/events'
       }
     ]
   }
