@@ -25,10 +25,10 @@
 
 <script>
 import SettingsCard from './SettingsCard'
-import EmailField from "./EmailField";
+import EmailField from './EmailField'
 export default {
   name: 'UserContacts',
-  components: {EmailField, SettingsCard },
+  components: { EmailField, SettingsCard },
   props: {
     width: {
       type: [Number, String],

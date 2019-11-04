@@ -69,7 +69,7 @@ class UpdateUserEmail(graphene.Mutation):
 
     class Arguments:
         id = graphene.ID(required=True)
-        email = graphene.String()
+        email = graphene.String(required=True)
 
     def mutate(self, info, **kwargs):
         current_user = info.context.user
@@ -82,10 +82,6 @@ class UpdateUserEmail(graphene.Mutation):
         user.save()
         return UpdateUserEmail(user=user)
 
-
-# class UpdatePassword(graphene.Mutation):
-#     ...
-#
 
 class UpdateUserInfo(graphene.Mutation):
     user = graphene.Field(BasicUserType)
@@ -107,6 +103,25 @@ class UpdateUserInfo(graphene.Mutation):
             setattr(user, attr, value)
         user.save()
         return UpdateUserInfo(user=user)
+
+
+class UpdateUserPassword(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        id = graphene.ID(required=True)
+        password = graphene.String(required=True)
+
+    def mutate(self, info, **kwargs):
+        # TODO подтверждение о смене пароля на почту
+        current_user = info.context.user
+        user_id = kwargs.pop('id')
+        if not current_user.is_superuser and int(user_id) != current_user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого пароля')
+        user = User.objects.get(id=user_id)
+        user.set_password(kwargs.pop('password'))
+        user.save()
+        return UpdateUserPassword(success=True)
 
 
 class Mutation(graphene.ObjectType):
