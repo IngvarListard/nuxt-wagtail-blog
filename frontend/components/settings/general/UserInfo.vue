@@ -14,7 +14,7 @@
     <template #body>
       <v-list class="pb-0 mb-0">
         <v-divider />
-        <name-field />
+        <name-field :user="user" />
         <v-divider />
         <birthday-field />
         <v-divider />
@@ -27,6 +27,11 @@
             >ОТОБРАЖАЕМОЕ ИМЯ</v-list-item-action
           >
           <v-list-item-content>{{ user.displayName }}</v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon>
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </v-list-item-action>
         </v-list-item>
       </v-list>
     </template>
@@ -34,6 +39,7 @@
 </template>
 
 <script>
+import utilsMixin from '../../../utils/utilsMixin'
 import { GET_CURRENT_USER } from '../../../graphql/users/queries'
 import AvatarField from './AvatarField'
 import NameField from './NameField'
@@ -41,7 +47,6 @@ import BirthdayField from './BirthdayField'
 import PasswordField from './PasswordField'
 import CityField from './CityField'
 import SettingsCard from './SettingsCard'
-import utilsMixin from "../../../utils/utilsMixin";
 
 export default {
   name: 'UserInfo',
@@ -53,7 +58,7 @@ export default {
     NameField,
     AvatarField
   },
-  mixins: [ utilsMixin ],
+  mixins: [utilsMixin],
   props: {
     width: {
       type: [Number, String],
@@ -68,11 +73,8 @@ export default {
   apollo: {
     user: {
       query: GET_CURRENT_USER,
-      update(data) {
-        console.log(data.getCurrentUser.avatar)
-        console.log(this.formatAvatarUrl(data.getCurrentUser.avatar))
-        console.log(data)
-        return data.getCurrentUser
+      update({ getCurrentUser }) {
+        return getCurrentUser
       },
       prefetch: false
     }

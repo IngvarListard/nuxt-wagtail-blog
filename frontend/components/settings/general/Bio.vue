@@ -1,7 +1,15 @@
 <template>
-  <settings-card>
+  <settings-card :title-class="['my-1', 'py-1']">
     <template #title>
-      Коротко о себе
+      <v-row align="center" dense class="my-0 py-0">
+        <div>Коротко о себе</div>
+        <v-spacer />
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-row>
     </template>
     <template #body>
       <v-card-text>

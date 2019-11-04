@@ -2,7 +2,7 @@
   <div style="max-width: 350px;">
     <v-row :justify="justify">
       <v-hover #default="{ hover }">
-        <v-card outlined>
+        <v-card outlined @click="edit = !edit">
           <v-avatar class="profile" color="grey" size="164" tile>
             <v-img :src="formatAvatarUrl(user.avatar)">
               <v-row justify="center" align="end">
@@ -15,7 +15,7 @@
                     color="primary"
                     class="transition-fast-in-fast-out"
                     width="100%"
-                    @click="edit = !edit"
+                    @click.self.exact="edit = !edit"
                     >Обновить</v-btn
                   >
                 </v-expand-transition>
@@ -44,9 +44,14 @@
     </v-row>
     <v-row dense justify="center">
       <v-expand-transition>
-        <v-btn v-if="newAvatar && edit" color="success" @click="sendAvatar"
-          >Отправить</v-btn
+        <v-btn
+          v-if="newAvatar && edit"
+          color="success"
+          depressed
+          @click="sendAvatar"
         >
+          Отправить
+        </v-btn>
       </v-expand-transition>
     </v-row>
   </div>
@@ -80,14 +85,23 @@ export default {
   },
   methods: {
     sendAvatar() {
-      this.$apollo.mutate({
-        mutation: UPDATE_AVATAR,
-        variables: {
-          userId: this.$$user.id,
-          file: this.newAvatar
-        },
-        context: { hasUpload: true }
-      })
+      this.$apollo
+        .mutate({
+          mutation: UPDATE_AVATAR,
+          variables: {
+            userId: this.$$user.id,
+            file: this.newAvatar
+          },
+          context: { hasUpload: true }
+        })
+        .then(() => {
+          this.newAvatar = null
+          this.edit = false
+        })
+        .catch(e => {
+          this.newAvatar = null
+          throw new Error(e)
+        })
     }
   }
 }

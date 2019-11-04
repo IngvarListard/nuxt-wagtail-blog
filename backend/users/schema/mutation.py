@@ -9,17 +9,6 @@ from backend.users.schema.types import BasicUserType, UserType
 
 
 # noinspection PyMethodMayBeStatic
-class CreateUser(graphene.Mutation):
-    test = graphene.String()
-
-    class Arguments:
-        a = graphene.String()
-
-    def mutate(self, info, a):
-        return a
-
-
-# noinspection PyMethodMayBeStatic
 class Login(graphene.Mutation):
     user = graphene.Field(BasicUserType)
     success = graphene.Boolean()
@@ -74,10 +63,40 @@ class UpdateAvatar(graphene.Mutation):
         return UpdateAvatar(user=user)
 
 
+# class UpdateEmail(graphene.Mutation):
+#     ...
+#
+#
+# class UpdatePassword(graphene.Mutation):
+#     ...
+#
+
+class UpdateUserInfo(graphene.Mutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        id = graphene.ID(required=True)
+        first_name = graphene.String()
+        last_name = graphene.String()
+        bio = graphene.String()
+        display_name = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        current_user = info.context.user
+        user_id = kwargs.pop('id')
+        if not current_user.is_superuser and int(user_id) != current_user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого аватара')
+        user = User.objects.get(id=user_id)
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+        user.save()
+        return UpdateUserInfo(user=user)
+
+
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
     login = Login.Field()
     logout = Logout.Field()
     social_auth = graphql_social_auth.SocialAuth.Field()
     update_avatar = UpdateAvatar.Field()
+    update_user_info = UpdateUserInfo.Field()
 
