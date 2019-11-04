@@ -13,16 +13,28 @@
               <strong style="font-size: 18px;">{{
                 comment.user.displayName
               }}</strong>
-              {{ comment.time }}
+              {{ formatCommentDate(comment.time) }}
             </div>
-            {{ comment.text }}
+            <comment :text="comment.text" style="font-size: 16px;" />
           </div>
-          Ответить
+          <span
+            style="cursor: pointer;"
+            @click="comment.showReplyBox = !comment.showReplyBox"
+            >Ответить</span
+          >
           <vote-counter
             :instance-id="comment.id"
             :votes-count="comment.votesCount"
-            vote-to="comments.Comment"
+            model-name="comments.Comment"
           />
+          <v-slide-y-transition>
+            <comment-input
+              v-if="comment.showReplyBox"
+              model-name="comments.comment"
+              :instance-id="instanceId"
+              :parent-id="comment.id"
+            />
+          </v-slide-y-transition>
           <br />
           <template v-if="comment.childCount > 0">
             <v-icon class="icon-flipped my-2">mdi-keyboard-return</v-icon>
@@ -37,10 +49,16 @@
 </template>
 
 <script>
+import utilsMixin from '../../utils/utilsMixin'
 import VoteCounter from '../widgets/VoteCounter'
+import { formatComment } from '../../utils'
+import Comment from './Comment'
+import CommentInput from './CommentInput'
+
 export default {
   name: 'CommentBlock',
-  components: { VoteCounter },
+  components: { CommentInput, VoteCounter, Comment },
+  mixins: [utilsMixin],
   props: {
     comment: {
       type: Object,
@@ -56,13 +74,22 @@ export default {
         votesCount: { likes: 0, dislikes: 0, userVote: null },
         childCount: 0
       })
+    },
+    instanceId: {
+      type: [Number, String],
+      default: null
+    }
+  },
+  data() {
+    return {
+      formatComment
     }
   }
 }
 </script>
 
 <style scoped>
-.icon-flipped {
+  .icon-flipped {
   transform: scaleX(-1);
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

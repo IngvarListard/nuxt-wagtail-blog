@@ -13,6 +13,12 @@ const COMMENT_FRAGMENT = gql`
     parent {
       id
     }
+    votesCount {
+      id
+      likes
+      dislikes
+      userVote
+    }
     changed
     deleted
     childCount

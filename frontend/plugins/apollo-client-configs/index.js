@@ -34,14 +34,14 @@ export default ctx => {
     fragmentMatcher,
     cacheRedirects
   })
-  if (process.client) {
-    if (typeof window !== 'undefined') {
-      const state = window.__APOLLO_STATE__
-      if (state) {
-        cache.restore(state.defaultClient)
-      }
-    }
-  }
+  // if (process.client) {
+  //   if (typeof window !== 'undefined') {
+  //     const state = window.__APOLLO_CLIENT__
+  //     if (state) {
+  //       cache.restore(state)
+  //     }
+  //   }
+  // }
 
   const middlewares = from([
     csrfMiddleware,

@@ -1,13 +1,24 @@
 <template>
   <div>
-    <div class="headline my-2">Комментарии 2817</div>
+    <div class="headline my-2">Комментарии {{ comments.length }}</div>
     <v-divider />
-    <comment-input :model-name="modelName" :instance-id="instanceId" />
+    <comment-input
+      v-if="$$user.loggedIn"
+      :model-name="modelName"
+      :instance-id="instanceId"
+    />
+    <v-card v-else outlined class="my-4 mx-4">
+      <v-card-title>
+        <n-link to="/login">Войдите </n-link>, чтобы иметь возможность оставлять
+        комментарии
+      </v-card-title>
+    </v-card>
     <template v-if="comments.length > 0">
       <comment-block
         v-for="comment of comments"
         :key="comment.id"
         :comment="comment"
+        :instance-id="instanceId"
       />
     </template>
     <div v-else class="headline ma-4">
@@ -17,6 +28,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { GET_COMMENTS } from '../../graphql/comments/queries'
 import CommentBlock from './CommentBlock'
 import CommentInput from './CommentInput'
@@ -54,7 +66,11 @@ export default {
         }
       },
       update({ comments }) {
-        return comments.comments
+        const commentsCopy = _.cloneDeep(comments.comments)
+        commentsCopy.forEach(comment => {
+          this.$set(comment, 'showReplyBox', false)
+        })
+        return commentsCopy
       },
       skip() {
         return !this.instanceId || !this.modelName

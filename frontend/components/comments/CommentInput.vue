@@ -36,7 +36,11 @@ export default {
     },
     instanceId: {
       type: [Number, String],
-      default: -1
+      default: null
+    },
+    parentId: {
+      type: [Number, String],
+      default: null
     }
   },
   data() {
@@ -49,7 +53,8 @@ export default {
       const variables = {
         text: this.text,
         modelName: this.modelName,
-        instanceId: this.instanceId
+        instanceId: this.instanceId,
+        parentId: this.parentId
       }
       this.$apollo
         .mutate({

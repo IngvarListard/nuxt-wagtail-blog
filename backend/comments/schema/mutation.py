@@ -13,6 +13,7 @@ class CreateComment(graphene.Mutation):
         model_name = graphene.String(required=True)
         instance_id = graphene.ID(required=True)
         text = graphene.String(required=True)
+        parent_id = graphene.ID()
 
     def mutate(self, info, **kwargs):
         current_user = info.context.user

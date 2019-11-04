@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: white;">
     <alarms />
     <drawer />
     <app-bar />

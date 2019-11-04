@@ -13,7 +13,7 @@ class Vote(graphene.Mutation):
     class Arguments:
         instance_id = graphene.ID()
         action = graphene.String()
-        vote_to = graphene.String()
+        model_name = graphene.String()
 
     def mutate(self, info, **kwargs):
         if not info.context.user.is_authenticated:
@@ -22,13 +22,17 @@ class Vote(graphene.Mutation):
             user_id=info.context.user.id,
             instance=kwargs['instance_id'],
             action=kwargs['action'],
-            model_name=kwargs['vote_to']
+            model_name=kwargs['model_name']
         )
         voter.execute()
 
-        votes_counter = CountVotes(info.context.user.id, voter.instance.votes)
+        votes_counter = CountVotes(
+            info.context.user.id,
+            kwargs['model_name'],
+            instance_id=kwargs['instance_id']
+        )
         votes_count = votes_counter.execute()
-        votes_count['id'] = f'__{kwargs["vote_to"]}_{kwargs["instance_id"]}'
+        votes_count['id'] = f'__{kwargs["model_name"].lower()}_{kwargs["instance_id"]}'
         return Vote(votes_count=votes_count)
 
 

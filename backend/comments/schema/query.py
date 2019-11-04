@@ -6,9 +6,11 @@ from backend.comments.schema.types import PagedCommentsNode
 
 
 # noinspection PyMethodMayBeStatic
+from backend.comments.services import GetComments
 from backend.core.utils import id_generator
 
 
+# noinspection PyMethodMayBeStatic
 class Query(graphene.ObjectType):
     comments = graphene.Field(
         PagedCommentsNode,
@@ -19,17 +21,10 @@ class Query(graphene.ObjectType):
     )
 
     def resolve_comments(self, info, skip, first, **kwargs):
-        app, model = kwargs['model_name'].lower().split('.')
-        instance_comments = (
-            Comment.objects
-                .filter(object_id=kwargs['instance_id'],
-                        content_type__app_label=app,
-                        content_type__model=model,
-                        parent__isnull=True)
-                .annotate(child_count=Count('children'))
-            )
-        total_count = instance_comments.count()
-        paged_comments = instance_comments[skip:][:first]
+        get_comments = GetComments(user_id=info.context.user.id, **kwargs)
+        comments = get_comments.execute()
+        total_count = comments.count()
+        paged_comments = comments[skip:][:first]
         paged_comments_node = PagedCommentsNode(
             comments=paged_comments,
             total_count=total_count
@@ -40,5 +35,4 @@ class Query(graphene.ObjectType):
             kwargs['instance_id']
         )
         paged_comments_node.id = id_
-        print('PAGED COMMENTS', paged_comments)
         return paged_comments_node

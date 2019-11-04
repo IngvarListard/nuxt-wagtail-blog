@@ -1,25 +1,21 @@
 import gql from 'graphql-tag'
+import { USER_FRAGMENT } from './fragments'
 
-const allUsers = gql`
-  {
-    allUsers {
-      id
-      firstName
-      lastName
-    }
-  }
-`
-const getCurrentUser = gql`
+const GET_CURRENT_USER = gql`
   {
     getCurrentUser {
-      id
-      isSuperuser
-      firstName
-      lastName
-      email
-      isActive
+      ...UserContents
     }
   }
+  ${USER_FRAGMENT}
 `
 
-export { allUsers, getCurrentUser }
+const CURRENT_USER_CLIENT = gql`
+  {
+    user: getCurrentUser @client {
+      ...UserContents
+    }
+  }
+  ${USER_FRAGMENT}
+`
+export { GET_CURRENT_USER, CURRENT_USER_CLIENT }

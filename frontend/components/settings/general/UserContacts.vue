@@ -11,6 +11,11 @@
         <v-list-item-content>
           project@example.com
         </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+        </v-list-item-action>
       </v-list-item>
       <v-divider />
       <v-list-item @click="">
@@ -20,6 +25,11 @@
         <v-list-item-content>
           vk.com
         </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+        </v-list-item-action>
       </v-list-item>
     </template>
   </settings-card>

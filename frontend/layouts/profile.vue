@@ -1,16 +1,14 @@
 <template>
-  <v-app>
+  <v-app style="background-color: white;">
     <alarms />
     <drawer />
     <app-bar />
     <settings-drawer />
     <v-content>
-      <v-card height="100%">
-        <v-container>
-          <nuxt />
-          <portal-target name="bottom" />
-        </v-container>
-      </v-card>
+      <v-container>
+        <nuxt />
+        <portal-target name="bottom" />
+      </v-container>
     </v-content>
   </v-app>
 </template>

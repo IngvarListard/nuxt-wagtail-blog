@@ -1,23 +1,11 @@
 import graphene
-import requests
 import graphql_social_auth
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from graphene_file_upload.scalars import Upload
-from social_django.utils import psa
 
-from backend.users.schema.types import BasicUserType
-
-
-# noinspection PyMethodMayBeStatic
-class CreateUser(graphene.Mutation):
-    test = graphene.String()
-
-    class Arguments:
-        a = graphene.String()
-
-    def mutate(self, info, a):
-        return a
+from backend.users.models import User
+from backend.users.schema.types import BasicUserType, UserType
 
 
 # noinspection PyMethodMayBeStatic
@@ -33,7 +21,6 @@ class Login(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, **kwargs):
-        print(kwargs)
         user = authenticate(info.context, **kwargs)
         if user is not None:
             login(info.context, user)
@@ -56,30 +43,60 @@ class Logout(graphene.Mutation):
             return Logout(success=False)
 
 
-# class SocialAuth(graphene.Mutation):
-#     class Meta:
-#         description = 'Войти через социальные сети'
+# noinspection PyMethodMayBeStatic
+class UpdateAvatar(graphene.Mutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        user_id = graphene.ID(required=True)
+        file = graphene.Argument(Upload, required=True)
+
+    def mutate(self, info, user_id, file):
+        assert file, 'Необходимо приложить файл'
+        user = info.context.user
+        if not user.is_superuser and int(user_id) != user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого аватара')
+        user = User.objects.get(id=user_id)
+        user.avatar.delete()
+        user.avatar = file
+        user.save()
+        return UpdateAvatar(user=user)
+
+
+# class UpdateEmail(graphene.Mutation):
+#     ...
 #
-#     class Arguments:
-#         code = graphene.String(required=True, description='Код активации')
 #
-#     success = graphene.Boolean()
+# class UpdatePassword(graphene.Mutation):
+#     ...
 #
-#     def mutate(self, info, code, redirect_uri):
-#         psa()
-#         vk_uri = 'https://oauth.vk.com/access_token'
-#         params = {
-#             'client_id': '7178463',
-#             'client_secret': 'LYsil52OMOxwYXvo8CRX',
-#             'redirect_uri': redirect_uri,
-#             'code': code
-#         }
-#         r = requests.get(vk_uri, params=params)
+
+class UpdateUserInfo(graphene.Mutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        id = graphene.ID(required=True)
+        first_name = graphene.String()
+        last_name = graphene.String()
+        bio = graphene.String()
+        display_name = graphene.String()
+
+    def mutate(self, info, **kwargs):
+        current_user = info.context.user
+        user_id = kwargs.pop('id')
+        if not current_user.is_superuser and int(user_id) != current_user.id:
+            raise PermissionDenied('Нет прав на редактирование чужого аватара')
+        user = User.objects.get(id=user_id)
+        for attr, value in kwargs.items():
+            setattr(user, attr, value)
+        user.save()
+        return UpdateUserInfo(user=user)
 
 
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
     login = Login.Field()
     logout = Logout.Field()
     social_auth = graphql_social_auth.SocialAuth.Field()
+    update_avatar = UpdateAvatar.Field()
+    update_user_info = UpdateUserInfo.Field()
 

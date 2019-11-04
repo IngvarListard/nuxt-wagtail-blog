@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { USER_FRAGMENT } from './fragments'
 
 const LOGIN = gql`
   mutation($login: String!, $password: String!) {
@@ -35,4 +36,38 @@ const SOCIAL_AUTH = gql`
   }
 `
 
-export { LOGIN, LOGOUT, SOCIAL_AUTH }
+const UPDATE_AVATAR = gql`
+  mutation($file: Upload!, $userId: ID!) {
+    updateAvatar(file: $file, userId: $userId) {
+      user {
+        id
+        avatar
+      }
+    }
+  }
+`
+
+const UPDATE_USER_INFO = gql`
+  mutation(
+    $id: ID!
+    $firstName: String
+    $lastName: String
+    $bio: String
+    $displayName: String
+  ) {
+    updateUserInfo(
+      id: $id
+      firstName: $firstName
+      lastName: $lastName
+      displayName: $displayName
+      bio: $bio
+    ) {
+      user {
+        ...UserContents
+      }
+    }
+  }
+  ${USER_FRAGMENT}
+`
+
+export { LOGIN, LOGOUT, SOCIAL_AUTH, UPDATE_AVATAR, UPDATE_USER_INFO }

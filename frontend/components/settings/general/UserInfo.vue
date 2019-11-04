@@ -6,39 +6,43 @@
     <template #subtitle>
       Некоторая информация может быть видна другим пользователям
     </template>
+    <template #avatar>
+      <v-row justify="center">
+        <avatar-field :user="user" />
+      </v-row>
+    </template>
     <template #body>
       <v-list class="pb-0 mb-0">
-        <avatar-field />
         <v-divider />
-        <name-field />
+        <name-field :user="user" />
         <v-divider />
-        <birthday-field />
+        <birthday-field :user="user" />
         <v-divider />
         <password-field />
         <v-divider />
         <city-field />
         <v-divider />
-        <v-list-item @click="">
-          <v-list-item-action class="custom-list-action font-weight-bold"
-            >ОТОБРАЖАЕМОЕ ИМЯ</v-list-item-action
-          >
-          <v-list-item-content>##PuSSyDESTROYER$$</v-list-item-content>
-        </v-list-item>
+        <display-name-field :user="user" />
       </v-list>
     </template>
   </settings-card>
 </template>
 
 <script>
+import utilsMixin from '../../../utils/utilsMixin'
+import { GET_CURRENT_USER } from '../../../graphql/users/queries'
 import AvatarField from './AvatarField'
 import NameField from './NameField'
 import BirthdayField from './BirthdayField'
 import PasswordField from './PasswordField'
 import CityField from './CityField'
 import SettingsCard from './SettingsCard'
+import DisplayNameField from "./DisplayNameField";
+
 export default {
   name: 'UserInfo',
   components: {
+    DisplayNameField,
     SettingsCard,
     CityField,
     PasswordField,
@@ -46,10 +50,25 @@ export default {
     NameField,
     AvatarField
   },
+  mixins: [utilsMixin],
   props: {
     width: {
       type: [Number, String],
       default: 800
+    }
+  },
+  data() {
+    return {
+      user: {}
+    }
+  },
+  apollo: {
+    user: {
+      query: GET_CURRENT_USER,
+      update({ getCurrentUser }) {
+        return getCurrentUser
+      },
+      prefetch: false
     }
   }
 }

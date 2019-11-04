@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark style="background-color: white;">
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>

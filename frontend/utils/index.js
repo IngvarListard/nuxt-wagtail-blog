@@ -15,5 +15,11 @@ function isSubscription({ query }) {
     process.client
   )
 }
+function formatComment(text) {
+  function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace)
+  }
+  return replaceAll(text, '\n', '<br />')
+}
 
-export { generateUid, isSubscription }
+export { generateUid, isSubscription, formatComment }
