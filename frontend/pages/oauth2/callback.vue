@@ -17,13 +17,15 @@ export default {
     hash = hash.slice(1, hash.length)
     const params = new URLSearchParams(hash)
     const accessToken = params.get('access_token')
+    const email = params.get('email')
     if (accessToken) {
       this.$apollo
         .mutate({
           mutation: SOCIAL_AUTH,
           variables: {
             provider: 'vk-oauth2',
-            accessToken: params.get('access_token')
+            accessToken,
+            email
           }
         })
         .then(data => {

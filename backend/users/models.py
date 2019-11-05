@@ -26,12 +26,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'login'
     EMAIL_FIELD = 'email'
+    RAW_PASSWORD = None
 
     objects = UserManager()
 
     def set_password(self, raw_password):
         if not raw_password:
             raw_password = User.objects.make_random_password()
+        self.RAW_PASSWORD = raw_password
         salt = get_random_string(64)
         hasher = sha256()
         raw_password = raw_password + '_' + salt

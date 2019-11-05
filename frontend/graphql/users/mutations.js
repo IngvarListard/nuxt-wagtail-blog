@@ -26,11 +26,18 @@ const LOGOUT = gql`
 `
 
 const SOCIAL_AUTH = gql`
-  mutation SocialAuth($provider: String!, $accessToken: String!) {
-    socialAuth(provider: $provider, accessToken: $accessToken) {
+  mutation SocialAuth(
+    $provider: String!
+    $accessToken: String!
+    $email: String
+  ) {
+    socialAuth(provider: $provider, accessToken: $accessToken, email: $email) {
       social {
         uid
         extraData
+      }
+      user {
+        id
       }
     }
   }

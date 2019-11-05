@@ -1,14 +1,18 @@
 import graphene
 import graphql_social_auth
+from django.core.mail import send_mail
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import PermissionDenied
 from graphene_file_upload.scalars import Upload
 
 from backend.users.models import User
-from backend.users.schema.types import BasicUserType, UserType
+from backend.users.schema.types import BasicUserType
 
 
 # noinspection PyMethodMayBeStatic
+from backend.users.tasks import send_user_password
+
+
 class Login(graphene.Mutation):
     user = graphene.Field(BasicUserType)
     success = graphene.Boolean()
@@ -124,10 +128,28 @@ class UpdateUserPassword(graphene.Mutation):
         return UpdateUserPassword(success=True)
 
 
+class SocialAuth(graphql_social_auth.SocialAuthMutation):
+    user = graphene.Field(BasicUserType)
+
+    class Arguments:
+        provider = graphene.String(required=True)
+        access_token = graphene.String(required=True)
+        email = graphene.String()
+
+    @classmethod
+    def resolve(cls, root, info, social, **kwargs):
+        if not social.user.email:
+            social.user.email = kwargs.pop('email', None)
+            social.user.save()
+        if social.user.email and social.user.RAW_PASSWORD:
+            send_user_password(social.user.email, social.user.RAW_PASSWORD).delay()
+        return cls(user=social.user)
+
+
 class Mutation(graphene.ObjectType):
     login = Login.Field()
     logout = Logout.Field()
-    social_auth = graphql_social_auth.SocialAuth.Field()
+    social_auth = SocialAuth.Field()
     update_avatar = UpdateAvatar.Field()
     update_user_info = UpdateUserInfo.Field()
     update_user_email = UpdateUserEmail.Field()
