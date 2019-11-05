@@ -8,7 +8,11 @@ from backend.core.api.graphene_wagtail import TagNode
 
 # noinspection PyMethodMayBeStatic
 class Query(graphene.ObjectType):
-    articles = graphene.List(ArticleNode)
+    articles = graphene.List(
+        ArticleNode,
+        skip=graphene.Int(required=True, description='Пагинация. Сколько объектов пропустить от начала'),
+        first=graphene.Int(required=True, description='Пагинация. Количество объектов на странице'),
+    )
     article = graphene.Field(
         ArticleNode,
         slug=graphene.String(required=True),
@@ -16,8 +20,8 @@ class Query(graphene.ObjectType):
     random_article = graphene.Field(ArticleNode)
     tags = graphene.List(TagNode)
 
-    def resolve_articles(self, info):
-        return BlogPage.objects.live()[:12]
+    def resolve_articles(self, info, skip, first):
+        return BlogPage.objects.live()[skip:][:first]
 
     def resolve_article(self, info, slug):
         # TODO: добавить редиректы на статьи, чей слаг был изменен

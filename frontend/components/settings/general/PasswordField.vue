@@ -58,9 +58,11 @@
 <script>
 import _ from 'lodash'
 import { CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
+import textRules from '../../../utils/text-rules'
 
 export default {
   name: 'PasswordField',
+  mixins: [textRules],
   data() {
     return {
       dialog: false,
@@ -88,6 +90,11 @@ export default {
       deep: true
     }
   },
+  methods: {
+    save() {
+
+    }
+  }
 }
 </script>
 

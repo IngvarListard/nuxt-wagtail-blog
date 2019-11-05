@@ -90,8 +90,8 @@ const GET_ARTICLE = gql`
 `
 
 const GET_ARTICLES = gql`
-  {
-    articles {
+  query($skip: Int!, $first: Int!) {
+    articles(skip: $skip, first: $first) {
       ...ArticleContents
     }
   }
