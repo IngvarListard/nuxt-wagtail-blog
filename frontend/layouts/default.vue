@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
 import TagsCard from '../components/common/home/TagsCard'
 import AppBar from '@/components/common/AppBar'
@@ -58,6 +59,35 @@ export default {
     drawer: false,
     notificationDrawer: false
   }),
+  apollo: {
+    $subscribe: {
+      // When a tag is added
+      tagAdded: {
+        query: gql`
+          subscription {
+            notifications {
+              notification {
+                id
+                purpose {
+                  id
+                }
+                created {
+                  id
+                }
+                date
+                text
+                confirmed
+                type
+              }
+            }
+          }
+        `,
+        result({ data }) {
+          console.log(data)
+        }
+      }
+    }
+  },
   methods: {
     logout() {
       this.$$auth.logout()

@@ -9,11 +9,6 @@ from backend.core.api.graphene_wagtail import TagNode
 
 # noinspection PyMethodMayBeStatic
 class Query(graphene.ObjectType):
-    # articles = graphene.List(
-    #     ArticleNode,
-    #     skip=graphene.Int(required=True, description='Пагинация. Сколько объектов пропустить от начала'),
-    #     first=graphene.Int(required=True, description='Пагинация. Количество объектов на странице'),
-    # )
     articles_page = graphene.Field(
         PagedArticlesNode,
         page=graphene.Int(required=True, description='Номер страницы'),
@@ -26,9 +21,6 @@ class Query(graphene.ObjectType):
     random_article = graphene.Field(ArticleNode)
     tags = graphene.List(TagNode)
 
-    # def resolve_articles(self, info, skip, first):
-    #     return BlogPage.objects.live()[skip:][:first]
-    #
     def resolve_articles_page(self, info, page, per_page):
         pages = Paginator(BlogPage.objects.live(), per_page)
         articles = pages.get_page(page)

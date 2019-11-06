@@ -1,9 +1,11 @@
-from asgiref.sync import async_to_sync
-from channels.generic.websocket import WebsocketConsumer, JsonWebsocketConsumer
 import json
+
+from asgiref.sync import async_to_sync
+from channels.generic.websocket import JsonWebsocketConsumer
 
 
 class NotificationConsumer(JsonWebsocketConsumer):
+    """Пример стандартного consumer'a channels"""
     # noinspection PyAttributeOutsideInit
     def connect(self):
         self.user = self.scope['user']
