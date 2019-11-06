@@ -6,6 +6,7 @@ from backend.blog.models import BlogPage, Recipe
 from backend.blog.service import CountVotes
 from backend.comments.schema.types import CommentNode
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
+from backend.core.schema.types import PagedNode
 from backend.votes.schema.types import VoteNode, VotesCountNode
 
 
@@ -100,3 +101,6 @@ class ArticleNode(DjangoObjectType):
         only_fields = ['id', 'title', 'date', 'intro', 'image', 'slug', 'head_image', 'tags', 'views', 'votes',
                        'comments']
 
+
+class PagedArticlesNode(PagedNode):
+    articles = graphene.List(ArticleNode)

@@ -1,12 +1,15 @@
 export const state = () => ({
-  skip: 0,
-  first: 12
+  page: 1,
+  perPage: 12,
+  hasNext: true
 })
 
 export const mutations = {
-  increaseSkip(state, amount) {
-    state.skip += amount
-    console.log('INCREASED', amount, state.skip)
+  setPage(state, page) {
+    state.page = page
+  },
+  setHasNext(state, hasNext) {
+    state.hasNext = hasNext
   }
 }
 

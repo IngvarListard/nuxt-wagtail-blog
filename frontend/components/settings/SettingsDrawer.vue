@@ -89,7 +89,6 @@ export default {
       const breakpoints = ['lg', 'md']
       for (let i = 0; i < breakpoints.length; i++) {
         if (this.$vuetify.breakpoint.name === breakpoints[i]) {
-          console.log('DONE')
           return true
         }
       }

@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { GET_ARTICLES } from '../../graphql/blog/queries'
-import ArticleCard from './ArticleCard'
 import { mapState, mapMutations } from 'vuex'
+import { GET_PAGED_ARTICLES } from '../../graphql/blog/queries'
+import ArticleCard from './ArticleCard'
 
 export default {
   name: 'Feed',
@@ -40,50 +40,66 @@ export default {
   data() {
     return {
       articles: [],
-      loading: 0,
-      test: 0
+      loading: 0
     }
   },
   apollo: {
     articles() {
-      const skip = 0
-      const first = 12
+      const page = 1
+      const perPage = 12
       return {
-        query: GET_ARTICLES,
+        query: GET_PAGED_ARTICLES,
         variables: {
-          skip,
-          first
+          page,
+          perPage
         },
         loadingKey: 'loading',
-        fetchPolicy: 'cache-first'
+        fetchPolicy: 'cache-first',
+        update({ articlesPage }) {
+          this.setHasNext = articlesPage.hasNext
+          return articlesPage.articles
+        }
       }
     }
   },
   computed: {
     ...mapState({
-      skip: state => state.articles.skip,
-      first: state => state.articles.skip
+      page: state => state.articles.page,
+      perPage: state => state.articles.perPage,
+      hasNext: state => state.articles.hasNext
     })
   },
   methods: {
     ...mapMutations({
-      increaseSkip: 'articles/increaseSkip'
+      setPage: 'articles/setPage',
+      setHasNext: 'articles/setHasNext'
     }),
     onIntersect(entries, observer, isIntersecting) {
-      if (this.$apollo.queries.articles.loading || !isIntersecting) return
-      this.increaseSkip(12)
+      if (
+        this.$apollo.queries.articles.loading ||
+        !isIntersecting ||
+        !this.hasNext
+      )
+        return
+      this.setPage(this.page + 1)
       this.$apollo.queries.articles.fetchMore({
         variables: {
-          skip: this.skip,
-          first: this.first
+          page: this.page,
+          perPage: this.perPage
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
-          const newArticles = fetchMoreResult.articles
-          // TODO: добавить hasMore в ответ запроса articles
-          // const hasMore = fetchMoreResult.tagsPage.hasMore
-          // this.showMoreEnabled = hasMore
+          const newArticles = fetchMoreResult.articlesPage.articles
+          const hasNext = fetchMoreResult.articlesPage.hasNext
+          this.$store.commit('articles/setHasNext', hasNext)
           return {
-            articles: [...previousResult.articles, ...newArticles]
+            articlesPage: {
+              __typename: previousResult.articlesPage.__typename,
+              hasNext,
+              articles: [
+                ...previousResult.articlesPage.articles,
+                ...newArticles
+              ]
+            }
           }
         }
       })

@@ -25,7 +25,6 @@ export const mutations = {
       Object.assign(state.user, user)
       state.user.loggedIn = true
     } else {
-      console.log('CLEAR')
       Object.assign(state.user, {
         id: null,
         firstName: null,
@@ -73,7 +72,6 @@ export const actions = {
         fetchPolicy: 'no-cache'
       })
       .then(({ data }) => {
-        console.log('GOT')
         ctx.commit('setUser', data.getCurrentUser)
       })
   },

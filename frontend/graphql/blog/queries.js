@@ -89,10 +89,13 @@ const GET_ARTICLE = gql`
   }
 `
 
-const GET_ARTICLES = gql`
-  query($skip: Int!, $first: Int!) {
-    articles(skip: $skip, first: $first) {
-      ...ArticleContents
+const GET_PAGED_ARTICLES = gql`
+  query($page: Int!, $perPage: Int!) {
+    articlesPage(page: $page, perPage: $perPage) {
+      hasNext
+      articles {
+        ...ArticleContents
+      }
     }
   }
   ${ARTICLE_FRAGMENT}
@@ -119,4 +122,4 @@ const TAGS = gql`
 
 // const GET_ARTICLE_FRAGMENT = gql``
 
-export { GET_ARTICLE, GET_ARTICLES, GET_RANDOM_ARTICLE, TAGS }
+export { GET_ARTICLE, GET_RANDOM_ARTICLE, TAGS, GET_PAGED_ARTICLES }

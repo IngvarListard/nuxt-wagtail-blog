@@ -41,7 +41,6 @@ export default {
         }
       `,
       update(data) {
-        console.log(data)
         this.events = JSON.parse(data.getEventsPaged).results
       }
     }
