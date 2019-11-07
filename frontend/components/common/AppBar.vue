@@ -28,7 +28,7 @@
 
       <search-field
         class="hidden-sm-and-down pt-3 pr-3"
-        style="max-width: 220px"
+        style="max-width: 420px"
       />
     </v-toolbar-items>
     <join-button v-if="!$$user.loggedIn" class="hidden-sm-and-down" />

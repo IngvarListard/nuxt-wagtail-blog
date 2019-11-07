@@ -20,6 +20,10 @@ export const buttons = [
       {
         name: 'Apollo',
         route: '/categories/apollo'
+      },
+      {
+        name: 'Поиск',
+        route: '/search'
       }
     ]
   },
