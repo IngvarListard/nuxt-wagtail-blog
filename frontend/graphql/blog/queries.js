@@ -120,6 +120,16 @@ const TAGS = gql`
   }
 `
 
+const ARTICLE_SEARCH = gql`
+  query($searchLine: String) {
+    articleSearch(searchLine: $searchLine) {
+      ...ArticleContents
+    }
+  }
+  ${ARTICLE_FRAGMENT}
+`
+
+
 // const GET_ARTICLE_FRAGMENT = gql``
 
-export { GET_ARTICLE, GET_RANDOM_ARTICLE, TAGS, GET_PAGED_ARTICLES }
+export { GET_ARTICLE, GET_RANDOM_ARTICLE, TAGS, GET_PAGED_ARTICLES, ARTICLE_SEARCH}

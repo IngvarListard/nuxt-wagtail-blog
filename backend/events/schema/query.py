@@ -1,6 +1,7 @@
 import graphene
 import requests
 
+
 class Query(graphene.ObjectType):
     get_events_paged = graphene.Field(graphene.String)
 
