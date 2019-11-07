@@ -120,6 +120,4 @@ const TAGS = gql`
   }
 `
 
-// const GET_ARTICLE_FRAGMENT = gql``
-
 export { GET_ARTICLE, GET_RANDOM_ARTICLE, TAGS, GET_PAGED_ARTICLES }

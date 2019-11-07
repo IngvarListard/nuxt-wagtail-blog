@@ -56,7 +56,7 @@ export default {
         loadingKey: 'loading',
         fetchPolicy: 'cache-first',
         update({ articlesPage }) {
-          this.setHasNext = articlesPage.hasNext
+          this.setHasNext(articlesPage.hasNext)
           return articlesPage.articles
         }
       }

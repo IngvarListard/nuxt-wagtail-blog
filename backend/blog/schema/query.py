@@ -11,8 +11,7 @@ from backend.core.api.graphene_wagtail import TagNode
 class Query(graphene.ObjectType):
     articles_page = graphene.Field(
         PagedArticlesNode,
-        page=graphene.Int(required=True, description='Номер страницы'),
-        per_page=graphene.Int(required=True, description='Количество элеменов на странице'),
+        **PagedArticlesNode.pagination_kwargs
     )
     article = graphene.Field(
         ArticleNode,

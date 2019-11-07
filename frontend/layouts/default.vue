@@ -4,7 +4,6 @@
     <popups />
     <drawer />
     <app-bar />
-    <notifications-drawer v-model="notificationDrawer" />
     <v-content>
       <v-container>
         <v-row justify="center">
@@ -39,13 +38,11 @@ import AppBar from '@/components/common/AppBar'
 import Alarms from '@/components/common/Alarms'
 import Drawer from '@/components/common/Drawer'
 import Popups from '@/components/notifications/Popups'
-import NotificationsDrawer from '@/components/notifications/NotificationsDrawer'
 
 export default {
   components: {
     Alarms,
     Popups,
-    NotificationsDrawer,
     Drawer,
     AppBar,
     NewsletterSubscribe,
@@ -58,38 +55,8 @@ export default {
     }
   },
   data: () => ({
-    drawer: false,
-    notificationDrawer: false
+    drawer: false
   }),
-  apollo: {
-    $subscribe: {
-      // When a tag is added
-      tagAdded: {
-        query: gql`
-          subscription {
-            notifications {
-              notification {
-                id
-                purpose {
-                  id
-                }
-                created {
-                  id
-                }
-                date
-                text
-                confirmed
-                type
-              }
-            }
-          }
-        `,
-        result({ data }) {
-          console.log(data)
-        }
-      }
-    }
-  },
   methods: {
     logout() {
       this.$$auth.logout()
