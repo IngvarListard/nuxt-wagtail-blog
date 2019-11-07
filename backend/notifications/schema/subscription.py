@@ -16,6 +16,10 @@ class Notifications(channels_graphql_ws.Subscription):
     def publish(notification, info):
         return Notifications(notification=notification)
 
+    @staticmethod
+    def get_user_group(user_id: int) -> str:
+        return f'user{user_id}_notifications'
+
 
 class Subscription(graphene.ObjectType):
     notifications = Notifications.Field()

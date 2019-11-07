@@ -14,8 +14,10 @@
                 <nuxt />
               </v-col>
               <v-col lg="4" md="12" sm="12">
-                <newsletter-subscribe />
-                <tags-card class="mt-4" />
+                <portal-target name="side">
+                  <newsletter-subscribe />
+                  <tags-card class="mt-4" />
+                </portal-target>
               </v-col>
             </v-row>
           </v-col>
