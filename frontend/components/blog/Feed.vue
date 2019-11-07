@@ -12,7 +12,6 @@
                 lg="4"
                 md="6"
                 sm="12"
-                class="my-0 py-0"
               >
                 <article-card :article="article" />
               </v-col>

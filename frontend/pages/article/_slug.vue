@@ -17,7 +17,6 @@ export default {
     ArticleView
   },
   scrollToTop: true,
-  middleware: 'increment-views',
   data() {
     return {
       article: {}

@@ -3,7 +3,7 @@
     <v-card flat :to="{ name: 'article-slug', params: { slug: article.slug } }">
       <v-img :src="resolveArticleImage(article)" aspect-ratio="1.8" />
     </v-card>
-    <v-card-title :style="{ 'font-size': titleSize }" class="px-0 py-1">
+    <v-card-title :style="{ 'font-size': titleSize }" class="px-0 pb-1 pt-2">
       <slot name="title">
         <n-link :to="{ name: 'article-slug', params: { slug: article.slug } }"
           ><span style="color: #619CCD;" class="txt">{{

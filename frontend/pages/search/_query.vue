@@ -1,40 +1,42 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col v-if="!md_sm_xs" lg="4" />
-      <v-col lg="8" md="12" xs="12">
-        <v-row>
-          <v-col lg="9" md="8" sm="8" cols="8">
-            <v-text-field v-model="searchLine" outlined height="50px" />
-          </v-col>
-
-          <v-col lg="3" cols="4">
-            <v-btn
-              class="white--text"
-              color="red"
-              height="50px"
-              width="100%"
-              :loading="loading"
-              @click="searchArticles"
-            >
-              Search >>
-            </v-btn>
-          </v-col>
-        </v-row>
+  <div>
+    <v-row justify="space-around" dense class="mb-2">
+      <v-col cols="12" lg="8" md="8" sm="12">
+        <v-text-field
+          v-model="searchLine"
+          label="Искать на сайте"
+          outlined
+          height="56px"
+          hide-details
+        />
+      </v-col>
+      <v-col cols="12" lg="3" md="3" sm="12">
+        <v-btn
+          class="white--text"
+          color="red"
+          height="56px"
+          width="100%"
+          :loading="loading"
+          @click="searchArticles"
+        >
+          Search >>
+        </v-btn>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col v-if="!md_sm_xs" lg="4" />
-      <v-col lg="8" md="12" xs="12">
-        <v-row>
-          <v-col v-for="article of articles" :key="article.id" cols="6">
-            <article-card :article="article" />
-          </v-col>
-        </v-row>
+      <v-col
+        v-for="article of articles"
+        :key="article.id"
+        cols="12"
+        lg="6"
+        md="6"
+        sm="12"
+      >
+        <article-card :article="article" />
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -79,7 +81,7 @@ export default {
           this.articles = data.data.articleSearch
         })
     }
-  },
+  }
 }
 </script>
 
