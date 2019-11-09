@@ -30,14 +30,14 @@
 
 <script>
 import utilsMixin from '../../../utils/utilsMixin'
-import { GET_CURRENT_USER } from '../../../graphql/users/queries'
+import { GET_CURRENT_USER, CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
 import AvatarField from './AvatarField'
 import NameField from './NameField'
 import BirthdayField from './BirthdayField'
 import PasswordField from './PasswordField'
 import CityField from './CityField'
 import SettingsCard from './SettingsCard'
-import DisplayNameField from "./DisplayNameField";
+import DisplayNameField from './DisplayNameField'
 
 export default {
   name: 'UserInfo',
@@ -64,11 +64,7 @@ export default {
   },
   apollo: {
     user: {
-      query: GET_CURRENT_USER,
-      update({ getCurrentUser }) {
-        return getCurrentUser
-      },
-      prefetch: false
+      query: CURRENT_USER_CLIENT
     }
   }
 }

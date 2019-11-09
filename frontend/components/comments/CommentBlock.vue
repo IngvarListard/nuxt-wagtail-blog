@@ -4,7 +4,7 @@
       <v-row dense>
         <v-col cols="1">
           <v-avatar>
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="test" />
+            <v-img v-if="test(comment)" :src="formatAvatarUrl(comment.user.avatar)" alt="Avatar" />
           </v-avatar>
         </v-col>
         <v-col cols="11">
@@ -51,7 +51,6 @@
 <script>
 import utilsMixin from '../../utils/utilsMixin'
 import VoteCounter from '../widgets/VoteCounter'
-import { formatComment } from '../../utils'
 import Comment from './Comment'
 import CommentInput from './CommentInput'
 
@@ -68,7 +67,8 @@ export default {
         parent: null,
         user: {
           id: -1,
-          displayName: 'Guest'
+          displayName: 'Guest',
+          avatar: null
         },
         time: null,
         votesCount: { likes: 0, dislikes: 0, userVote: null },
@@ -80,9 +80,10 @@ export default {
       default: null
     }
   },
-  data() {
-    return {
-      formatComment
+  methods: {
+    test(data) {
+      console.log('COMMENT', data)
+      return true
     }
   }
 }

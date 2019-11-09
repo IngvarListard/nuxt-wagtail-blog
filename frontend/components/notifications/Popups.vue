@@ -59,9 +59,6 @@ export default {
       },
       skip() {
         return !this.$$user.loggedIn
-      },
-      update(data) {
-        console.log('NOTIFICATIONS', data)
       }
     },
     $subscribe: {

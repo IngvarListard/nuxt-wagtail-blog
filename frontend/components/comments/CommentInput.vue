@@ -1,13 +1,17 @@
 <template>
-  <v-row>
-    <v-icon x-large class="mx-2">mdi-account-circle-outline</v-icon>
+  <v-row class="pt-6">
+    <v-btn icon :to="`/profile/${user.id}`" class="mt-2">
+      <v-avatar>
+        <v-img :src="formatAvatarUrl(user.avatar)" />
+      </v-avatar>
+    </v-btn>
     <v-textarea
       v-model="text"
       placeholder="Новый комментарий"
       outlined
-      class="pt-6 px-2"
       auto-grow
       rounded
+      class="px-2"
       row-height="22"
       counter="3000"
       rows="2"
@@ -26,9 +30,12 @@
 <script>
 import { CREATE_COMMENT } from '../../graphql/comments/mutations'
 import { GET_COMMENTS } from '../../graphql/comments/queries'
+import { CURRENT_USER_CLIENT } from '../../graphql/users/queries'
+import utilsMixin from '../../utils/utilsMixin'
 
 export default {
   name: 'CommentInput',
+  mixins: [utilsMixin],
   props: {
     modelName: {
       type: String,
@@ -45,7 +52,16 @@ export default {
   },
   data() {
     return {
-      text: ''
+      text: '',
+      user: {
+        id: null,
+        avatar: null
+      }
+    }
+  },
+  apollo: {
+    user: {
+      query: CURRENT_USER_CLIENT
     }
   },
   methods: {

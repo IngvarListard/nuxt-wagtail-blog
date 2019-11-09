@@ -7,9 +7,9 @@
     transition="slide-y-reverse-transition"
   >
     <template #activator="{ on }">
-      <v-btn icon v-on="on">
-        <v-icon large>mdi-account-circle-outline</v-icon>
-      </v-btn>
+      <v-avatar v-on="on">
+        <v-img :src="formatAvatarUrl(user.avatar)" />
+      </v-avatar>
     </template>
     <v-list>
       <list-item
@@ -54,10 +54,27 @@
 </template>
 
 <script>
+import { CURRENT_USER_CLIENT } from '../../graphql/users/queries'
+import utilsMixin from '../../utils/utilsMixin'
 import ListItem from './ListItem'
+
 export default {
   name: 'UserButton',
-  components: { ListItem }
+  components: { ListItem },
+  mixins: [utilsMixin],
+  data() {
+    return {
+      user: {
+        id: null,
+        avatar: null
+      }
+    }
+  },
+  apollo: {
+    user: {
+      query: CURRENT_USER_CLIENT
+    }
+  }
 }
 </script>
 

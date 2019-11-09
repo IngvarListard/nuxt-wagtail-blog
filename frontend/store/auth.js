@@ -65,11 +65,18 @@ export const actions = {
   changePassword(ctx) {
     return new Promise()
   },
+  /**
+   * Из этого запроса данные о CURRENT USER попадают
+   * в кэш Apollo, и далее они доступны повсеместно
+   * с помощью запроса CURRENT_USER_CLIENT.
+   * В идеале, функционал auth лучше полностью перенести
+   * на плечи apollo.
+   */
   getCurrentUser(ctx) {
+    // из этого запроса данные о CURRENT USER
     return apollo(this)
       .query({
-        query: GET_CURRENT_USER,
-        fetchPolicy: 'no-cache'
+        query: GET_CURRENT_USER
       })
       .then(({ data }) => {
         ctx.commit('setUser', data.getCurrentUser)

@@ -8,6 +8,7 @@ const COMMENT_FRAGMENT = gql`
     user {
       id
       displayName
+      avatar
     }
     text
     parent {
