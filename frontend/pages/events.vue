@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col v-for="event in events" xs="12" md="6" lg="4" xl="3">
+      <v-col v-for="event in events" :key="event.id" xs="12" md="6" lg="4" xl="3">
         <v-card @click="openEvent(event)">
           <v-img
             class="white--text align-end"

@@ -54,12 +54,13 @@ export default {
       variables() {
         return {
           page: 1,
-          perPage: 10,
+          perPage: 10
         }
       },
       skip() {
-        return !this.$$user.loggedIn
-      }
+        return !this.$$user.loggedIn || process.server
+      },
+      update: ({ notifications }) => notifications
     },
     $subscribe: {
       // When a tag is added
@@ -78,7 +79,8 @@ export default {
             // this.notificationsToShow.splice(this.notificationsToShow.length - 1, this.notificationsToShow.length)
             this.notificationsToShow.splice(0, 1)
           }, 6000)
-        }
+        },
+        skip: () => process.server
       }
     }
   },

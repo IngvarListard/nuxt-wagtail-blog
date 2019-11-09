@@ -36,11 +36,6 @@ export default {
         }
       ]
     }
-  },
-  methods: {
-    test(a) {
-      console.log(a)
-    }
   }
 }
 </script>

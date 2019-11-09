@@ -4,12 +4,20 @@
       ><v-icon v-bind="options" :color="thumbColor.like"
         >mdi-thumb-up-outline</v-icon
       ></v-btn
-    ><span class="mr-2">{{ votesCount.likes }}</span>
+    ><span
+      class="font-weight-regular mr-2"
+      style="font-size: 16px; color: #999999;"
+      >{{ votesCount.likes }}</span
+    >
     <v-btn icon class="mr-2" v-bind="options" @click="vote('dislike')"
       ><v-icon v-bind="options" :color="thumbColor.dislike"
         >mdi-thumb-down-outline</v-icon
       ></v-btn
-    ><span>{{ votesCount.dislikes }}</span>
+    ><span
+      class="font-weight-regular"
+      style="font-size: 16px; color: #999999;"
+      >{{ votesCount.dislikes }}</span
+    >
   </span>
 </template>
 
@@ -23,7 +31,7 @@ export default {
   props: {
     options: {
       type: Object,
-      default: () => ({ small: true })
+      default: () => ({})
     },
     votesCount: {
       type: Object,

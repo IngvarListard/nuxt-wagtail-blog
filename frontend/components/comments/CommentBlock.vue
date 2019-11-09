@@ -82,7 +82,6 @@ export default {
   },
   methods: {
     test(data) {
-      console.log('COMMENT', data)
       return true
     }
   }

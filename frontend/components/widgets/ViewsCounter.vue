@@ -1,7 +1,11 @@
 <template>
   <span>
     <v-icon v-bind="options" class="mr-1">mdi-eye-outline</v-icon>
-    <span>{{ count }}</span>
+    <span
+      class="font-weight-regular"
+      style="font-size: 16px; color: #999999;"
+      >{{ count }}</span
+    >
   </span>
 </template>
 
@@ -20,7 +24,7 @@ export default {
   },
   data() {
     return {
-      opts: { small: true }
+      opts: {}
     }
   },
   watch: {

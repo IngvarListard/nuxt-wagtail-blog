@@ -1,8 +1,10 @@
 <template>
   <v-chip
     v-bind="opts"
-    color="#d6d6d6"
+    color="#F6F6F6"
     :to="{ name: 'tag-slug', params: { slug: tag.slug } }"
+    class="my-1"
+    small
   >
     <strong style="color: gray">{{ tag.name }}</strong>
   </v-chip>
@@ -15,7 +17,7 @@ export default {
     // опции v-chip
     options: {
       type: Object,
-      default: () => ({ 'x-small': true, label: true })
+      default: () => ({ label: true })
     },
     tag: {
       type: Object,
@@ -24,7 +26,7 @@ export default {
   },
   data() {
     return {
-      opts: { 'x-small': true, label: true }
+      opts: { label: true }
     }
   },
   watch: {

@@ -15,28 +15,34 @@
     <v-card-text class="px-0">
       <slot name="text" />
       <slot name="widgets">
-        <v-icon v-bind="widgetSize.icons">mdi-calendar</v-icon>
-        {{ formatDate(article.date) }}
+        <v-icon>mdi-calendar</v-icon>
+        <span
+          class="font-weight-regular"
+          style="font-size: 16px; color: #999999;"
+          >{{ formatDate(article.date) }}</span
+        >
         <views-counter
           :count="article.views"
           class="mx-1"
-          :options="widgetSize.icons"
         />
         <vote-counter
           :instance-id="article.id"
-          :options="widgetSize.icons"
           :votes-count="article.votesCount"
           model-name="blog.BlogPage"
           class="mr-2"
         />
-        <v-icon v-bind="widgetSize.icons">mdi-tag-multiple</v-icon>
-        <tag
-          v-for="tag of article.tags"
-          :key="tag.id"
-          :tag="tag"
-          :options="widgetSize.chips"
-          class="ml-1"
-        />
+        <span class="inline-block">
+          <v-icon
+            v-if="article.tags && article.tags.length > 0"
+            >mdi-tag-multiple</v-icon
+          >
+          <tag
+            v-for="tag of article.tags"
+            :key="tag.id"
+            :tag="tag"
+            class="ml-1"
+          />
+        </span>
       </slot>
     </v-card-text>
   </div>
