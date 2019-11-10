@@ -50,13 +50,21 @@ class CommentCreation(Service):
 
 
 class GetComments(Service):
-
+    """Получение комментариев к выбранной модели. К коментариям также
+    добавляются поля:
+    - likes: int - количество лайков комментария
+    - dislikes: int - количество дизлайков комментария
+    - user_vote: str - состояние голоса текущего пользователя ('like', 'dislike')
+    """
     def __init__(self, instance_id: int, model_name: str, user_id: int):
         self.instance_id = instance_id
         self.app, self.model = model_name.lower().split('.')
         self.user_id = user_id
 
     def execute(self) -> QuerySet:
+        # в ArrayAgg необходим Cast для указания точного типа
+        # в противном случае при попытке проверки contains
+        # появляется ошибка
         users_ids_who_likes_the_comment_arr = ArrayAgg(
                 Cast('votes__user_id', IntegerField()),
                 filter=Q(votes__vote=Vote.LIKE),
