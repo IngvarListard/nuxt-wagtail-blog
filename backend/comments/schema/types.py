@@ -26,7 +26,6 @@ class CommentNode(DjangoObjectType):
                 user_vote=self.user_vote,
             )
         else:
-            print('ТЕБЯ НЕ ДОЛЖНО БЫТЬ ЗДЕСЬ')
             votes_counter = CountVotes(
                 info.context.user.id,
                 f'{self._meta.app_label}.{self._meta.model_name}',
