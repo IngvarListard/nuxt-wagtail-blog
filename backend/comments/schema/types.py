@@ -17,6 +17,7 @@ class CommentNode(DjangoObjectType):
         через аннотацию, в противном случае для каждого комментария
         вычисляется внутри резолвера.
         """
+
         if hasattr(self, 'likes') and hasattr(self, 'dislikes') and hasattr(self, 'user_vote'):
             print(self.likes, self.dislikes, self.user_vote)
             votes_count_node = VotesCountNode(
@@ -25,6 +26,7 @@ class CommentNode(DjangoObjectType):
                 user_vote=self.user_vote,
             )
         else:
+            print('ТЕБЯ НЕ ДОЛЖНО БЫТЬ ЗДЕСЬ')
             votes_counter = CountVotes(
                 info.context.user.id,
                 f'{self._meta.app_label}.{self._meta.model_name}',
@@ -33,7 +35,6 @@ class CommentNode(DjangoObjectType):
             votes_count = votes_counter.execute()
             votes_count_node = VotesCountNode(**votes_count)
         votes_count_node.id = f'__{self._meta.app_label}.{self._meta.model_name}_{self.id}'
-        print(votes_count_node.id)
         return votes_count_node
 
     class Meta:

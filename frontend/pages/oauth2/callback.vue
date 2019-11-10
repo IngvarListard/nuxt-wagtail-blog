@@ -31,6 +31,9 @@ export default {
         .then(data => {
           this.$router.replace('/')
         })
+        .then(() => {
+          this.$store.dispatch('auth/getCurrentUser')
+        })
     } else {
       this.$router.replace('/')
     }

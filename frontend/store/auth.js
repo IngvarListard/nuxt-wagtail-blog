@@ -76,7 +76,8 @@ export const actions = {
     // из этого запроса данные о CURRENT USER
     return apollo(this)
       .query({
-        query: GET_CURRENT_USER
+        query: GET_CURRENT_USER,
+        fetchPolicy: 'network-only'
       })
       .then(({ data }) => {
         ctx.commit('setUser', data.getCurrentUser)

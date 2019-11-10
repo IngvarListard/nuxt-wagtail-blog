@@ -1,9 +1,17 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Q, Case, When, Value as V, CharField
+from django.contrib.postgres.aggregates import ArrayAgg
+from django.db import models
+from django.db.models import Count, Q, Case, When, Value as V, CharField, IntegerField, QuerySet
+from django.db.models.functions import Cast, Coalesce
 
 from backend.comments.models import Comment
 from backend.core.service import Service
 from backend.votes.models import Vote
+
+
+# noinspection PyAbstractClass
+class ArrayLength(models.Func):
+    function = 'CARDINALITY'
 
 
 class CommentCreation(Service):
@@ -48,7 +56,23 @@ class GetComments(Service):
         self.app, self.model = model_name.lower().split('.')
         self.user_id = user_id
 
-    def execute(self):
+    def execute(self) -> QuerySet:
+        users_ids_who_likes_the_comment_arr = ArrayAgg(
+                Cast('votes__user_id', IntegerField()),
+                filter=Q(votes__vote=Vote.LIKE),
+                distinct=True
+            )
+        users_ids_who_dislikes_the_comment_arr = ArrayAgg(
+                Cast('votes__user_id', IntegerField()),
+                filter=Q(votes__vote=Vote.DISLIKE),
+                distinct=True
+            )
+        current_user_vote_to_the_comment = Case(
+                When(liked_arr__contains=[self.user_id], then=V('like')),
+                When(disliked_arr__contains=[self.user_id], then=V('dislike')),
+                output_field=CharField(),
+                default=None
+            )
         return (
             Comment.objects
                 .filter(object_id=self.instance_id,
@@ -56,12 +80,9 @@ class GetComments(Service):
                         content_type__model=self.model,
                         parent__isnull=True)
                 .annotate(child_count=Count('children'),
-                          likes=Count('votes__vote', filter=Q(votes__vote=Vote.LIKE)),
-                          dislikes=Count('votes__vote', filter=Q(votes__vote=Vote.DISLIKE)))
-                .annotate(user_vote=Case(
-                    When(Q(votes__vote=Vote.LIKE) & Q(votes__user_id=self.user_id), then=V('like')),
-                    When(Q(votes__vote=Vote.DISLIKE) & Q(votes__user_id=self.user_id), then=V('dislike')),
-                    output_field=CharField(),
-                    default=None
-                ))
+                          liked_arr=users_ids_who_likes_the_comment_arr,
+                          disliked_arr=users_ids_who_dislikes_the_comment_arr,
+                          likes=Coalesce(ArrayLength('liked_arr'), V(0)),
+                          dislikes=Coalesce(ArrayLength('disliked_arr'), V(0)))
+                .annotate(user_vote=current_user_vote_to_the_comment)
         )

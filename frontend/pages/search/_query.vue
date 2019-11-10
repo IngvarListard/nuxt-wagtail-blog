@@ -13,13 +13,13 @@
       <v-col cols="12" lg="3" md="3" sm="12">
         <v-btn
           class="white--text"
-          color="red"
+          color="#EF5350"
           height="56px"
           width="100%"
           :loading="loading"
           @click="searchArticles"
         >
-          Search >>
+          Поиск >>
         </v-btn>
       </v-col>
     </v-row>

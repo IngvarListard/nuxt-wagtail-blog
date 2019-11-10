@@ -44,8 +44,8 @@ export default {
   plugins: [
     '@/plugins/auth-mixin.js',
     '@/plugins/portal-vue.js',
-    { src: '@/plugins/prism.js', mode: 'client' }
-    // '~/plugins/init-apollo-state.js'
+    { src: '@/plugins/prism.js', mode: 'client' },
+    { src: '@/plugins/vue-affix.js', mode: 'client' }
   ],
 
   /*
@@ -54,10 +54,21 @@ export default {
   modules: [
     // '@nuxtjs/eslint-module',  // grammar-nazi
     '@nuxtjs/axios',
+    '@nuxtjs/onesignal',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     'cookie-universal-nuxt'
   ],
+
+  oneSignal: {
+    cdn: false,
+    init: {
+      allowLocalhostAsSecureOrigin: true,
+      welcomeNotification: {
+        disable: true
+      }
+    }
+  },
 
   devModules: ['@nuxtjs/vuetify'],
   /*
@@ -78,17 +89,22 @@ export default {
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
    */
-  vuetify: {
-    theme: {
-      primary: colors.blue.darken2,
-      accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
-      info: colors.teal.lighten1,
-      warning: colors.amber.base,
-      error: colors.deepOrange.accent4,
-      success: colors.green.accent3
-    }
-  },
+  // vuetify: {
+  //   theme: {
+  //     light: true,
+  //     themes: {
+  //       light: {
+  //         primary: colors.blue.darken2,
+  //         accent: colors.grey.darken3,
+  //         secondary: colors.amber.darken3,
+  //         info: colors.teal.lighten1,
+  //         warning: colors.amber.base,
+  //         error: colors.deepOrange.accent4,
+  //         success: colors.green.accent3
+  //       }
+  //     }
+  //   }
+  // },
   rootDir: 'frontend',
   env: {
     VK_CLIENT_ID: process.env.VK_CLIENT_ID

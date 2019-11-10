@@ -98,3 +98,4 @@ psql-data/
 backend/upload
 celerybeat-schedule
 .#todo.org
+OneSignalSDK*

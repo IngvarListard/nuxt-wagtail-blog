@@ -6,7 +6,7 @@
     class="my-1"
     small
   >
-    <strong style="color: gray">{{ tag.name }}</strong>
+    <span style="color: #999999; font-size: 14px;" class="font-weight-bold">{{ tag.name }}</span>
   </v-chip>
 </template>
 

@@ -16,6 +16,16 @@
                 <portal-target name="side">
                   <newsletter-subscribe />
                   <tags-card class="mt-4" />
+                  <client-only>
+                    <affix class="sidebar-menu" relative-element-selector="#example-content" style="width: 300px">
+                      <a href="#markup-1">Markup 1</a>
+                      <a href="#markup-2">Markup 2</a>
+                      <a href="#markup-3">Markup 3</a>
+                    </affix>
+                    <section id="example-content">
+                      <p>This is the #example-content section which the sidebar will be relatively affixed!</p>
+                    </section>
+                  </client-only>
                 </portal-target>
               </v-col>
             </v-row>
@@ -31,7 +41,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
 import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
 import TagsCard from '../components/common/home/TagsCard'
 import AppBar from '@/components/common/AppBar'
@@ -53,6 +62,17 @@ export default {
       type: String,
       default: ''
     }
+  },
+  mounted() {
+    this.$OneSignal.push(() => {
+      this.$OneSignal.isPushNotificationsEnabled(isEnabled => {
+        if (isEnabled) {
+          console.log('Push notifications are enabled!')
+        } else {
+          console.log('Push notifications are not enabled yet.')
+        }
+      })
+    })
   },
   data: () => ({
     drawer: false
