@@ -1,29 +1,37 @@
 <template>
   <v-row class="pt-6">
-    <v-btn icon :to="`/profile/${user.id}`" class="mt-2">
-      <v-avatar>
-        <v-img :src="formatAvatarUrl(user.avatar)" />
-      </v-avatar>
-    </v-btn>
-    <v-textarea
-      v-model="text"
-      placeholder="Новый комментарий"
-      outlined
-      auto-grow
-      rounded
-      class="px-2"
-      row-height="22"
-      counter="3000"
-      rows="2"
-    >
-      <template #append>
-        <v-scroll-x-transition>
-          <v-icon v-if="text.length > 0" color="primary" @click="createComment">
-            mdi-send
-          </v-icon>
-        </v-scroll-x-transition>
-      </template>
-    </v-textarea>
+    <v-col cols="1" class="hidden-md-and-down">
+      <v-btn icon :to="`/profile/${user.id}`" class="mt-2">
+        <v-avatar>
+          <v-img :src="formatAvatarUrl(user.avatar)" />
+        </v-avatar>
+      </v-btn>
+    </v-col>
+    <v-col cols="12" md="12" lg="11">
+      <v-textarea
+        v-model="text"
+        placeholder="Новый комментарий"
+        outlined
+        auto-grow
+        rounded
+        class="mx-2"
+        row-height="22"
+        counter="3000"
+        rows="2"
+      >
+        <template #append>
+          <v-scroll-x-transition>
+            <v-icon
+              v-if="text.length > 0"
+              color="primary"
+              @click="createComment"
+            >
+              mdi-send
+            </v-icon>
+          </v-scroll-x-transition>
+        </template>
+      </v-textarea>
+    </v-col>
   </v-row>
 </template>
 

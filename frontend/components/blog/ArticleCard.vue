@@ -21,19 +21,15 @@
           style="font-size: 16px; color: #999999;"
           >{{ formatDate(article.date) }}</span
         >
-        <views-counter
-          :count="article.views"
-          class="mx-1"
-        />
+        <views-counter :count="article.views" class="mx-1" />
         <vote-counter
           :instance-id="article.id"
-          :votes-count="article.votesCount"
+          :count="article.votesCount"
           model-name="blog.BlogPage"
           class="mr-2"
         />
         <span class="inline-block">
-          <v-icon
-            v-if="article.tags && article.tags.length > 0"
+          <v-icon v-if="article.tags && article.tags.length > 0"
             >mdi-tag-multiple</v-icon
           >
           <tag

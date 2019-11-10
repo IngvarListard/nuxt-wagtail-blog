@@ -43,6 +43,14 @@ const GET_ARTICLE = gql`
       date
       intro
       slug
+      owner {
+        id
+        displayName
+        avatar
+        firstName
+        lastName
+        bio
+      }
       body {
         ... on CodeBlock {
           value

@@ -7,23 +7,17 @@
     <v-content>
       <v-container>
         <v-row justify="center">
-          <v-col lg="11" md="12" sm="12">
+          <v-col lg="11" md="12" sm="12" xs="12">
             <v-row justify="center">
-              <v-col lg="8" md="12" sm="12">
+              <v-col lg="8" md="12" sm="12" xs="12">
                 <nuxt id="example-content" />
               </v-col>
-              <v-col lg="4" md="12" sm="12">
+              <v-col lg="4" md="12" sm="12" xs="12">
                 <portal-target name="side">
                   <newsletter-subscribe />
                   <tags-card class="mt-4" />
-                  <client-only>
-                    <affix class="sidebar-menu" relative-element-selector="#example-content" style="width: 300px" :offset="{ top: -380, bottom:0 }" >
-                      <a href="#markup-1">Markup 1</a>
-                      <a href="#markup-2">Markup 2</a>
-                      <a href="#markup-3">Markup 3</a>
-                    </affix>
-                  </client-only>
                 </portal-target>
+                <portal-target name="side-bottom" />
               </v-col>
             </v-row>
           </v-col>

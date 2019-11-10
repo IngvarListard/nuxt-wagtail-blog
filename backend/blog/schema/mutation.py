@@ -1,10 +1,11 @@
 import graphene
 
 from backend.blog.models import BlogPage
+from backend.blog.schema.types import ArticleNode
 
 
 class IncrementArticleViews(graphene.Mutation):
-    result = graphene.Boolean()
+    article = graphene.Field(ArticleNode)
 
     class Arguments:
         slug = graphene.String(required=True)
@@ -14,7 +15,7 @@ class IncrementArticleViews(graphene.Mutation):
         article = BlogPage.objects.get(slug=slug)
         article.views += 1
         article.save()
-        return IncrementArticleViews(result=True)
+        return IncrementArticleViews(article=article)
 
 
 class Mutation(graphene.ObjectType):

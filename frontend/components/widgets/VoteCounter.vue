@@ -7,7 +7,7 @@
     ><span
       class="font-weight-regular mr-2"
       style="font-size: 16px; color: #999999;"
-      >{{ votesCount.likes }}</span
+      >{{ count.likes }}</span
     >
     <v-btn icon class="mr-2" v-bind="options" @click="vote('dislike')"
       ><v-icon v-bind="options" :color="thumbColor.dislike"
@@ -16,7 +16,7 @@
     ><span
       class="font-weight-regular"
       style="font-size: 16px; color: #999999;"
-      >{{ votesCount.dislikes }}</span
+      >{{ count.dislikes }}</span
     >
   </span>
 </template>
@@ -33,7 +33,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    votesCount: {
+    count: {
       type: Object,
       default: () => ({ likes: 0, dislikes: 0, userVote: null })
     },
@@ -53,8 +53,8 @@ export default {
   },
   computed: {
     thumbColor() {
-      const like = this.votesCount.userVote === 'like' ? 'success' : null
-      const dislike = this.votesCount.userVote === 'dislike' ? 'success' : null
+      const like = this.count.userVote === 'like' ? 'success' : null
+      const dislike = this.count.userVote === 'dislike' ? 'success' : null
       return {
         like,
         dislike

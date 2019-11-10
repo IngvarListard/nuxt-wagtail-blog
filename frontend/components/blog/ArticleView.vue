@@ -25,7 +25,7 @@
           />
         </v-card>
         <div style="text-align: center;" class="mb-4">
-          {{ item.image.title }}
+<!--          <span class="text-truncate">{{ item.image.title }}</span>-->
         </div>
       </template>
       <template v-else-if="item.blockType === 'markdown'">

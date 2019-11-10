@@ -10,8 +10,6 @@ export default ({
 }) => {
   defaultClient.mutate({
     mutation: INCREMENT_ARTICLE_VIEWS,
-    variables: {
-      slug
-    }
+    variables: { slug }
   })
 }
