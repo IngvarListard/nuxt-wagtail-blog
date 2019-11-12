@@ -79,4 +79,12 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style>
+[id]::before {
+  content: '';
+  display: block;
+  height: 75px;
+  margin-top: -75px;
+  visibility: hidden;
+}
+</style>

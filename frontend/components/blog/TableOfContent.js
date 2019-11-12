@@ -6,6 +6,24 @@ export default {
       default: 6
     }
   },
+  // mounted() {
+  //   const headersIds = new Array(
+  //     ...document.getElementById('article').querySelectorAll('h1, h2')
+  //   ).map(header => header.id)
+  //   headersIds.forEach(id => {
+  //     document.querySelectorAll(`a[id='#${id}']`).forEach(el => {
+  //       el.addEventListener('click', this.scrollTo(id))
+  //     })
+  //   })
+  // },
+  methods: {
+    scrollTo(id) {
+      const vuetify = this.$vuetify
+      return function() {
+        return vuetify.goTo(id)
+      }
+    }
+  },
   render(createElement) {
     if (process.server) return ''
     const headers = document
@@ -17,7 +35,10 @@ export default {
       const regExp = /[\d]/
       const currentLevel = parseInt(header.localName.match(regExp)[0])
       if (currentLevel > parseInt(this.depth)) return
-      let entry = `<li>${header.innerText}</li>`
+      const slug = header.innerText.split(' ').join('-')
+      header.id = slug
+      // let entry = `<li><a>${header.innerText}</a></li>`
+      let entry = `<li><a href="#${slug}">${header.innerText}</a></li>`
       if (currentLevel < level) {
         entry = '</ul>'.repeat(level - currentLevel) + entry
       } else if (currentLevel > level) {
