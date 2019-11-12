@@ -10,6 +10,14 @@
         >
       </template>
     </article-card>
+    <client-only>
+      <toc-card
+        v-if="Object.keys(article).length > 0"
+        depth="3"
+        class="mt-2"
+        style="background-color: #F6F6F6;"
+      />
+    </client-only>
     <div v-for="(item, index) of article.body" :key="index">
       <!-- Заголовок первого уровня -->
       <template v-if="item.blockType === 'heading'">
@@ -53,10 +61,12 @@ import VueMarkdown from 'vue-markdown'
 import utilsMixin from '../../utils/utilsMixin'
 import ArticleCard from './ArticleCard'
 import CodeBlock from './blocks/CodeBlock'
+import TocCard from "./TocCard";
 
 export default {
   name: 'ArticleView',
   components: {
+    TocCard,
     ArticleCard,
     VueMarkdown,
     CodeBlock

@@ -6,21 +6,34 @@ export default {
       default: 6
     }
   },
-  // mounted() {
-  //   const headersIds = new Array(
-  //     ...document.getElementById('article').querySelectorAll('h1, h2')
-  //   ).map(header => header.id)
-  //   headersIds.forEach(id => {
-  //     document.querySelectorAll(`a[id='#${id}']`).forEach(el => {
-  //       el.addEventListener('click', this.scrollTo(id))
-  //     })
-  //   })
-  // },
+  mounted() {
+    const headersIds = new Array(
+      ...document.getElementById('article').querySelectorAll(this.depthStr)
+    ).map(header => header.id)
+    headersIds.forEach(id => {
+      document.querySelectorAll(`span[id='#${id}']`).forEach(el => {
+        el.addEventListener('click', this.scrollTo(id))
+      })
+    })
+  },
+  computed: {
+    depthStr() {
+      let depth = ''
+      for (let i = 0; i < parseInt(this.depth); i++) {
+        if (depth.length === 0) {
+          depth += `h${i + 1}`
+          continue
+        }
+        depth += `, h${i + 1}`
+      }
+      return depth
+    }
+  },
   methods: {
     scrollTo(id) {
       const vuetify = this.$vuetify
       return function() {
-        return vuetify.goTo(id)
+        return vuetify.goTo('#' + id)
       }
     }
   },
@@ -28,17 +41,15 @@ export default {
     if (process.server) return ''
     const headers = document
       .getElementById('article')
-      .querySelectorAll('h1, h2, h3, h4, h5, h6')
+      .querySelectorAll(this.depthStr)
     let toc = ''
     let level = 0
     headers.forEach((header, i, arr) => {
       const regExp = /[\d]/
       const currentLevel = parseInt(header.localName.match(regExp)[0])
-      if (currentLevel > parseInt(this.depth)) return
       const slug = header.innerText.split(' ').join('-')
       header.id = slug
-      // let entry = `<li><a>${header.innerText}</a></li>`
-      let entry = `<li><a href="#${slug}">${header.innerText}</a></li>`
+      let entry = `<li><span class="toc-link" id="#${slug}">${header.innerText}</span></li>`
       if (currentLevel < level) {
         entry = '</ul>'.repeat(level - currentLevel) + entry
       } else if (currentLevel > level) {

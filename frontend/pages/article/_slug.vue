@@ -22,12 +22,13 @@
         <affix
           relative-element-selector="#example-content"
           style="width: 300px"
-          :offset="{ top: -380, bottom: 0 }"
+          :offset="{ top: -400, bottom: 0 }"
           class="hidden-md-and-down"
         >
-          <table-of-content
+          <toc-card
             v-if="loading === 0 && Object.keys(article).length > 0"
             depth="2"
+            class="mt-4"
           />
         </affix>
       </client-only>
@@ -44,11 +45,13 @@ import AuthorCard from '../../components/widgets/AuthorCard'
 import SupportAuthor from '../../components/blog/SupportAuthor'
 import ShareCard from '../../components/blog/ShareCard'
 import TableOfContent from '../../components/blog/TableOfContent.js'
+import TocCard from "../../components/blog/TocCard";
 
 export default {
   name: 'ArticlePage',
   middleware: 'increment-views',
   components: {
+    TocCard,
     TableOfContent,
     ShareCard,
     SupportAuthor,
@@ -79,12 +82,12 @@ export default {
 }
 </script>
 
-<style>
-[id]::before {
-  content: '';
-  display: block;
-  height: 75px;
-  margin-top: -75px;
-  visibility: hidden;
-}
+<style scoped>
+/*[id]::before {*/
+/*  content: '';*/
+/*  display: block;*/
+/*  height: 75px;*/
+/*  margin-top: -75px;*/
+/*  visibility: hidden;*/
+/*}*/
 </style>
