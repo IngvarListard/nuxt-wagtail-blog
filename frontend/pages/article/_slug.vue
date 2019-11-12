@@ -29,6 +29,7 @@
             v-if="loading === 0 && Object.keys(article).length > 0"
             depth="2"
             class="mt-4"
+            font-size="14"
           />
         </affix>
       </client-only>

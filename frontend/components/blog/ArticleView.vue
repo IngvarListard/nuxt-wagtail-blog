@@ -14,6 +14,7 @@
       <toc-card
         v-if="Object.keys(article).length > 0"
         depth="3"
+        font-size="16"
         class="mt-2"
         style="background-color: #F6F6F6;"
       />
@@ -36,7 +37,7 @@
           />
         </v-card>
         <div style="text-align: center;" class="mb-4">
-<!--          <span class="text-truncate">{{ item.image.title }}</span>-->
+          <!--          <span class="text-truncate">{{ item.image.title }}</span>-->
         </div>
       </template>
       <template v-else-if="item.blockType === 'markdown'">
@@ -61,7 +62,7 @@ import VueMarkdown from 'vue-markdown'
 import utilsMixin from '../../utils/utilsMixin'
 import ArticleCard from './ArticleCard'
 import CodeBlock from './blocks/CodeBlock'
-import TocCard from "./TocCard";
+import TocCard from './TocCard'
 
 export default {
   name: 'ArticleView',

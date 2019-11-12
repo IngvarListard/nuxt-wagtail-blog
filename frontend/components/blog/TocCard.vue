@@ -5,7 +5,7 @@
     >
     <v-card-text>
       <client-only>
-        <table-of-content :depth="depth" />
+        <table-of-content :depth="depth" :font-size="fontSize" />
       </client-only>
     </v-card-text>
   </v-card>
@@ -20,6 +20,10 @@ export default {
     depth: {
       type: [String, Number],
       default: 2
+    },
+    fontSize: {
+      type: [Number, String],
+      default: 16
     }
   }
 }

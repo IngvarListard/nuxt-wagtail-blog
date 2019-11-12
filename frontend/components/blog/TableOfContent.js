@@ -4,6 +4,10 @@ export default {
     depth: {
       type: [Number, String],
       default: 6
+    },
+    fontSize: {
+      type: [Number, String],
+      default: 14
     }
   },
   mounted() {
@@ -49,7 +53,7 @@ export default {
       const currentLevel = parseInt(header.localName.match(regExp)[0])
       const slug = header.innerText.split(' ').join('-')
       header.id = slug
-      let entry = `<li><span class="toc-link" id="#${slug}">${header.innerText}</span></li>`
+      let entry = `<li style="font-size: ${this.fontSize}px;"><span class="toc-link" id="#${slug}">${header.innerText}</span></li>`
       if (currentLevel < level) {
         entry = '</ul>'.repeat(level - currentLevel) + entry
       } else if (currentLevel > level) {
