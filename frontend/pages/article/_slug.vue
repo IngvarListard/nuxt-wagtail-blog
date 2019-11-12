@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article-view :article="article" />
+    <article-view id="article" :article="article" />
     <client-only>
       <v-row dense>
         <article-actions-block
@@ -25,7 +25,10 @@
           :offset="{ top: -380, bottom: 0 }"
           class="hidden-md-and-down"
         >
-          TABLE OF CONTENT
+          <table-of-content
+            v-if="loading === 0 && Object.keys(article).length > 0"
+            depth="2"
+          />
         </affix>
       </client-only>
     </portal>
@@ -38,13 +41,15 @@ import { GET_ARTICLE } from '../../graphql/blog/queries'
 import CommentsBlock from '../../components/comments/CommentsBlock'
 import ArticleActionsBlock from '../../components/blog/ArticleActionsBlock'
 import AuthorCard from '../../components/widgets/AuthorCard'
-import SupportAuthor from "../../components/blog/SupportAuthor";
-import ShareCard from "../../components/blog/ShareCard";
+import SupportAuthor from '../../components/blog/SupportAuthor'
+import ShareCard from '../../components/blog/ShareCard'
+import TableOfContent from '../../components/blog/TableOfContent.js'
 
 export default {
   name: 'ArticlePage',
   middleware: 'increment-views',
   components: {
+    TableOfContent,
     ShareCard,
     SupportAuthor,
     AuthorCard,
@@ -55,7 +60,8 @@ export default {
   scrollToTop: true,
   data() {
     return {
-      article: {}
+      article: {},
+      loading: 0
     }
   },
   apollo: {
@@ -66,7 +72,8 @@ export default {
         return {
           slug
         }
-      }
+      },
+      loadingKey: 'loading'
     }
   }
 }

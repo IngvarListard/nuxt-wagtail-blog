@@ -11,12 +11,15 @@
       </template>
     </article-card>
     <div v-for="(item, index) of article.body" :key="index">
+      <!-- Заголовок первого уровня -->
       <template v-if="item.blockType === 'heading'">
         <h1>{{ item.value }}</h1>
       </template>
+      <!-- Параграф -->
       <template v-else-if="item.blockType === 'paragraph'">
         <span v-html="item.value"></span>
       </template>
+      <!-- Изображение -->
       <template v-else-if="item.blockType === 'image'">
         <v-card flat outlined>
           <v-img
@@ -31,6 +34,7 @@
       <template v-else-if="item.blockType === 'markdown'">
         <vue-markdown>{{ item.value }}</vue-markdown>
       </template>
+      <!-- Блок кода -->
       <template v-else-if="item.blockType === 'code'">
         <client-only>
           <code-block
