@@ -9,21 +9,23 @@
       </v-list-item>
       <v-divider />
       <v-subheader>НАВИГАЦИЯ</v-subheader>
-      <template v-for="(btn, i) of buttons">
-        <v-list-group
-          v-if="btn.categories && btn.categories.length > 0"
-          :key="i"
-          no-action
-        >
-          <list-item slot="activator" :btn="btn" class="mx-0 px-0" no-action />
-          <list-item
-            v-for="(category, index) of btn.categories"
-            :key="index"
-            :btn="category"
-          />
-        </v-list-group>
-        <list-item v-else :key="i" :btn="btn" />
-      </template>
+      <list-item
+        :btn="{ name: 'Публикации', icon: 'mdi-post-outline', route: '/' }"
+      />
+      <list-item
+        :btn="{
+          name: 'Новости',
+          icon: 'mdi-newspaper-variant-multiple-outline',
+          route: '/news'
+        }"
+      />
+      <list-item
+        :btn="{
+          name: 'События',
+          icon: 'mdi-calendar-check-outline',
+          route: '/events'
+        }"
+      />
       <v-divider />
       <!--suppress CheckEmptyScriptTag -->
       <portal-target name="drawer" />
