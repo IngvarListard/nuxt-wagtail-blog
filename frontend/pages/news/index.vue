@@ -73,10 +73,8 @@ export default {
           const newsPage = JSON.parse(fetchMoreResult.newsPage)
           const newArticles = newsPage.results
           const hasNext = Boolean(newsPage.next)
-          console.log('HAS NEXT', hasNext)
           this.$store.commit('news/setHasNext', hasNext)
           this.news = this.news.concat(newArticles)
-          console.log('NEW NEWS', this.news)
         }
       })
     }
