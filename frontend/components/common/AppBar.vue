@@ -20,16 +20,18 @@
         >Публикации</v-btn
       >
       <v-btn
-        to="/news"
+        to="/news/"
         text
         nuxt
+        exact
         class="ml-0 hidden-sm-and-down font-weight-light"
         >Новости</v-btn
       >
       <v-btn
-        to="/events"
+        to="/events/"
         text
         nuxt
+        exact
         class="ml-0 hidden-sm-and-down font-weight-light"
         >События</v-btn
       >

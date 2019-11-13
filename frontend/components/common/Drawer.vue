@@ -16,14 +16,14 @@
         :btn="{
           name: 'Новости',
           icon: 'mdi-newspaper-variant-multiple-outline',
-          route: '/news'
+          route: '/news/'
         }"
       />
       <list-item
         :btn="{
           name: 'События',
           icon: 'mdi-calendar-check-outline',
-          route: '/events'
+          route: '/events/'
         }"
       />
       <v-divider />
