@@ -2,8 +2,8 @@ import graphene
 from django.core.paginator import Paginator
 from taggit.models import Tag
 
-from backend.blog.models import BlogPage
-from backend.blog.schema.types import ArticleNode, PagedArticlesNode
+from backend.blog.models import BlogPage, BlogPageTag
+from backend.blog.schema.types import ArticleNode, PagedArticlesNode, PagedBlogPageTagNode
 from backend.core.api.graphene_wagtail import TagNode
 
 
@@ -24,6 +24,11 @@ class Query(graphene.ObjectType):
         search_line=graphene.String(),
         tags=graphene.List(graphene.String),
          **PagedArticlesNode.pagination_kwargs
+    )
+    tags_page = graphene.Field(
+        PagedBlogPageTagNode,
+        search=graphene.String(),
+        **PagedBlogPageTagNode.pagination_kwargs
     )
 
     def resolve_articles_page(self, info, page, per_page):
@@ -51,3 +56,10 @@ class Query(graphene.ObjectType):
         articles = pages.get_page(page)
         has_next = articles.has_next()
         return PagedArticlesNode(articles=articles, has_next=has_next)
+
+    def resolve_tags_page(self, info, page, per_page, search=''):
+        tags = BlogPageTag.objects.filter(tag__name__contains=search)
+        pages = Paginator(tags, per_page)
+        tags_page = pages.get_page(page)
+        has_next = tags_page.has_next()
+        return PagedBlogPageTagNode(tags=tags_page, has_next=has_next)

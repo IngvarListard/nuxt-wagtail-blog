@@ -2,9 +2,8 @@ import graphene
 from graphene_django import DjangoObjectType
 from wagtail.images.models import Image
 
-from backend.blog.models import BlogPage, Recipe
+from backend.blog.models import BlogPage, Recipe, BlogPageTag
 from backend.blog.service import CountVotes
-from backend.comments.schema.types import CommentNode
 from backend.core.api.graphene_wagtail import DefaultStreamBlock, create_stream_field_type, WagtailImageNode
 from backend.core.schema.types import PagedNode
 from backend.votes.schema.types import VoteNode, VotesCountNode
@@ -102,5 +101,14 @@ class ArticleNode(DjangoObjectType):
                        'comments', 'owner']
 
 
+class BlogPageTagNode(DjangoObjectType):
+    class Meta:
+        model = BlogPageTag
+
+
 class PagedArticlesNode(PagedNode):
     articles = graphene.List(ArticleNode)
+
+
+class PagedBlogPageTagNode(PagedNode):
+    tags = graphene.List(BlogPageTagNode)

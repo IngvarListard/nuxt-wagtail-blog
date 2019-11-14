@@ -7,12 +7,12 @@
     <v-content>
       <v-container id="content">
         <v-row justify="center">
-          <v-col lg="11" md="12" sm="12" xs="12">
+          <v-col lg="11" md="12" sm="12" xs="12" cols="12">
             <v-row justify="center">
-              <v-col lg="8" md="12" sm="12" xs="12">
+              <v-col lg="8" md="12" sm="12" xs="12" cols="12">
                 <nuxt id="example-content" />
               </v-col>
-              <v-col lg="4" md="12" sm="12" xs="12">
+              <v-col lg="4" md="12" sm="12" xs="12" cols="12">
                 <portal-target name="side">
                   <newsletter-subscribe />
                   <tags-card class="mt-4" />

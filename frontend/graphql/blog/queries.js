@@ -145,10 +145,26 @@ const ARTICLE_SEARCH_PAGE = gql`
   ${ARTICLE_FRAGMENT}
 `
 
+const GET_PAGED_TAGS = gql`
+  query($search: String, $page: Int!, $perPage: Int!) {
+    tagsPage(search: $search, page: $page, perPage: $perPage) {
+      hasNext
+      tags {
+        id
+        tag {
+          name
+          slug
+        }
+      }
+    }
+  }
+`
+
 export {
   GET_ARTICLE,
   GET_RANDOM_ARTICLE,
   TAGS,
   GET_PAGED_ARTICLES,
-  ARTICLE_SEARCH_PAGE
+  ARTICLE_SEARCH_PAGE,
+  GET_PAGED_TAGS
 }

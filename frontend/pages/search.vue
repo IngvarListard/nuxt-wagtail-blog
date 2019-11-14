@@ -7,12 +7,13 @@
           v-model="searchLine"
           label="Начните вводить запрос..."
           outlined
-          height="56px"
+          solo
+          flat
           hide-details
         />
       </v-col>
       <v-col cols="12" lg="5" md="5" sm="12">
-        <v-combobox outlined height="56"></v-combobox>
+        <tags-select />
       </v-col>
     </v-row>
     <v-row>
@@ -36,10 +37,11 @@
 <script>
 import { ARTICLE_SEARCH_PAGE } from '../graphql/blog/queries'
 import ArticleCard from '../components/blog/ArticleCard'
+import TagsSelect from '../components/blog/TagsSelect'
 
 export default {
   name: 'Search',
-  components: { ArticleCard },
+  components: { TagsSelect, ArticleCard },
   data() {
     return {
       searchLine: '',
@@ -100,14 +102,13 @@ export default {
         variables: {
           page: this.page,
           perPage: this.perPage,
-          search: this.searchLine,
+          searchLine: this.searchLine,
           tags: this.tags
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const newArticles = fetchMoreResult.articleSearch.articles
           const hasNext = fetchMoreResult.articleSearch.hasNext
           this.hasNext = hasNext
-          console.log('PREVIOUS', previousResult)
           return {
             articleSearch: {
               __typename: previousResult.articleSearch.__typename,
