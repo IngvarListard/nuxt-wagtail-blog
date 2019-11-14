@@ -35,6 +35,14 @@
         class="ml-0 hidden-sm-and-down font-weight-light"
         >События</v-btn
       >
+      <v-btn
+        to="/event_map/"
+        text
+        nuxt
+        exact
+        class="ml-0 hidden-sm-and-down font-weight-light pr-2"
+      >События на карте</v-btn
+      >
       <search-field
         class="hidden-sm-and-down pt-3 pr-3"
         style="max-width: 420px"
