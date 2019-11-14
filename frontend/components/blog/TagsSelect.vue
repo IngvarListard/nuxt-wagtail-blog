@@ -1,18 +1,20 @@
 <template>
   <v-combobox
+    v-model="selectedTags"
     placeholder="Выберите тэги"
     :items="tags"
     item-text="tag.name"
     item-value="id"
+    :loading="loading > 0"
     outlined
     flat
     multiple
     small-chips
     solo
   >
-    <template v-slot:selection="{ attrs, item, parent, selected }">
+    <template v-slot:selection="{ attrs, item, parent, selected, index }">
       <v-chip
-        v-if="item === Object(item)"
+        v-if="item === Object(item) && index <= 1"
         v-bind="attrs"
         :color="`${item.color} lighten-3`"
         :input-value="selected"
@@ -24,6 +26,9 @@
         </span>
         <v-icon small @click="parent.selectItem(item)">close</v-icon>
       </v-chip>
+      <span v-if="index === 2" class="grey--text caption"
+        >(+{{ selectedTags.length - 2 }} ещё)</span
+      >
     </template>
     <template v-slot:append-item>
       <div v-intersect.quiet="onIntersect" class="text-center">
@@ -45,7 +50,8 @@ export default {
       hasNext: true,
       search: '',
       loading: 0,
-      tags: []
+      tags: [],
+      selectedTags: []
     }
   },
   apollo: {

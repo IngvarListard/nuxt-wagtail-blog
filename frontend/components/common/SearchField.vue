@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({ name: 'search', query: { search: this.line } })
+      this.$router.replace({ name: 'search', query: { search: this.line } })
       this.line = ''
       this.$refs.field.blur()
     }
