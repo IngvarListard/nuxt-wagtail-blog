@@ -1,5 +1,12 @@
 <template>
-  <v-app-bar color="#47555E" dark app :hide-on-scroll="$vuetify.breakpoint.xs" clipped-left flat>
+  <v-app-bar
+    color="#47555E"
+    dark
+    app
+    :hide-on-scroll="$vuetify.breakpoint.xs"
+    clipped-left
+    flat
+  >
     <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer" />
     <v-spacer />
     <n-link to="/">
@@ -9,23 +16,25 @@
       />
     </n-link>
     <v-toolbar-items>
-      <template v-for="(btn, i) of buttons">
-        <drop-down
-          v-if="btn.categories && btn.categories.length > 0"
-          :key="i"
-          :value="btn"
-        />
-        <v-btn
-          v-else
-          :key="i"
-          :to="btn.route"
-          text
-          nuxt
-          class="ml-0 hidden-sm-and-down font-weight-light"
-          >{{ btn.name }}</v-btn
-        >
-      </template>
-
+      <v-btn to="/" text nuxt class="ml-0 hidden-sm-and-down font-weight-light"
+        >Публикации</v-btn
+      >
+      <v-btn
+        to="/news/"
+        text
+        nuxt
+        exact
+        class="ml-0 hidden-sm-and-down font-weight-light"
+        >Новости</v-btn
+      >
+      <v-btn
+        to="/events/"
+        text
+        nuxt
+        exact
+        class="ml-0 hidden-sm-and-down font-weight-light"
+        >События</v-btn
+      >
       <search-field
         class="hidden-sm-and-down pt-3 pr-3"
         style="max-width: 420px"
@@ -33,7 +42,7 @@
     </v-toolbar-items>
     <join-button v-if="!$$user.loggedIn" class="hidden-sm-and-down" />
     <v-spacer />
-<!--    <notifications v-if="$$user.loggedIn" class="hidden-sm-and-down" />-->
+    <!--    <notifications v-if="$$user.loggedIn" class="hidden-sm-and-down" />-->
     <user-button v-if="$$user.loggedIn" class="hidden-sm-and-down" />
   </v-app-bar>
 </template>

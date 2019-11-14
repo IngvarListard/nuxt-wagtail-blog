@@ -128,13 +128,43 @@ const TAGS = gql`
   }
 `
 
-const ARTICLE_SEARCH = gql`
-  query($searchLine: String) {
-    articleSearch(searchLine: $searchLine) {
-      ...ArticleContents
+const ARTICLE_SEARCH_PAGE = gql`
+  query($searchLine: String, $tags: [String], $page: Int!, $perPage: Int!) {
+    articleSearch(
+      searchLine: $searchLine
+      tags: $tags
+      page: $page
+      perPage: $perPage
+    ) {
+      hasNext
+      articles {
+        ...ArticleContents
+      }
     }
   }
   ${ARTICLE_FRAGMENT}
 `
 
-export { GET_ARTICLE, GET_RANDOM_ARTICLE, TAGS, GET_PAGED_ARTICLES, ARTICLE_SEARCH}
+const GET_PAGED_TAGS = gql`
+  query($search: String, $page: Int!, $perPage: Int!) {
+    tagsPage(search: $search, page: $page, perPage: $perPage) {
+      hasNext
+      tags {
+        id
+        tag {
+          name
+          slug
+        }
+      }
+    }
+  }
+`
+
+export {
+  GET_ARTICLE,
+  GET_RANDOM_ARTICLE,
+  TAGS,
+  GET_PAGED_ARTICLES,
+  ARTICLE_SEARCH_PAGE,
+  GET_PAGED_TAGS
+}

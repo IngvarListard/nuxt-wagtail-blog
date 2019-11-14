@@ -1,8 +1,9 @@
 <template>
   <v-text-field
+    ref="field"
+    v-model="line"
     append-icon="mdi-magnify"
     placeholder="Искать на сайте"
-    v-model="line"
     single-line
     hide-details
     clearable
@@ -10,8 +11,7 @@
     flat
     height="40"
     outlined
-    v-on:keyup.enter="search"
-    ref="field"
+    @keyup.enter="search"
   />
 </template>
 
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({ path: `/search/${this.line}` })
+      this.$router.replace({ name: 'search', query: { search: this.line } })
       this.line = ''
       this.$refs.field.blur()
     }

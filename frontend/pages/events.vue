@@ -1,33 +1,27 @@
 <template>
-  <v-container fluid>
+  <div>
     <v-row>
-      <v-col v-for="event in events" :key="event.id" xs="12" md="6" lg="4" xl="3">
-        <v-card @click="openEvent(event)">
-          <v-img
-            class="white--text align-end"
-            height="200px"
-            :src="event.image ? event.image.original : ''"
-          >
-          </v-img>
-          <v-card-subtitle class="pb-0">
-            {{ convertDateTime(event.start_date) }}
-          </v-card-subtitle>
-          <v-card-text class="text--primary">
-            <div>{{event.name}}</div>
-          </v-card-text>
-        </v-card>
+      <v-col
+        v-for="activity of events"
+        :key="activity.id"
+        cols="12"
+        lg="6"
+        md="6"
+        sm="12"
+      >
+        <event-card :activity="activity" />
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import axios from 'axios'
-
+import EventCard from '../components/events/EventCard'
 
 export default {
-  name: 'events',
+  name: 'Events',
+  components: { EventCard },
   data() {
     return {
       events: []
@@ -44,38 +38,8 @@ export default {
         this.events = JSON.parse(data.getEventsPaged).results
       }
     }
-  },
-  methods: {
-    convertDateTime(dateTime) {
-      let monthes = [
-        'Января',
-        'Февраля',
-        'Марта',
-        'Апреля',
-        'Мая',
-        'Июня',
-        'Июля',
-        'Августа',
-        'Сентября',
-        'Октября',
-        'Ноября',
-        'Декабря'
-      ]
-
-      dateTime = new Date(dateTime)
-      let day = dateTime.getDate()
-      let month = monthes[dateTime.getMonth()]
-      let year = dateTime.getFullYear()
-      return `${day} ${month} ${year}`
-    },
-    openEvent(event) {
-      let url = "https://добровольцыроссии.рф/organizations/1?event=" + event.slug
-      window.open(url, '_blank')
-    }
-  },
+  }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
