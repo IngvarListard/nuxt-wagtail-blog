@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 export default {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
    ** Headers of the page
@@ -57,7 +57,8 @@ export default {
     '@nuxtjs/onesignal',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'vue-yandex-maps/nuxt'
   ],
 
   oneSignal: {
