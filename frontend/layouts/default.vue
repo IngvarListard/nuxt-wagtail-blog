@@ -12,13 +12,13 @@
               <v-col lg="8" md="12" sm="12" xs="12" cols="12">
                 <nuxt id="example-content" />
               </v-col>
-<!--              <v-col lg="4" md="12" sm="12" xs="12" cols="12">-->
-<!--                <portal-target name="side">-->
-<!--                  <newsletter-subscribe />-->
-<!--                  <tags-card class="mt-4" />-->
-<!--                </portal-target>-->
-<!--                <portal-target name="side-bottom" />-->
-<!--              </v-col>-->
+              <v-col lg="4" md="12" sm="12" xs="12" cols="12">
+                <portal-target name="side">
+                  <newsletter-subscribe />
+                  <tags-card class="mt-4" />
+                </portal-target>
+                <portal-target name="side-bottom" />
+              </v-col>
             </v-row>
           </v-col>
         </v-row>
