@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^m1yh^j1xm1ut(1*=3ae3l$2ugv#d1dohxjm1e3z(odca*)tcf'
+SECRET_KEY = os.environ.get('SECRET_KEY', None)
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 
 GRAPHQL_BATCH = True
@@ -285,8 +285,8 @@ VK_OAUTH2_KEY = os.environ.get('VK_OAUTH2_KEY', '')
 VK_OAUTH2_SECRET = os.environ.get('VK_OAUTH2_SECRET', '')
 
 # Настройки отправки почты
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_HOST_USER = 'juniorsjourney@ya.ru'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', None)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
 EMAIL_USE_TLS = True
 

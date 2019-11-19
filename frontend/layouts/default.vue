@@ -25,15 +25,14 @@
         <portal-target name="bottom" />
       </v-container>
     </v-content>
-    <v-footer color="indigo" app absolute>
-      AAAAA
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 import NewsletterSubscribe from '../components/common/home/NewsletterSubscribe'
 import TagsCard from '../components/common/home/TagsCard'
+import Footer from '../components/common/Footer'
 import AppBar from '@/components/common/AppBar'
 import Alarms from '@/components/common/Alarms'
 import Drawer from '@/components/common/Drawer'
@@ -41,6 +40,7 @@ import Popups from '@/components/notifications/Popups'
 
 export default {
   components: {
+    Footer,
     Alarms,
     Popups,
     Drawer,
@@ -77,7 +77,7 @@ export default {
 }
 </script>
 <style>
-  .vue-affix {
-    width: 300px
-  }
+.vue-affix {
+  width: 300px;
+}
 </style>
