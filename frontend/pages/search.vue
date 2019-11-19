@@ -18,7 +18,7 @@
           <v-expand-transition>
             <v-row v-if="advancedSearch" dense>
               <v-col cols="12" lg="4" md="4" sm="12">
-                <tags-select />
+                <tags-select v-model="tags" />
               </v-col>
               <v-col cols="7" lg="5" md="5" sm="7">
                 <sort-selector />
@@ -76,12 +76,12 @@
 import { ARTICLE_SEARCH_PAGE } from '../graphql/blog/queries'
 import ArticleCard from '../components/blog/ArticleCard'
 import TagsSelect from '../components/blog/TagsSelect'
-import SortSelector from "../components/blog/SortSelector";
-import SortDirectionSelector from "../components/blog/SortDirectionSelector";
+import SortSelector from '../components/blog/SortSelector'
+import SortDirectionSelector from '../components/blog/SortDirectionSelector'
 
 export default {
   name: 'Search',
-  components: {SortDirectionSelector, SortSelector, TagsSelect, ArticleCard },
+  components: { SortDirectionSelector, SortSelector, TagsSelect, ArticleCard },
   data() {
     return {
       searchLine: '',
@@ -101,7 +101,7 @@ export default {
         const page = 1
         const perPage = this.perPage
         const searchLine = this.searchLine
-        const tags = this.$route.query.tags
+        const tags = this.tags.concat(this.$route.query.tags || [])
         return {
           page,
           perPage,

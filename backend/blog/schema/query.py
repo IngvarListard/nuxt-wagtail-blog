@@ -23,6 +23,8 @@ class Query(graphene.ObjectType):
         PagedArticlesNode,
         search_line=graphene.String(),
         tags=graphene.List(graphene.String),
+        sort_by=graphene.String(),
+        desc=graphene.Boolean(),
          **PagedArticlesNode.pagination_kwargs
     )
     tags_page = graphene.Field(
@@ -47,11 +49,13 @@ class Query(graphene.ObjectType):
     def resolve_tags(self, info):
         return Tag.objects.all()[:10]
 
-    def resolve_article_search(self, info, search_line, page, per_page, tags=None):
-        tags = tags or []
+    def resolve_article_search(self, info, search_line, page, per_page, **filters):
+        tags = filters.get('tags', None) or []
         blog_pages = BlogPage.objects.all()
         if search_line:
-            blog_pages = blog_pages.search(search_line)
+            blog_pages = blog_pages.search(search_line).get_queryset()
+        if tags:
+            blog_pages = blog_pages.filter(tags__name__in=tags)
         pages = Paginator(blog_pages, per_page)
         articles = pages.get_page(page)
         has_next = articles.has_next()

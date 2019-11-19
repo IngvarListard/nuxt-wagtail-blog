@@ -4,7 +4,7 @@
     placeholder="Выберите тэги"
     :items="tags"
     item-text="tag.name"
-    item-value="id"
+    item-value="tag.name"
     :loading="loading > 0"
     outlined
     flat
@@ -45,6 +45,12 @@ import { GET_PAGED_TAGS } from '../../graphql/blog/queries'
 
 export default {
   name: 'TagsSelect',
+  props: {
+    value: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       page: 1,
@@ -71,6 +77,11 @@ export default {
         this.hasNext = data.tagsPage.hasNext
         return data.tagsPage.tags
       }
+    }
+  },
+  watch: {
+    selectedTags(newVal) {
+      this.$emit('input', newVal.map(i => i.tag.name))
     }
   },
   methods: {
