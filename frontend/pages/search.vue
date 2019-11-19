@@ -1,21 +1,59 @@
 <template>
   <div>
-    <v-row justify="space-around" dense class="mb-2">
-      <v-col cols="12" lg="7" md="7" sm="12">
-        <v-text-field
-          ref="searchField"
-          v-model="searchLine"
-          label="Начните вводить запрос..."
-          outlined
-          solo
-          flat
-          hide-details
-        />
-      </v-col>
-      <v-col cols="12" lg="5" md="5" sm="12">
-        <tags-select />
-      </v-col>
-    </v-row>
+    <v-card outlined>
+      <v-card-text class="pb-0">
+        <v-row justify="space-around" dense class="mb-2" no-gutters>
+          <v-col cols="12">
+            <v-text-field
+              ref="searchField"
+              v-model="searchLine"
+              label="Начните вводить запрос..."
+              outlined
+              solo
+              flat
+              hide-details
+              class="py-0 my-0"
+            />
+          </v-col>
+          <v-expand-transition>
+            <v-row v-if="advancedSearch" dense>
+              <v-col cols="12" lg="4" md="4" sm="12">
+                <tags-select />
+              </v-col>
+              <v-col cols="7" lg="5" md="5" sm="7">
+                <sort-selector />
+              </v-col>
+              <v-col cols="5" lg="3" md="3" sm="5">
+                <sort-direction-selector />
+              </v-col>
+            </v-row>
+          </v-expand-transition>
+        </v-row>
+      </v-card-text>
+      <v-row justify="center" dense no-gutters>
+        <v-tooltip
+          bottom
+          open-delay="1000"
+          close-delay="300"
+          transition="slide-y-transition"
+        >
+          <template #activator="{ on }">
+            <v-btn
+              small
+              text
+              width="100%"
+              v-on="on"
+              @click="advancedSearch = !advancedSearch"
+            >
+              <v-icon>{{
+                advancedSearch ? 'mdi-chevron-up' : 'mdi-chevron-down'
+              }}</v-icon>
+            </v-btn>
+          </template>
+          Расширенный поиск
+        </v-tooltip>
+      </v-row>
+    </v-card>
     <v-row>
       <v-col
         v-for="article of articles"
@@ -38,16 +76,19 @@
 import { ARTICLE_SEARCH_PAGE } from '../graphql/blog/queries'
 import ArticleCard from '../components/blog/ArticleCard'
 import TagsSelect from '../components/blog/TagsSelect'
+import SortSelector from "../components/blog/SortSelector";
+import SortDirectionSelector from "../components/blog/SortDirectionSelector";
 
 export default {
   name: 'Search',
-  components: { TagsSelect, ArticleCard },
+  components: {SortDirectionSelector, SortSelector, TagsSelect, ArticleCard },
   data() {
     return {
       searchLine: '',
       articles: [],
       loading: 0,
       tags: [],
+      advancedSearch: false,
       hasNext: true,
       page: 1,
       perPage: 9

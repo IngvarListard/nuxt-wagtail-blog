@@ -11,6 +11,8 @@
     multiple
     small-chips
     solo
+    hide-details
+    class="my-0 py-0"
   >
     <template v-slot:selection="{ attrs, item, parent, selected, index }">
       <v-chip
