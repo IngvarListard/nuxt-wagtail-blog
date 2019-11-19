@@ -21,13 +21,6 @@
       />
       <list-item
         :btn="{
-          name: 'Подписки',
-          icon: 'mdi-playlist-check',
-          route: '/subscriptions'
-        }"
-      />
-      <list-item
-        :btn="{
           name: 'Закладки',
           icon: 'mdi-bookmark-multiple-outline',
           route: '/bookmarks-outline'

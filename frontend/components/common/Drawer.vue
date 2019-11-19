@@ -10,18 +10,18 @@
       <v-divider />
       <v-subheader>НАВИГАЦИЯ</v-subheader>
       <list-item
-        :btn="{ name: 'Публикации', icon: 'mdi-post-outline', route: '/' }"
+        :btn="{ name: 'Главная', icon: 'mdi-post-outline', route: '/' }"
       />
       <list-item
         :btn="{
-          name: 'Новости',
+          name: 'Последнее',
           icon: 'mdi-newspaper-variant-multiple-outline',
           route: '/news/'
         }"
       />
       <list-item
         :btn="{
-          name: 'События',
+          name: 'Лучшее',
           icon: 'mdi-calendar-check-outline',
           route: '/events/'
         }"

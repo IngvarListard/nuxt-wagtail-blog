@@ -16,12 +16,6 @@
         <v-divider />
         <name-field :user="user" />
         <v-divider />
-        <birthday-field :user="user" />
-        <v-divider />
-        <password-field />
-        <v-divider />
-        <city-field />
-        <v-divider />
         <display-name-field :user="user" />
       </v-list>
     </template>
@@ -30,12 +24,9 @@
 
 <script>
 import utilsMixin from '../../../utils/utilsMixin'
-import { GET_CURRENT_USER, CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
+import { CURRENT_USER_CLIENT } from '../../../graphql/users/queries'
 import AvatarField from './AvatarField'
 import NameField from './NameField'
-import BirthdayField from './BirthdayField'
-import PasswordField from './PasswordField'
-import CityField from './CityField'
 import SettingsCard from './SettingsCard'
 import DisplayNameField from './DisplayNameField'
 
@@ -44,9 +35,6 @@ export default {
   components: {
     DisplayNameField,
     SettingsCard,
-    CityField,
-    PasswordField,
-    BirthdayField,
     NameField,
     AvatarField
   },

@@ -17,7 +17,7 @@
     </n-link>
     <v-toolbar-items>
       <v-btn to="/" text nuxt class="ml-0 hidden-sm-and-down font-weight-light"
-        >Публикации</v-btn
+        >Главная</v-btn
       >
       <v-btn
         to="/news/"
@@ -25,7 +25,7 @@
         nuxt
         exact
         class="ml-0 hidden-sm-and-down font-weight-light"
-        >Новости</v-btn
+        >Последнее</v-btn
       >
       <v-btn
         to="/events/"
@@ -33,7 +33,7 @@
         nuxt
         exact
         class="ml-0 hidden-sm-and-down font-weight-light"
-        >События</v-btn
+        >Лучшее</v-btn
       >
       <search-field
         class="hidden-sm-and-down pt-3 pr-3"

@@ -12,67 +12,28 @@
             }"
           />
 
-          <v-list-group no-action>
-            <list-item
-              slot="activator"
-              :btn="{
-                name: 'Подписки',
-                icon: 'mdi-playlist-check'
-              }"
-              class="mx-0 px-0"
-              no-action
-            />
-            <list-item
-              :btn="{
-                name: 'Авторы',
-                icon: 'mdi-account-group-outline',
-                route: '/profile/settings/subscriptions/users'
-              }"
-            />
-            <list-item
-              :btn="{
-                name: 'Компании',
-                icon: 'mdi-bank-outline',
-                route: '/profile/settings/subscriptions/companies'
-              }"
-            />
-            <list-item
-              :btn="{
-                name: 'Темы',
-                icon: 'mdi-message-settings-variant-outline',
-                route: '/profile/settings/subscriptions/themes'
-              }"
-            />
-          </v-list-group>
-          <list-item
-            :btn="{
-              name: 'Закладки',
-              icon: 'mdi-bookmark-multiple-outline',
-              route: '/profile/settings/bookmarks'
-            }"
-          />
-          <list-item
-            :btn="{
-              name: 'Активность',
-              icon: 'mdi-star-circle-outline',
-              route: '/profile/settings/activity'
-            }"
-          />
-          <list-item
-            :btn="{
-              name: 'Уведомления',
-              icon: 'mdi-bell-outline',
-              route: '/profile/settings/notifications'
-            }"
-          />
-          <v-divider />
-          <list-item
-            :btn="{
-              name: 'Отправить отзыв',
-              icon: 'mdi-message-alert-outline',
-              route: '/feedback'
-            }"
-          />
+          <!--          <list-item-->
+          <!--            :btn="{-->
+          <!--              name: 'Закладки',-->
+          <!--              icon: 'mdi-bookmark-multiple-outline',-->
+          <!--              route: '/profile/settings/bookmarks'-->
+          <!--            }"-->
+          <!--          />-->
+          <!--          <list-item-->
+          <!--            :btn="{-->
+          <!--              name: 'Уведомления',-->
+          <!--              icon: 'mdi-bell-outline',-->
+          <!--              route: '/profile/settings/notifications'-->
+          <!--            }"-->
+          <!--          />-->
+          <!--          <v-divider />-->
+          <!--          <list-item-->
+          <!--            :btn="{-->
+          <!--              name: 'Баг репорт',-->
+          <!--              icon: 'mdi-message-alert-outline',-->
+          <!--              route: '/feedback'-->
+          <!--            }"-->
+          <!--          />-->
         </portal>
       </client-only>
     </v-list>
