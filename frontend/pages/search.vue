@@ -18,7 +18,7 @@
           <v-expand-transition>
             <v-row v-if="advancedSearch" dense>
               <v-col cols="12" lg="4" md="4" sm="12">
-                <tags-select v-model="tags" />
+                <tags-select ref="tagsSelect" v-model="tags" />
               </v-col>
               <v-col cols="7" lg="5" md="5" sm="7">
                 <sort-selector />
@@ -123,12 +123,22 @@ export default {
   watch: {
     searchLine(newVal) {
       this.$router.push({ name: 'search', query: { search: newVal } })
+    },
+    '$route.query'(newVal) {
+      if (newVal.tags && !this.advancedSearch) {
+        this.advancedSearch = true
+      }
     }
   },
   mounted() {
     this.$refs.searchField.focus()
     this.searchLine = this.$route.query.search || ''
-    this.tags = this.$route.query.tags || []
+    this.tags = this.tags.concat(this.$route.query.tags || [])
+    if (this.tags) {
+      setTimeout(() => {
+        this.advancedSearch = true
+      }, 700)
+    }
   },
   methods: {
     onIntersect(entries, observer, isIntersecting) {

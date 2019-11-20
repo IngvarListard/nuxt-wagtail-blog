@@ -2,11 +2,16 @@
   <v-chip
     v-bind="opts"
     color="#F6F6F6"
-    :to="{ name: 'tag-slug', params: { slug: tag.slug } }"
+    :to="{ name: 'search', query: { tags: [tag.name] } }"
     class="my-1"
     small
+    exact
+    nuxt
+    active-class=""
   >
-    <span style="color: #999999; font-size: 14px;" class="font-weight-bold">{{ tag.name }}</span>
+    <span style="color: #999999; font-size: 14px;" class="font-weight-bold">
+      {{ tag.name }}
+    </span>
   </v-chip>
 </template>
 

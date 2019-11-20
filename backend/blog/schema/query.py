@@ -25,11 +25,12 @@ class Query(graphene.ObjectType):
         tags=graphene.List(graphene.String),
         sort_by=graphene.String(),
         desc=graphene.Boolean(),
-         **PagedArticlesNode.pagination_kwargs
+        **PagedArticlesNode.pagination_kwargs
     )
     tags_page = graphene.Field(
         PagedBlogPageTagNode,
         search=graphene.String(),
+        tags_list=graphene.List(graphene.String),
         **PagedBlogPageTagNode.pagination_kwargs
     )
 
@@ -50,19 +51,27 @@ class Query(graphene.ObjectType):
         return Tag.objects.all()[:10]
 
     def resolve_article_search(self, info, search_line, page, per_page, **filters):
-        tags = filters.get('tags', None) or []
+        # TODO: вынести в сервис
+        tags = filters.get('tags') or []
         blog_pages = BlogPage.objects.all()
         if search_line:
             blog_pages = blog_pages.search(search_line).get_queryset()
         if tags:
-            blog_pages = blog_pages.filter(tags__name__in=tags)
+            blog_pages = blog_pages.filter(tags__name__in=tags).distinct()
+        if filters.get('sort_by'):
+            ...
         pages = Paginator(blog_pages, per_page)
         articles = pages.get_page(page)
         has_next = articles.has_next()
         return PagedArticlesNode(articles=articles, has_next=has_next)
 
-    def resolve_tags_page(self, info, page, per_page, search=''):
-        tags = BlogPageTag.objects.filter(tag__name__contains=search)
+    def resolve_tags_page(self, info, page, per_page, search='', tags_list=None):
+        tags_list = tags_list or list()
+        tags = BlogPageTag.objects.all()
+        if search:
+            tags = tags.filter(tag__name__contains=search)
+        if tags_list:
+            tags = tags.filter(tag__name__in=tags_list)
         pages = Paginator(tags, per_page)
         tags_page = pages.get_page(page)
         has_next = tags_page.has_next()

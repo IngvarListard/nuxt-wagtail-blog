@@ -25,6 +25,7 @@
         style="color: white;"
         href="https://github.com/JuniorsJourney"
         class="mx-3 my-2"
+        text
       >
         <v-icon color="white" class="mr-2">mdi-github-face</v-icon> GitHub
       </v-btn>
@@ -34,6 +35,7 @@
         style="color: white;"
         href="https://github.com/JuniorsJourney"
         class="mx-3 my-2"
+        text
       >
         <v-icon color="white" class="mr-2">mdi-vk</v-icon> Вконтакте
       </v-btn>
@@ -43,6 +45,7 @@
         style="color: white;"
         href="https://github.com/JuniorsJourney"
         class="mx-3 my-2"
+        text
       >
         <v-icon color="white" class="mr-2">mdi-telegram</v-icon> Telegram
       </v-btn>

@@ -146,8 +146,13 @@ const ARTICLE_SEARCH_PAGE = gql`
 `
 
 const GET_PAGED_TAGS = gql`
-  query($search: String, $page: Int!, $perPage: Int!) {
-    tagsPage(search: $search, page: $page, perPage: $perPage) {
+  query($search: String, $page: Int!, $perPage: Int!, $tagsList: [String]) {
+    tagsPage(
+      search: $search
+      page: $page
+      perPage: $perPage
+      tagsList: $tagsList
+    ) {
       hasNext
       tags {
         id
