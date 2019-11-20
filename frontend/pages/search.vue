@@ -134,7 +134,7 @@ export default {
     this.$refs.searchField.focus()
     this.searchLine = this.$route.query.search || ''
     this.tags = this.tags.concat(this.$route.query.tags || [])
-    if (this.tags) {
+    if (this.tags.length > 0) {
       setTimeout(() => {
         this.advancedSearch = true
       }, 700)
