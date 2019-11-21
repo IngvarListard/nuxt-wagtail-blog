@@ -145,6 +145,8 @@ export default {
       this.$router.push({ name: 'search', query })
     },
     '$route.query'(newVal) {
+      this.setSort(newVal)
+      this.setOrder(newVal)
       if (newVal.tags && !this.advancedSearch) {
         this.advancedSearch = true
       }
@@ -192,6 +194,18 @@ export default {
           }
         }
       })
+    },
+    setSort(query) {
+      const sortBy = query.sortBy
+      if (!sortBy) return
+      if (sortBy === this.select) return
+      this.sortBy = sortBy
+    },
+    setOrder(query) {
+      const order = query.order
+      if (!order) return
+      if (order === this.select) return
+      this.order = order
     }
   }
 }

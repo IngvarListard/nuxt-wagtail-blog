@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'SortDirectionSelector',
   props: {
@@ -30,7 +32,13 @@ export default {
   },
   watch: {
     select(newVal) {
+      const query = _.cloneDeep(this.$route.query)
+      query.order = newVal
+      this.$router.push({ name: 'search', query })
       this.$emit('input', newVal)
+    },
+    value(newVal) {
+      this.select = newVal
     }
   }
 }

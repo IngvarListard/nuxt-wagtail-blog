@@ -37,6 +37,9 @@ export default {
       query.sortBy = newVal
       this.$router.push({ name: 'search', query })
       this.$emit('input', newVal)
+    },
+    value(newVal) {
+      this.select = newVal
     }
   }
 }

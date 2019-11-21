@@ -20,7 +20,7 @@
         >Главная</v-btn
       >
       <v-btn
-        to="/news/"
+        to="/search?order=desc&sortBy=date"
         text
         nuxt
         exact
@@ -28,7 +28,7 @@
         >Последнее</v-btn
       >
       <v-btn
-        to="/events/"
+        to="/search?order=desc&sortBy=rating"
         text
         nuxt
         exact

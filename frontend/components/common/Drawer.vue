@@ -16,14 +16,14 @@
         :btn="{
           name: 'Последнее',
           icon: 'mdi-newspaper-variant-multiple-outline',
-          route: '/news/'
+          route: '/search?order=desc&sortBy=date'
         }"
       />
       <list-item
         :btn="{
           name: 'Лучшее',
           icon: 'mdi-calendar-check-outline',
-          route: '/events/'
+          route: '/search?order=desc&sortBy=rating'
         }"
       />
       <v-divider />
