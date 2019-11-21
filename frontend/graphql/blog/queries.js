@@ -129,12 +129,21 @@ const TAGS = gql`
 `
 
 const ARTICLE_SEARCH_PAGE = gql`
-  query($searchLine: String, $tags: [String], $page: Int!, $perPage: Int!) {
+  query(
+    $searchLine: String
+    $tags: [String]
+    $page: Int!
+    $perPage: Int!
+    $sortBy: String
+    $order: String
+  ) {
     articleSearch(
       searchLine: $searchLine
       tags: $tags
       page: $page
       perPage: $perPage
+      sortBy: $sortBy
+      order: $order
     ) {
       hasNext
       articles {

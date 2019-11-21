@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import Zooming from 'zooming'
 import VueMarkdown from 'vue-markdown'
 import utilsMixin from '../../utils/utilsMixin'
 import ArticleCard from './ArticleCard'

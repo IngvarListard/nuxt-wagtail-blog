@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Статья -->
     <article-view id="article" :article="article" />
     <client-only>
       <v-row dense>

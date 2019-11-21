@@ -10,6 +10,7 @@
     small-chips
     solo
     hide-details
+    clearable
     class="my-0 py-0"
   >
     <template v-slot:selection="{ attrs, item, parent, selected, index }">
@@ -84,9 +85,11 @@ export default {
   watch: {
     selectedTags(newVal) {
       const tags = newVal
+      const query = _.cloneDeep(this.$route.query)
+      query.tags = tags
       this.$router.push({
         name: 'search',
-        query: { tags }
+        query
       })
       this.$emit('input', tags)
     },

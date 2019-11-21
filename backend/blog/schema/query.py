@@ -1,5 +1,7 @@
 import graphene
 from django.core.paginator import Paginator
+from django.db.models import Sum, F, Value as V
+from django.db.models.functions import Coalesce
 from taggit.models import Tag
 
 from backend.blog.models import BlogPage, BlogPageTag
@@ -24,7 +26,7 @@ class Query(graphene.ObjectType):
         search_line=graphene.String(),
         tags=graphene.List(graphene.String),
         sort_by=graphene.String(),
-        desc=graphene.Boolean(),
+        order=graphene.String(),
         **PagedArticlesNode.pagination_kwargs
     )
     tags_page = graphene.Field(
@@ -54,12 +56,21 @@ class Query(graphene.ObjectType):
         # TODO: вынести в сервис
         tags = filters.get('tags') or []
         blog_pages = BlogPage.objects.all()
+        sort_map = {
+            'rating': '',
+            'viewed': '',
+            'date': '',
+        }
         if search_line:
             blog_pages = blog_pages.search(search_line).get_queryset()
         if tags:
             blog_pages = blog_pages.filter(tags__name__in=tags).distinct()
         if filters.get('sort_by'):
-            ...
+            sort = F(filters.get('sort_by', 'rating'))
+            sort = getattr(sort, filters.get('order', 'desc'))()
+            blog_pages = blog_pages.annotate(
+                rating=Coalesce(Sum('votes__vote'), 0)
+            ).order_by(sort)
         pages = Paginator(blog_pages, per_page)
         articles = pages.get_page(page)
         has_next = articles.has_next()

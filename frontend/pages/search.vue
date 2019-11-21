@@ -21,10 +21,10 @@
                 <tags-select ref="tagsSelect" v-model="tags" />
               </v-col>
               <v-col cols="7" lg="5" md="5" sm="7">
-                <sort-selector />
+                <sort-selector v-model="sortBy" />
               </v-col>
               <v-col cols="5" lg="3" md="3" sm="5">
-                <sort-direction-selector />
+                <sort-direction-selector v-model="order" />
               </v-col>
             </v-row>
           </v-expand-transition>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import { ARTICLE_SEARCH_PAGE } from '../graphql/blog/queries'
 import ArticleCard from '../components/blog/ArticleCard'
 import TagsSelect from '../components/blog/TagsSelect'
@@ -84,14 +85,16 @@ export default {
   components: { SortDirectionSelector, SortSelector, TagsSelect, ArticleCard },
   data() {
     return {
-      searchLine: '',
       articles: [],
       loading: 0,
-      tags: [],
       advancedSearch: false,
-      hasNext: true,
+      hasNext: false,
       page: 1,
-      perPage: 9
+      perPage: 9,
+      searchLine_: this.$route.query.search || '',
+      tags: this.$route.query.tags || [],
+      sortBy: this.$route.query.sortBy || 'rating',
+      order: this.$route.query.order || 'desc'
     }
   },
   apollo: {
@@ -102,27 +105,44 @@ export default {
         const perPage = this.perPage
         const searchLine = this.searchLine
         const tags = this.tags.concat(this.$route.query.tags || [])
+        const sortBy = this.sortBy
+        const order = this.order
         return {
           page,
           perPage,
           searchLine,
-          tags
+          tags,
+          sortBy,
+          order
         }
       },
-      debounce: 500,
+      debounce: 0,
       loadingKey: 'loading',
+      fetchPolicy: 'cache-and-network',
       update({ articleSearch: { articles, hasNext } }) {
         this.hasNext = hasNext
         return articles
-      },
-      skip() {
-        return this.searchLine.length === 0 && this.tags.length === 0
       }
+    }
+  },
+  computed: {
+    searchLine: {
+      get() {
+        return this.searchLine_
+      },
+      set: _.debounce(
+        function(newVal) {
+          this.searchLine_ = newVal
+        },
+        process.server ? 0 : 700
+      )
     }
   },
   watch: {
     searchLine(newVal) {
-      this.$router.push({ name: 'search', query: { search: newVal } })
+      const query = _.cloneDeep(this.$route.query)
+      query.search = newVal
+      this.$router.push({ name: 'search', query })
     },
     '$route.query'(newVal) {
       if (newVal.tags && !this.advancedSearch) {
@@ -132,8 +152,6 @@ export default {
   },
   mounted() {
     this.$refs.searchField.focus()
-    this.searchLine = this.$route.query.search || ''
-    this.tags = this.tags.concat(this.$route.query.tags || [])
     if (this.tags.length > 0) {
       setTimeout(() => {
         this.advancedSearch = true
@@ -154,7 +172,9 @@ export default {
           page: this.page,
           perPage: this.perPage,
           searchLine: this.searchLine,
-          tags: this.tags
+          tags: this.tags,
+          sortBy: this.sortBy,
+          order: this.order
         },
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const newArticles = fetchMoreResult.articleSearch.articles

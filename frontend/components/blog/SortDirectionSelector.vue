@@ -1,8 +1,8 @@
 <template>
   <v-select
+    v-model="select"
     placeholder="Направление"
     :items="directions"
-    item-value="desc"
     outlined
     solo
     flat
@@ -13,12 +13,24 @@
 <script>
 export default {
   name: 'SortDirectionSelector',
+  props: {
+    value: {
+      type: String,
+      default: 'desc'
+    }
+  },
   data() {
     return {
       directions: [
-        { text: 'По возрастанию', desc: true },
-        { text: 'По убыванию', desc: false }
-      ]
+        { text: 'По убыванию', value: 'desc' },
+        { text: 'По возрастанию', value: 'asc' }
+      ],
+      select: this.value
+    }
+  },
+  watch: {
+    select(newVal) {
+      this.$emit('input', newVal)
     }
   }
 }

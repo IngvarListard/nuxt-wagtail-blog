@@ -54,7 +54,7 @@ export default {
   modules: [
     // '@nuxtjs/eslint-module',  // grammar-nazi
     '@nuxtjs/axios',
-    '@nuxtjs/onesignal',
+    // '@nuxtjs/onesignal',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
     'cookie-universal-nuxt'
