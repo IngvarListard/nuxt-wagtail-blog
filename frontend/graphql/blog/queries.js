@@ -7,6 +7,7 @@ const GET_ARTICLE = gql`
       id
       title
       views
+      commentsCount
       votesCount {
         id
         likes

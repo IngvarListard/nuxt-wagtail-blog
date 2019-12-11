@@ -19,13 +19,13 @@
           route: `/profile/settings/general`
         }"
       />
-      <list-item
-        :btn="{
-          name: 'Закладки',
-          icon: 'mdi-bookmark-multiple-outline',
-          route: '/bookmarks-outline'
-        }"
-      />
+<!--      <list-item-->
+<!--        :btn="{-->
+<!--          name: 'Закладки',-->
+<!--          icon: 'mdi-bookmark-multiple-outline',-->
+<!--          route: '/bookmarks-outline'-->
+<!--        }"-->
+<!--      />-->
       <list-item
         :btn="{
           name: 'Выход',
@@ -33,11 +33,11 @@
           route: '/logout'
         }"
       />
-      <list-item
-        :btn="{
-          icon: 'mdi-theme-light-dark'
-        }"
-      >
+<!--      <list-item-->
+<!--        :btn="{-->
+<!--          icon: 'mdi-theme-light-dark'-->
+<!--        }"-->
+<!--      >-->
         <template #content>
           <v-switch exact />
         </template>

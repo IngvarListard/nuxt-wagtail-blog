@@ -140,9 +140,10 @@ class SocialAuth(graphql_social_auth.SocialAuthMutation):
     def resolve(cls, root, info, social, **kwargs):
         if not social.user.email:
             social.user.email = kwargs.pop('email', None)
+            social.user.display_name = f'Guest{social.user.id}'
             social.user.save()
-        if social.user.email and social.user.RAW_PASSWORD:
-            send_user_password(social.user.email, social.user.RAW_PASSWORD).delay()
+        # if social.user.email and social.user.RAW_PASSWORD:
+        #     send_user_password(social.user.email, social.user.RAW_PASSWORD).delay()
         return cls(user=social.user)
 
 

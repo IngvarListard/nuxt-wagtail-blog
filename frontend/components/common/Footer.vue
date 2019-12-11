@@ -29,26 +29,26 @@
       >
         <v-icon color="white" class="mr-2">mdi-github-face</v-icon> GitHub
       </v-btn>
-      <v-btn
-        depressed
-        color="#4A76A8"
-        style="color: white;"
-        href="https://github.com/JuniorsJourney"
-        class="mx-3 my-2"
-        text
-      >
-        <v-icon color="white" class="mr-2">mdi-vk</v-icon> Вконтакте
-      </v-btn>
-      <v-btn
-        depressed
-        color="#2B9FD1"
-        style="color: white;"
-        href="https://github.com/JuniorsJourney"
-        class="mx-3 my-2"
-        text
-      >
-        <v-icon color="white" class="mr-2">mdi-telegram</v-icon> Telegram
-      </v-btn>
+<!--      <v-btn-->
+<!--        depressed-->
+<!--        color="#4A76A8"-->
+<!--        style="color: white;"-->
+<!--        href="https://github.com/JuniorsJourney"-->
+<!--        class="mx-3 my-2"-->
+<!--        text-->
+<!--      >-->
+<!--        <v-icon color="white" class="mr-2">mdi-vk</v-icon> Вконтакте-->
+<!--      </v-btn>-->
+<!--      <v-btn-->
+<!--        depressed-->
+<!--        color="#2B9FD1"-->
+<!--        style="color: white;"-->
+<!--        href="https://github.com/JuniorsJourney"-->
+<!--        class="mx-3 my-2"-->
+<!--        text-->
+<!--      >-->
+<!--        <v-icon color="white" class="mr-2">mdi-telegram</v-icon> Telegram-->
+<!--      </v-btn>-->
       <v-col class="py-4 text-center white--text" cols="12">
         {{ new Date().getFullYear() }} — <strong>Junior's Journey</strong>
       </v-col>

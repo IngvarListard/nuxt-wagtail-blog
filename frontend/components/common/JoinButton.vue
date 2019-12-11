@@ -25,22 +25,22 @@
           </v-btn>
         </a>
       </v-list-item>
-      <v-list-item>
-        <a :href="link">
-          <v-btn color="#3A5A9A">
-            <span style="color: white;">Войти через</span>
-            <v-icon class="px-2" large color="white">mdi-facebook</v-icon>
-          </v-btn>
-        </a>
-      </v-list-item>
-      <v-list-item>
-        <a :href="link">
-          <v-btn color="#EF5350">
-            <span style="color: white;">Войти через</span>
-            <v-icon class="px-2" large color="white">mdi-google-plus</v-icon>
-          </v-btn>
-        </a>
-      </v-list-item>
+<!--      <v-list-item>-->
+<!--        <a :href="link">-->
+<!--          <v-btn color="#3A5A9A">-->
+<!--            <span style="color: white;">Войти через</span>-->
+<!--            <v-icon class="px-2" large color="white">mdi-facebook</v-icon>-->
+<!--          </v-btn>-->
+<!--        </a>-->
+<!--      </v-list-item>-->
+<!--      <v-list-item>-->
+<!--        <a :href="link">-->
+<!--          <v-btn color="#EF5350">-->
+<!--            <span style="color: white;">Войти через</span>-->
+<!--            <v-icon class="px-2" large color="white">mdi-google-plus</v-icon>-->
+<!--          </v-btn>-->
+<!--        </a>-->
+<!--      </v-list-item>-->
     </v-list>
   </v-menu>
 </template>

@@ -78,6 +78,7 @@ class ArticleNode(DjangoObjectType):
     )
     votes = graphene.List(VoteNode)
     votes_count = graphene.Field(VotesCountNode)
+    comments_count = graphene.Field(graphene.Int)
 
     def resolve_votes(self, info):
         return self.votes.all()
@@ -94,6 +95,9 @@ class ArticleNode(DjangoObjectType):
             id=f'__{self._meta.app_label}.{self._meta.model_name}_{self.id}',
             **votes_count
         )
+
+    def resolve_comments_count(self, info):
+        return self.comments.count()
 
     class Meta:
         model = BlogPage

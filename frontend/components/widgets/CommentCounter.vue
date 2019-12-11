@@ -1,5 +1,8 @@
 <template>
-  <span>
+  <span
+    class="font-weight-regular"
+    style="font-size: 16px; color: #999999;"
+  >
     <v-icon>mdi-comment-outline</v-icon>
     {{ count }}
   </span>

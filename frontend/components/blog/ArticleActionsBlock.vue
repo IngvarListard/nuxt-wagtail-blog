@@ -9,9 +9,9 @@
             model-name="blog.BlogPage"
           />
         </td>
-        <td>
-          <bookmark :count="bookmarkCount" />
-        </td>
+<!--        <td>-->
+<!--          <bookmark :count="bookmarkCount" />-->
+<!--        </td>-->
         <td>
           <views-counter :count="viewsCount" />
         </td>

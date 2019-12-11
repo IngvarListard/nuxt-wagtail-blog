@@ -20,11 +20,11 @@
           </div>
           <comment :text="comment.text" style="font-size: 16px;" />
         </div>
-        <span
-          style="cursor: pointer;"
-          @click="comment.showReplyBox = !comment.showReplyBox"
-          >Ответить</span
-        >
+<!--        <span-->
+<!--          style="cursor: pointer;"-->
+<!--          @click="comment.showReplyBox = !comment.showReplyBox"-->
+<!--          >Ответить</span-->
+<!--        >-->
         <vote-counter
           :instance-id="comment.id"
           :count="comment.votesCount"
